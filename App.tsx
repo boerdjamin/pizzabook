@@ -6,15 +6,18 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
 export const App = () => {
   return (
-    <SafeAreaView>
-      <StatusBar />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <Text style={styles.title}>{'Hello Pizzaworld'}</Text>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView>
+        <StatusBar />
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <Text style={styles.title}>{'Hello Pizzaworld'}</Text>
+        </ScrollView>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 
