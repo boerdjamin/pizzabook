@@ -10,8 +10,8 @@ const RootNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="PizzaDetails" component={PizzaDetailsScreen} />
+        <Stack.Screen name="Pizza Book" component={HomeScreen} />
+        <Stack.Screen name="Pizza Details" component={PizzaDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
