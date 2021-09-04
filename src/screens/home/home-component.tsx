@@ -21,8 +21,8 @@ const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
       <Text style={styles.info}>
         {'Hier findest du Benjamin und Birtes Lieblingspizzen :)'}
       </Text>
-      {allPizzas.map(pizza => (
-        <PizzaPreview pizza={pizza} onSelect={onSelectPizza} />
+      {allPizzas.map((pizza, i) => (
+        <PizzaPreview key={i} pizza={pizza} onSelect={onSelectPizza} />
       ))}
     </View>
   );
