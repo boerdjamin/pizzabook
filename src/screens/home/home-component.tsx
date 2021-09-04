@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import PizzaPreview from '../../components/pizza-preview/pizza-preview';
 import { Pizza } from '../../models/pizza';
@@ -21,9 +21,11 @@ const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
       <Text style={styles.info}>
         {'Hier findest du Benjamin und Birtes Lieblingspizzen :)'}
       </Text>
-      {allPizzas.map((pizza, i) => (
-        <PizzaPreview key={i} pizza={pizza} onSelect={onSelectPizza} />
-      ))}
+      <ScrollView style={styles.list}>
+        {allPizzas.map((pizza, i) => (
+          <PizzaPreview key={i} pizza={pizza} onSelect={onSelectPizza} />
+        ))}
+      </ScrollView>
     </View>
   );
 };
@@ -39,5 +41,9 @@ const styles = StyleSheet.create({
   info: {
     ...textStyles.p1,
     marginBottom: Spacing.huge,
+  },
+  list: {
+    flex: 1,
+    paddingVertical: Spacing.small,
   },
 });
