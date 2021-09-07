@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { appTexts } from '../../data/texts';
 import { Pizza } from '../../models/pizza';
 import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
 
@@ -24,10 +25,10 @@ const PizzaPreview: React.FC<PizzaPreviewProps> = ({ pizza, onSelect }) => {
       {pizza.photo ? <Image source={pizza.photo} /> : null}
       <Text style={styles.veganMarker}>
         {pizza.isVegan
-          ? 'vegan'
+          ? appTexts.vegan
           : pizza.canBeVeganized
-          ? 'vegan möglich'
-          : 'vegetarisch'}
+          ? appTexts.veganPossible
+          : appTexts.vegetarian}
       </Text>
     </TouchableOpacity>
   );
