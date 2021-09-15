@@ -1,18 +1,32 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/home/home';
 import PizzaDetailsScreen from '../screens/pizza-details/pizza-details';
+import { Pizza } from '../models/pizza';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  [Routes.Home]: undefined;
+  [Routes.Details]: { pizza: Pizza };
+};
+
+export enum Routes {
+  Home = 'stack.home',
+  Details = 'stack.details',
+}
+
+const RootStack = createStackNavigator<RootStackParamList>();
 
 const RootNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Pizza Book" component={HomeScreen} />
-        <Stack.Screen name="Pizza Details" component={PizzaDetailsScreen} />
-      </Stack.Navigator>
+      <RootStack.Navigator>
+        <RootStack.Screen name={Routes.Home} component={HomeScreen} />
+        <RootStack.Screen
+          name={Routes.Details}
+          component={PizzaDetailsScreen}
+        />
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 };
