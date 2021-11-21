@@ -10,10 +10,11 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@airtable/blocks": "^1.9.0",
+    "@airtable/blocks": "^1.10.0",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.0.7",
-    "react": "17.0.2",
+    "react": "16.8.0",
+    "react-dom": "^16.0.0",
     "react-native": "0.65.1",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-safe-area-context": "^3.3.0",
@@ -48,6 +49,9 @@
       "jsx",
       "json",
       "node"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/build"
     ]
   }
 }
