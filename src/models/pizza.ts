@@ -1,10 +1,12 @@
 import { ImageSourcePropType } from 'react-native';
-import { Ingridient } from './ingridient';
 
 export interface Pizza {
+  readonly id: string;
   readonly name: string;
-  readonly toppings: Ingridient[];
+  readonly toppingIds: string[];
   readonly isVegan: boolean;
   readonly photo?: ImageSourcePropType;
   readonly canBeVeganized?: boolean;
+  readonly comment?: string;
+  readonly createdBy?: string;
 }
