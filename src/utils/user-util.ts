@@ -6,7 +6,7 @@ export const requiredAirtableUserKeys: Array<RequiredPropertyOf<AirtableUser>> =
 
 export const airtableUserKeys: Array<keyof AirtableUser> = ['name', 'pizzas'];
 
-export const isAirtableUserFromDBValid = (
+export const isUserFromDBValid = (
   val: AirtableUser | any,
 ): val is AirtableUser => {
   const possibleAirtableUser = val as AirtableUser;
