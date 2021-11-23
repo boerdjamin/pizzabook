@@ -1,7 +1,7 @@
 import { ImageSourcePropType } from 'react-native';
+import { Identifyable } from './identifyable';
 
 export interface Pizza {
-  readonly id: string;
   readonly name: string;
   readonly toppingIds: string[];
   readonly isVegan: boolean;
@@ -10,3 +10,5 @@ export interface Pizza {
   readonly comment?: string;
   readonly createdBy?: string;
 }
+
+export type IPizza = Pizza & Identifyable;

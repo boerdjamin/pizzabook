@@ -1,6 +1,9 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux';
 import { appTexts } from '../../data/texts';
+import { PizzaBookState } from '../../models/app-state';
+import { Ingridient } from '../../models/ingridient';
 import { Pizza } from '../../models/pizza';
 import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
 
@@ -10,7 +13,19 @@ interface PizzaPreviewProps {
 }
 
 const PizzaPreview: React.FC<PizzaPreviewProps> = ({ pizza, onSelect }) => {
-  const { toppings } = pizza;
+  const [toppings, setToppings] = useState<Ingridient[]>([]);
+  const allIngridients = useSelector(
+    (state: PizzaBookState) => state.pizzas.allIngridients,
+  );
+
+  useEffect(() => {
+    pizza.toppingIds.forEach(id => {
+      const ingridient = allIngridients.find(ing => ing.id === id);
+      if (ingridient) {
+        setToppings([...toppings, ingridient]);
+      }
+    });
+  }, [pizza.toppingIds, allIngridients, toppings]);
 
   const onPress = () => onSelect(pizza);
   return (

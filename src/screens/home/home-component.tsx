@@ -6,15 +6,17 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import PizzaPreview from '../../components/pizza-preview/pizza-preview';
 import { appTexts } from '../../data/texts';
 import { Pizza } from '../../models/pizza';
-import { RootStackParamList, Routes } from '../../navigation/root-navigation';
+import { User } from '../../models/user';
+import { RootRoutes, RootStackParamList } from '../../navigation/routes';
 import { textStyles } from '../../styles';
 import { Spacing } from '../../styles/spacing';
 
 interface HomeScreenProps {
   readonly allPizzas: Pizza[];
+  readonly currentUser?: User;
 }
 
-type NavigationProp = StackNavigationProp<RootStackParamList, Routes.Home>;
+type NavigationProp = StackNavigationProp<RootStackParamList, RootRoutes.Home>;
 
 const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
   const { navigate, setOptions } = useNavigation<NavigationProp>();
@@ -28,16 +30,21 @@ const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
     [setOptions],
   );
 
-  const onSelectPizza = (pizza: Pizza) => navigate(Routes.Details, { pizza });
+  const onSelectPizza = (pizza: Pizza) =>
+    navigate(RootRoutes.Details, { pizza });
 
   return (
     <View style={styles.container}>
       <Text style={styles.headline}>{appTexts.welcome}</Text>
       <Text style={styles.info}>{appTexts.info}</Text>
       <ScrollView style={styles.list}>
-        {allPizzas.map((pizza, i) => (
-          <PizzaPreview key={i} pizza={pizza} onSelect={onSelectPizza} />
-        ))}
+        {allPizzas && allPizzas.length ? (
+          allPizzas.map((pizza, i) => (
+            <PizzaPreview key={i} pizza={pizza} onSelect={onSelectPizza} />
+          ))
+        ) : (
+          <Text>{'Sorry, nothing to see here :('}</Text>
+        )}
       </ScrollView>
     </View>
   );

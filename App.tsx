@@ -1,41 +1,44 @@
 import React, { useEffect, useState } from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import RootNavigation from './src/navigation/root-navigation';
 import Airtable from 'airtable';
-import { Pizza } from './src/models/pizza';
-import { isValidPizza } from './src/utils/pizza-utils';
+import { IPizza, Pizza } from './src/models/pizza';
+import { isPizzaFromDBValid } from './src/utils/pizza-utils';
 import { handleError } from './src/utils/error-util';
-import { User } from './src/models/user';
-import { isValidUser } from './src/utils/user-util';
+import { IUser, User } from './src/models/user';
+import { isUserFromDBValid } from './src/utils/user-util';
+import { rootReducer } from './src/store/reducer/root-reducer';
 
 const base = new Airtable({
   apiKey: process.env.API_KEY || 'keykb1oz1auGVmkhc',
 }).base(process.env.APP_ID || 'appLab4MMkQeWEMT7');
 
+const store = createStore(rootReducer);
+
 export const App = () => {
-  const [pizzas, setPizzas] = useState<Pizza[]>();
+  const [pizzas, setPizzas] = useState<Pizza[]>([]);
   const [users, setUsers] = useState<User[]>([]);
-  const pizzaBase = base('Pizzas');
-  const userBase = base('User');
 
   useEffect(() => {
-    pizzaBase
+    base('Pizzas')
       .select({
         maxRecords: 50,
         view: 'Grid view',
       })
       .eachPage((records, fetchNextPage) => {
-        const allPizzas: Pizza[] = records.reduce<Pizza[]>(
+        const allPizzas = records.reduce<IPizza[]>(
           (pizzaCollection, record) => {
-            const newPizza = { id: record.id, ...record.fields };
-            const isValid = isValidPizza(newPizza);
+            const newPizza = record.fields;
+            const isValid = isPizzaFromDBValid(newPizza);
 
             // delete invalid entries
             if (!isValid) {
-              pizzaBase.destroy(record.id);
+              base('Pizzas').destroy(record.id);
               return pizzaCollection;
             }
 
-            return [...pizzaCollection, newPizza];
+            return [...pizzaCollection, { id: record.id, ...newPizza }];
           },
           [],
         );
@@ -44,33 +47,40 @@ export const App = () => {
         fetchNextPage();
       }, handleError);
 
-    userBase
+    base('Users')
       .select({
         maxRecords: 3,
         view: 'Grid view',
       })
       .eachPage((records, fetchNextPage) => {
-        const allUsers: User[] = records.reduce<User[]>(
+        const storedUsers = records.reduce<IUser[]>(
           (userCollection, record) => {
-            const newUser = { id: record.id, ...record.fields };
-            const isValid = isValidUser(newUser);
+            const rawUser = record.fields;
+            const isValid = isUserFromDBValid(rawUser);
 
             // delete invalid entries
             if (!isValid) {
-              userBase.destroy(record.id);
+              base('Users').destroy(record.id);
               return userCollection;
             }
 
-            return [...userCollection, newUser];
+            return [...userCollection, { id: record.id, ...rawUser }];
           },
           [],
         );
-        setUsers(allUsers);
+        setUsers(storedUsers);
         fetchNextPage();
       }, handleError);
-  }, [pizzaBase, userBase]);
+  }, []);
 
-  console.log(pizzas);
-  console.log(users);
-  return <RootNavigation />;
+  return (
+    <Provider store={store}>
+      <RootNavigation
+        allUsers={users}
+        allPizzas={pizzas}
+        allIngridients={[]}
+        loggedInAs={undefined}
+      />
+    </Provider>
+  );
 };
