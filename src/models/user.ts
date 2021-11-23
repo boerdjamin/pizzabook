@@ -1,7 +1,5 @@
 import { Identifyable } from './identifyable';
-export interface User {
+export interface User extends Identifyable {
   readonly name: string;
-  readonly pizza?: string[];
+  readonly pizzas: string[];
 }
-
-export type IUser = User & Identifyable;

@@ -1,8 +1,16 @@
-import { PizzaState, UserState } from './../../models/app-state';
+import { Ingridient } from '../../models/ingridient';
+import { Pizza } from '../../models/pizza';
+import { User } from '../../models/user';
 
 export const INIT_APP_ACTION = 'INIT_APP_ACTION';
 
-type InitAppActionPayload = UserState & PizzaState;
+export interface InitialAppData {
+  readonly pizzas: Pizza[];
+  readonly ingridients: Ingridient[];
+  readonly users: User[];
+}
+
+type InitAppActionPayload = InitialAppData;
 
 export const initAppAction = (payload: InitAppActionPayload) => ({
   type: INIT_APP_ACTION,

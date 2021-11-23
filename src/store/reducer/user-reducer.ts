@@ -2,18 +2,18 @@ import { INIT_APP_ACTION } from '../actions/init-app';
 import { UserState } from '../../models/app-state';
 import { Action } from '../actions';
 
-const initialState: UserState = {
+export const initialUserState: UserState = {
   allUsers: [],
   loggedInAs: undefined,
 };
 
 export const userReducer = (
-  state: UserState = initialState,
+  state: UserState = initialUserState,
   action: Action,
-) => {
+): UserState => {
   switch (action.type) {
     case INIT_APP_ACTION:
-      return { ...action.payload };
+      return { ...state, ...action.payload.users };
     default:
       return state;
   }

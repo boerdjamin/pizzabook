@@ -1,8 +1,8 @@
-import { IUser } from './user';
-import { IPizza } from './pizza';
-import { IIngridient } from './ingridient';
+import { User } from './user';
+import { Pizza } from './pizza';
+import { Ingridient } from './ingridient';
 export interface Identifyable {
   readonly id: string;
 }
 
-export type IdentifyableEntity = IIngridient | IPizza | IUser;
+export type IdentifyableEntity = Ingridient | Pizza | User;

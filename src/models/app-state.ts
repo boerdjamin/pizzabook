@@ -1,6 +1,6 @@
-import { IIngridient } from './ingridient';
-import { IPizza } from './pizza';
-import { IUser } from './user';
+import { Ingridient } from './ingridient';
+import { Pizza } from './pizza';
+import { User } from './user';
 
 export interface PizzaBookState {
   pizzas: PizzaState;
@@ -8,11 +8,11 @@ export interface PizzaBookState {
 }
 
 export interface PizzaState {
-  readonly allPizzas: IPizza[];
-  readonly allIngridients: IIngridient[];
+  readonly allPizzas: Pizza[];
+  readonly allIngridients: Ingridient[];
 }
 
 export interface UserState {
-  readonly allUsers: IUser[];
-  readonly loggedInAs: IUser | undefined;
+  readonly allUsers: User[];
+  readonly loggedInAs: User | undefined;
 }

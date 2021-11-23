@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
 import { appTexts } from '../../data/texts';
-import { PizzaBookState } from '../../models/app-state';
-import { Ingridient } from '../../models/ingridient';
 import { Pizza } from '../../models/pizza';
 import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
 
@@ -13,35 +10,22 @@ interface PizzaPreviewProps {
 }
 
 const PizzaPreview: React.FC<PizzaPreviewProps> = ({ pizza, onSelect }) => {
-  const [toppings, setToppings] = useState<Ingridient[]>([]);
-  const allIngridients = useSelector(
-    (state: PizzaBookState) => state.pizzas.allIngridients,
-  );
-
-  useEffect(() => {
-    pizza.toppingIds.forEach(id => {
-      const ingridient = allIngridients.find(ing => ing.id === id);
-      if (ingridient) {
-        setToppings([...toppings, ingridient]);
-      }
-    });
-  }, [pizza.toppingIds, allIngridients, toppings]);
-
+  const { toppings, photo, canBeVeganized, isVegan, name } = pizza;
   const onPress = () => onSelect(pizza);
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Text style={styles.title}>{pizza.name}</Text>
+      <Text style={styles.title}>{name}</Text>
       <Text style={styles.ingridientsList}>
         {toppings.map(
           (topping, i) =>
             `${topping.name + (i === toppings.length - 1 ? '' : ', ')}`,
         )}
       </Text>
-      {pizza.photo ? <Image source={pizza.photo} /> : null}
+      {photo ? <Image source={photo} /> : null}
       <Text style={styles.veganMarker}>
-        {pizza.isVegan
+        {isVegan
           ? appTexts.vegan
-          : pizza.canBeVeganized
+          : canBeVeganized
           ? appTexts.veganPossible
           : appTexts.vegetarian}
       </Text>

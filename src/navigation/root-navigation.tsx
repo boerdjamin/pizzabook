@@ -1,19 +1,26 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { PizzaState, UserState } from '../models/app-state';
-import { initAppAction } from '../store/actions';
-import RootNavigationComponent from './root-navigation-component';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import HomeScreen from '../screens/home/home';
+import PizzaDetailsScreen from '../screens/pizza-details/pizza-details';
+import { createStackNavigator } from '@react-navigation/stack';
+import { RootRoutes, RootStackParamList } from './routes';
 
-export type AppInitializationProps = UserState & PizzaState;
+export type RootNavigationProps = {};
 
-const RootNavigation = (props: AppInitializationProps) => {
-  const dispatch = useDispatch();
+const RootStack = createStackNavigator<RootStackParamList>();
 
-  useEffect(() => {
-    dispatch(initAppAction(props));
-  }, [props, dispatch]);
-
-  return <RootNavigationComponent />;
+const RootNavigation: React.FC<RootNavigationProps> = () => {
+  return (
+    <NavigationContainer>
+      <RootStack.Navigator>
+        <RootStack.Screen name={RootRoutes.Home} component={HomeScreen} />
+        <RootStack.Screen
+          name={RootRoutes.Details}
+          component={PizzaDetailsScreen}
+        />
+      </RootStack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 export default RootNavigation;

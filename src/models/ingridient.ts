@@ -1,10 +1,8 @@
 import { Identifyable } from './identifyable';
 import { FoodType } from './food-type';
-
-export interface Ingridient {
+export interface Ingridient extends Identifyable {
   readonly name: string;
   readonly isVegan: boolean;
   readonly foodType: FoodType;
+  readonly pizzaIds: string[];
 }
-
-export type IIngridient = Ingridient & Identifyable;

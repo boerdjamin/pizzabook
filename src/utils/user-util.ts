@@ -1,16 +1,21 @@
-import { User } from '../models/user';
+import { AirtableUser } from '../models/airtable';
 import { RequiredPropertyOf } from './types';
 
-export const requiredUserKeys: Array<RequiredPropertyOf<User>> = ['name'];
+export const requiredAirtableUserKeys: Array<RequiredPropertyOf<AirtableUser>> =
+  ['name'];
 
-export const isUserFromDBValid = (val: User | any): val is User => {
-  const possibleUser = val as User;
-  const keys = Object.keys(possibleUser);
+export const airtableUserKeys: Array<keyof AirtableUser> = ['name', 'pizzas'];
 
-  // has all required attributes
+export const isAirtableUserFromDBValid = (
+  val: AirtableUser | any,
+): val is AirtableUser => {
+  const possibleAirtableUser = val as AirtableUser;
+  const keys = Object.keys(possibleAirtableUser);
+
   return (
-    requiredUserKeys.every(requiredKey => keys.includes(requiredKey)) &&
-    // all attributes belong to interface 'User'
-    keys.every(attribute => (keys as string[]).includes(attribute))
+    // has all required attributes
+    requiredAirtableUserKeys.every(requiredKey => keys.includes(requiredKey)) &&
+    // all attributes belong to interface 'AirtableUser'
+    keys.every(key => (airtableUserKeys as string[]).includes(key))
   );
 };

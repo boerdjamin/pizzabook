@@ -1,30 +1,33 @@
-import { Pizza } from '../models/pizza';
+import { AirtablePizza } from '../models/airtable';
 import { RequiredPropertyOf } from './types';
 
-export const requiredPizzaKeys: Array<RequiredPropertyOf<Pizza>> = [
+export const requiredPizzaKeys: Array<RequiredPropertyOf<AirtablePizza>> = [
   'name',
-  'toppingIds',
-  'isVegan',
+  'toppings',
+  'is_vegan',
+  'created_by',
 ];
 
-export const pizzaKeys: Array<keyof Pizza> = [
+export const pizzaKeys: Array<keyof AirtablePizza> = [
   'name',
-  'toppingIds',
-  'isVegan',
+  'toppings',
+  'is_vegan',
   'photo',
-  'canBeVeganized',
+  'can_be_veganized',
   'comment',
-  'createdBy',
+  'created_by',
 ];
 
-export const isPizzaFromDBValid = (val: Pizza | any): val is Pizza => {
-  const possiblePizza = val as Pizza;
+export const isPizzaFromDBValid = (
+  val: AirtablePizza | any,
+): val is AirtablePizza => {
+  const possiblePizza = val as AirtablePizza;
   const keys = Object.keys(possiblePizza);
 
   return (
     // has all required attributes
     requiredPizzaKeys.every(requiredKey => keys.includes(requiredKey)) &&
     // all attributes belong to interface 'Pizza'
-    keys.every(attribute => (pizzaKeys as string[]).includes(attribute))
+    keys.every(key => (pizzaKeys as string[]).includes(key))
   );
 };

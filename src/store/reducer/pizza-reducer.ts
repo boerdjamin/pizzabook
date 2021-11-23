@@ -2,18 +2,23 @@ import { INIT_APP_ACTION } from '../actions/init-app';
 import { PizzaState } from '../../models/app-state';
 import { Action } from '../actions';
 
-const initialState: PizzaState = {
+export const initialPizzaState: PizzaState = {
   allPizzas: [],
   allIngridients: [],
 };
 
 export const pizzaReducer = (
-  state: PizzaState = initialState,
+  state: PizzaState = initialPizzaState,
   action: Action,
-) => {
+): PizzaState => {
   switch (action.type) {
     case INIT_APP_ACTION:
-      return { ...action.payload };
+      const { pizzas, ingridients } = action.payload;
+
+      return {
+        allPizzas: pizzas,
+        allIngridients: ingridients,
+      };
     default:
       return state;
   }
