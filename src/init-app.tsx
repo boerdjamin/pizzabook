@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   AirtableFoodType,
@@ -6,24 +6,78 @@ import {
   AirtablePizza,
   AirtableUser,
 } from './models/airtable';
-import { initAppAction } from './store/actions';
-import { convertAirtableDataToAppData } from './utils/airtable-util';
+import { initAppAction, setLoadingAction } from './store/actions';
+import {
+  convertAirtableDataToAppData,
+  fetchDataFromAirtable,
+} from './utils/airtable-util';
 import RootNavigation from './navigation/root-navigation';
+import Airtable from 'airtable';
+import { isFoodTypeFromDBValid } from './utils/food-types';
+import { isIngridientFromDBValid } from './utils/ingridient-util';
+import { isPizzaFromDBValid } from './utils/pizza-utils';
+import { isUserFromDBValid } from './utils/user-util';
 
 export interface AppInitializationProps {
-  readonly rawPizzas: AirtablePizza[];
-  readonly rawIngridients: AirtableIngridient[];
-  readonly rawUsers: AirtableUser[];
-  readonly rawFoodTypes: AirtableFoodType[];
+  readonly database: Airtable.Base;
 }
 
-const InitApp = (props: AppInitializationProps) => {
+const InitApp = ({ database }: AppInitializationProps) => {
   const dispatch = useDispatch();
+  const [rawPizzas, setFetchedPizzas] = useState<AirtablePizza[]>([]);
+  const [rawIngridients, setFetchedIngridients] = useState<
+    AirtableIngridient[]
+  >([]);
+  const [rawUsers, setFetchedUsers] = useState<AirtableUser[]>([]);
+  const [rawFoodTypes, setFetchedFoodTypes] = useState<AirtableFoodType[]>([]);
 
   useEffect(() => {
-    const convertedData = convertAirtableDataToAppData(props);
+    dispatch(setLoadingAction({ loading: true }));
+    fetchDataFromAirtable<AirtableUser>(
+      database('Users'),
+      isUserFromDBValid,
+      users => {
+        setFetchedUsers(users);
+      },
+    );
+
+    fetchDataFromAirtable<AirtablePizza>(
+      database('Pizzas'),
+      isPizzaFromDBValid,
+      pizzas => {
+        setFetchedPizzas(pizzas);
+      },
+    );
+
+    fetchDataFromAirtable<AirtableIngridient>(
+      database('Ingridients'),
+      isIngridientFromDBValid,
+      ings => {
+        setFetchedIngridients(ings);
+      },
+    );
+
+    fetchDataFromAirtable<AirtableFoodType>(
+      database('FoodTypes'),
+      isFoodTypeFromDBValid,
+      foodType => {
+        setFetchedFoodTypes(foodType);
+      },
+    );
+  }, [database, dispatch]);
+
+  useEffect(() => {
+    const convertedData = convertAirtableDataToAppData({
+      rawPizzas,
+      rawIngridients,
+      rawFoodTypes,
+      rawUsers,
+    });
     dispatch(initAppAction(convertedData));
-  }, [props, dispatch]);
+    return () => {
+      dispatch(setLoadingAction({ loading: false }));
+    };
+  }, [rawFoodTypes, rawIngridients, rawPizzas, rawUsers, dispatch]);
 
   return <RootNavigation />;
 };

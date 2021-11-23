@@ -3,8 +3,12 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { useSelector } from 'react-redux';
+import GIFS from '../../../assets/gifs';
+import Loader from '../../components/loader';
 import PizzaPreview from '../../components/pizza-preview/pizza-preview';
 import { appTexts } from '../../data/texts';
+import { PizzaBookState } from '../../models/app-state';
 import { Pizza } from '../../models/pizza';
 import { User } from '../../models/user';
 import { RootRoutes, RootStackParamList } from '../../navigation/routes';
@@ -20,6 +24,10 @@ type NavigationProp = StackNavigationProp<RootStackParamList, RootRoutes.Home>;
 
 const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
   const { navigate, setOptions } = useNavigation<NavigationProp>();
+
+  const isLoading = useSelector<PizzaBookState>(
+    state => state.network.isLoading,
+  );
 
   React.useLayoutEffect(
     () =>
@@ -38,7 +46,9 @@ const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
       <Text style={styles.headline}>{appTexts.welcome}</Text>
       <Text style={styles.info}>{appTexts.info}</Text>
       <ScrollView style={styles.list}>
-        {allPizzas && allPizzas.length ? (
+        {isLoading ? (
+          <Loader image={GIFS.loadingGif} />
+        ) : allPizzas && allPizzas.length ? (
           allPizzas.map((pizza, i) => (
             <PizzaPreview key={i} pizza={pizza} onSelect={onSelectPizza} />
           ))

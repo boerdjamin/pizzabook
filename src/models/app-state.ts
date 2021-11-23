@@ -6,6 +6,7 @@ import { User } from './user';
 export interface PizzaBookState {
   pizzas: PizzaState;
   users: UserState;
+  network: NetworkState;
 }
 
 export interface PizzaState {
@@ -17,4 +18,8 @@ export interface PizzaState {
 export interface UserState {
   readonly allUsers: User[];
   readonly loggedInAs: User | undefined;
+}
+
+export interface NetworkState {
+  readonly isLoading: boolean;
 }
