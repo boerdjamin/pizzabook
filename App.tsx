@@ -27,7 +27,7 @@ export const App = () => {
   >([]);
   const [fetchedUsers, setFetchedUsers] = useState<AirtableUser[]>([]);
 
-  // fetch databases
+  // TODO: show loader
   useEffect(() => {
     fetchDataFromAirtable<AirtableUser>(
       base('Users'),
