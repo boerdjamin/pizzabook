@@ -1,3 +1,4 @@
+import { FoodType } from './../../models/food-type';
 import { Ingridient } from '../../models/ingridient';
 import { Pizza } from '../../models/pizza';
 import { User } from '../../models/user';
@@ -8,6 +9,7 @@ export interface InitialAppData {
   readonly pizzas: Pizza[];
   readonly ingridients: Ingridient[];
   readonly users: User[];
+  readonly foodTypes: FoodType[];
 }
 
 type InitAppActionPayload = InitialAppData;

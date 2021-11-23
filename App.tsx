@@ -8,11 +8,13 @@ import { fetchDataFromAirtable } from './src/utils/airtable-util';
 import { rootReducer } from './src/store/reducer/root-reducer';
 import { isIngridientFromDBValid } from './src/utils/ingridient-util';
 import {
+  AirtableFoodType,
   AirtableIngridient,
   AirtablePizza,
   AirtableUser,
 } from './src/models/airtable';
 import InitApp from './src/init-app';
+import { isFoodTypeFromDBValid } from './src/utils/food-types';
 
 const base = new Airtable({
   apiKey: process.env.API_KEY || 'keykb1oz1auGVmkhc',
@@ -26,6 +28,9 @@ export const App = () => {
     AirtableIngridient[]
   >([]);
   const [fetchedUsers, setFetchedUsers] = useState<AirtableUser[]>([]);
+  const [fetchedFoodTypes, setFetchedFoodTypes] = useState<AirtableFoodType[]>(
+    [],
+  );
 
   // TODO: show loader
   useEffect(() => {
@@ -52,6 +57,14 @@ export const App = () => {
         setFetchedIngridients(ings);
       },
     );
+
+    fetchDataFromAirtable<AirtableFoodType>(
+      base('FoodTypes'),
+      isFoodTypeFromDBValid,
+      foodType => {
+        setFetchedFoodTypes(foodType);
+      },
+    );
   }, []);
 
   return (
@@ -60,6 +73,7 @@ export const App = () => {
         rawUsers={fetchedUsers}
         rawPizzas={fetchedPizzas}
         rawIngridients={fetchedIngridients}
+        rawFoodTypes={fetchedFoodTypes}
       />
     </Provider>
   );

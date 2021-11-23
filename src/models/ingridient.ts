@@ -1,8 +1,8 @@
 import { Identifyable } from './identifyable';
-import { FoodType } from './food-type';
+import { EnumFoodType } from './food-type';
 export interface Ingridient extends Identifyable {
   readonly name: string;
   readonly isVegan: boolean;
-  readonly foodType: FoodType;
+  readonly foodType: EnumFoodType;
   readonly pizzaIds: string[];
 }

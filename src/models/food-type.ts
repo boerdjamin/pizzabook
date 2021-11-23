@@ -1,4 +1,6 @@
-export enum FoodType {
+import { Identifyable } from './identifyable';
+
+export enum EnumFoodType {
   base = 'BASE',
   vegetable = 'VEGETABLE',
   fruit = 'FRUIT',
@@ -8,4 +10,9 @@ export enum FoodType {
   spice = 'SPICE',
   additionalSauce = 'ADDITIONAL_SAUCE',
   other = 'OTHER',
+}
+
+export interface FoodType extends Identifyable {
+  type: EnumFoodType;
+  ingridientIds: string[];
 }

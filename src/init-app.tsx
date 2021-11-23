@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
+  AirtableFoodType,
   AirtableIngridient,
   AirtablePizza,
   AirtableUser,
@@ -13,6 +14,7 @@ export interface AppInitializationProps {
   readonly rawPizzas: AirtablePizza[];
   readonly rawIngridients: AirtableIngridient[];
   readonly rawUsers: AirtableUser[];
+  readonly rawFoodTypes: AirtableFoodType[];
 }
 
 const InitApp = (props: AppInitializationProps) => {
