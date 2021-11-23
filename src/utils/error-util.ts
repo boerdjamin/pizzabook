@@ -1,4 +1,4 @@
-export const handleError = err => {
+export const handleError = (err: any) => {
   if (err) {
     console.error(err);
     return;
