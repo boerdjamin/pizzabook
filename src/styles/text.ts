@@ -11,4 +11,9 @@ export const textStyles = StyleSheet.create({
     fontSize: 16,
     color: Colors.text,
   },
+  button: {
+    fontSize: 16,
+    color: Colors.white,
+    fontWeight: 'bold',
+  },
 });

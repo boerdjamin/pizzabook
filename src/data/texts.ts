@@ -12,4 +12,9 @@ export const appTexts = {
   home: 'Home',
   profile: 'Profil',
   add_pizza: '+',
+
+  // Creation
+  selection_screen_title: 'Was möchtest du hinzufügen?',
+  selection_screen_ingridient: 'eine Zutat 🥦',
+  selection_screen_pizza: 'eine Pizza 🍕',
 };

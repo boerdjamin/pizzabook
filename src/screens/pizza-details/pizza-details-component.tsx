@@ -5,7 +5,10 @@ import { Text, View, StyleSheet, Image } from 'react-native';
 import { appTexts } from '../../data/texts';
 import { Ingridient } from '../../models/ingridient';
 import { Pizza } from '../../models/pizza';
-import { RootRoutes, RootStackParamList } from '../../navigation/routes';
+import {
+  HomeStackRoutes,
+  HomeStackParamList,
+} from '../../navigation/home-stack';
 import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
 
 interface PizzaDetailsScreenComponentProps {
@@ -14,8 +17,8 @@ interface PizzaDetailsScreenComponentProps {
 }
 
 type NavigationProp = StackNavigationProp<
-  RootStackParamList,
-  RootRoutes.Details
+  HomeStackParamList,
+  HomeStackRoutes.Details
 >;
 
 const PizzaDetailsScreenComponent: React.FC<PizzaDetailsScreenComponentProps> =
