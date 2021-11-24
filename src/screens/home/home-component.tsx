@@ -11,7 +11,7 @@ import { appTexts } from '../../data/texts';
 import { PizzaBookState } from '../../models/app-state';
 import { Pizza } from '../../models/pizza';
 import { User } from '../../models/user';
-import { RootRoutes, RootStackParamList } from '../../navigation/routes';
+import { HomeStackRoutes, HomeStackParamList } from '../../navigation/routes';
 import { textStyles } from '../../styles';
 import { Spacing } from '../../styles/spacing';
 
@@ -20,7 +20,10 @@ interface HomeScreenProps {
   readonly currentUser?: User;
 }
 
-type NavigationProp = StackNavigationProp<RootStackParamList, RootRoutes.Home>;
+type NavigationProp = StackNavigationProp<
+  HomeStackParamList,
+  HomeStackRoutes.Home
+>;
 
 const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
   const { navigate, setOptions } = useNavigation<NavigationProp>();
@@ -32,14 +35,14 @@ const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
   React.useLayoutEffect(
     () =>
       setOptions({
-        title: 'Home',
+        title: appTexts.home,
         headerStyle: { borderWidth: 1 },
       }),
     [setOptions],
   );
 
   const onSelectPizza = (pizza: Pizza) =>
-    navigate(RootRoutes.Details, { pizza });
+    navigate(HomeStackRoutes.Details, { pizza });
 
   return (
     <View style={styles.container}>

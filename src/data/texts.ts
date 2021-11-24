@@ -7,4 +7,9 @@ export const appTexts = {
   vegan: 'vegan',
   vegetarian: 'vegetarisch',
   veganPossible: 'vegan möglich',
+
+  // Tab Navigator
+  home: 'Home',
+  profile: 'Profil',
+  add_pizza: '+',
 };
