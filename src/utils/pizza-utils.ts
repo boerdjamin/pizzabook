@@ -12,7 +12,7 @@ export const pizzaKeys: Array<keyof AirtablePizza> = [
   'name',
   'toppings',
   'is_vegan',
-  'photo',
+  'photos',
   'can_be_veganized',
   'comment',
   'created_by',

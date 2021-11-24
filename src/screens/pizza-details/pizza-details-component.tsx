@@ -6,7 +6,7 @@ import { appTexts } from '../../data/texts';
 import { Ingridient } from '../../models/ingridient';
 import { Pizza } from '../../models/pizza';
 import { RootRoutes, RootStackParamList } from '../../navigation/routes';
-import { Colors, Spacing, textStyles } from '../../styles';
+import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
 
 interface PizzaDetailsScreenComponentProps {
   readonly pizza: Pizza;
@@ -34,15 +34,17 @@ const PizzaDetailsScreenComponent: React.FC<PizzaDetailsScreenComponentProps> =
 
     return (
       <View style={styles.container}>
-        <View style={styles.imageContainer} />
-        <Text style={styles.title}>{name}</Text>
         <Text style={styles.ingridientsList}>
           {toppings.map(
             (topping, i) =>
               `${topping.name + (i === toppings.length - 1 ? '' : ', ')}`,
           )}
         </Text>
-        {photo ? <Image source={photo} /> : null}
+        {photo ? (
+          <View style={styles.imageContainer}>
+            <Image source={photo} style={styles.image} />
+          </View>
+        ) : null}
         <Text style={styles.veganMarker}>
           {isVegan
             ? appTexts.vegan
@@ -66,7 +68,12 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 250,
     borderWidth: 1,
+    borderRadius: BorderRadius.small,
     margin: Spacing.medium,
+  },
+  image: {
+    height: '100%',
+    width: '100%',
   },
   title: {},
   ingridientsList: {

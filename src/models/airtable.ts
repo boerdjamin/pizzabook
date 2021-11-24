@@ -11,7 +11,7 @@ export interface AirtablePizza extends Identifyable {
   readonly toppings: string[];
   readonly is_vegan: boolean;
   readonly created_by: string;
-  readonly photo?: ImageSourcePropType;
+  readonly photos?: ImageSourcePropType[];
   readonly can_be_veganized?: boolean;
   readonly comment?: string;
 }

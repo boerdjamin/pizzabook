@@ -92,7 +92,7 @@ const convertPizzas = (
       toppings,
       isVegan: rawPizza.is_vegan,
       createdBy: users.find(user => user.id === rawPizza.created_by) || null,
-      photo: rawPizza.photo || null,
+      photo: rawPizza.photos ? rawPizza.photos[0] : null,
       canBeVeganized: !!rawPizza.can_be_veganized,
       comment: rawPizza.comment || '',
     };

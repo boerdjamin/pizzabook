@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, Image, TouchableOpacity, View } from 'react-native';
 import { appTexts } from '../../data/texts';
 import { Pizza } from '../../models/pizza';
 import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
@@ -15,13 +15,17 @@ const PizzaPreview: React.FC<PizzaPreviewProps> = ({ pizza, onSelect }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Text style={styles.title}>{name}</Text>
+      {photo ? (
+        <View style={styles.imageContainer}>
+          <Image source={photo} style={styles.image} />
+        </View>
+      ) : null}
       <Text style={styles.ingridientsList}>
         {toppings.map(
           (topping, i) =>
             `${topping.name + (i === toppings.length - 1 ? '' : ', ')}`,
         )}
       </Text>
-      {photo ? <Image source={photo} /> : null}
       <Text style={styles.veganMarker}>
         {isVegan
           ? appTexts.vegan
@@ -45,6 +49,14 @@ const styles = StyleSheet.create({
   title: {
     ...textStyles.headline,
     marginBottom: Spacing.small,
+  },
+  imageContainer: {
+    marginVertical: Spacing.small,
+    width: '100%',
+  },
+  image: {
+    height: 250,
+    width: '100%',
   },
   ingridientsList: {
     ...textStyles.p1,
