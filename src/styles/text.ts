@@ -11,6 +11,11 @@ export const textStyles = StyleSheet.create({
     fontSize: 16,
     color: Colors.text,
   },
+  label: {
+    fontSize: 11,
+    color: Colors.text,
+    fontWeight: 'bold',
+  },
   button: {
     fontSize: 16,
     color: Colors.white,

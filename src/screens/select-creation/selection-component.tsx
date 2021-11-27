@@ -1,15 +1,29 @@
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import BigButton from '../../components/big-button/big-button';
 import { appTexts } from '../../data/texts';
+import {
+  CreationStackParamList,
+  CreationStackRoutes,
+} from '../../navigation/creation-stack';
 import { Colors, Spacing, textStyles } from '../../styles';
 import commonStyles from '../../styles/common';
 
 interface SelectionComponentProps {}
 
+type NavigationProp = StackNavigationProp<
+  CreationStackParamList,
+  CreationStackRoutes.Selection
+>;
+
 const SelectionComponent: React.FC<SelectionComponentProps> = () => {
-  const onSelectIngridientCreation = () => {};
-  const onSelectPizzaCreation = () => {};
+  const { navigate } = useNavigation<NavigationProp>();
+
+  const onSelectPizzaCreation = () => navigate(CreationStackRoutes.Pizza);
+  const onSelectIngridientCreation = () =>
+    navigate(CreationStackRoutes.Ingridient);
 
   return (
     <View style={styles.container}>
