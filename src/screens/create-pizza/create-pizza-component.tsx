@@ -40,12 +40,17 @@ CreatePizzaComponentProps) => {
         label={appTexts.create_pizza_comment_label}
         value={comment}
         onType={setComment}
+        style={styles.marginBottom}
       />
       <LabeledSelect
         label={appTexts.create_pizza_base_label}
         value={pizzaBase}
         onSelect={onSelectBase}
         options={baseOptions}
+        placeholder={{
+          label: appTexts.create_pizza_base_placeholder,
+          value: undefined,
+        }}
       />
     </View>
   );
@@ -55,5 +60,5 @@ export default CreatePizzaComponent;
 
 const styles = StyleSheet.create({
   container: { ...commonStyles.screen },
-  marginBottom: { marginBottom: Spacing.medium },
+  marginBottom: { marginBottom: Spacing.small },
 });

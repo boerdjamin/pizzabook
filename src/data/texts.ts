@@ -20,6 +20,7 @@ export const appTexts = {
   create_pizza_screen_title: '🍕',
   create_pizza_name_label: 'Name',
   create_pizza_base_label: 'Basis',
+  create_pizza_base_placeholder: 'Basis wählen...',
   create_pizza_cheese_label: 'Käse',
   create_pizza_toppings_label: 'Belag',
   create_pizza_sauce_label: 'Soße(n)',

@@ -8,7 +8,8 @@ import {
   TextStyle,
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
+import { Spacing, textStyles } from '../../styles';
+import commonStyles from '../../styles/common';
 
 interface LabeledTextInputProps {
   readonly label: string;
@@ -28,7 +29,11 @@ const LabeledTextInput = ({
   return (
     <View style={[styles.container, style]}>
       <Text style={[styles.label, labelStyle]}>{label}</Text>
-      <TextInput value={value} onChangeText={onType} style={styles.input} />
+      <TextInput
+        value={value}
+        onChangeText={onType}
+        style={commonStyles.input}
+      />
     </View>
   );
 };
@@ -42,13 +47,5 @@ const styles = StyleSheet.create({
   label: {
     ...textStyles.label,
     marginBottom: Spacing.small,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: Colors.lightGrey,
-    borderRadius: BorderRadius.small,
-    height: 32,
-    alignItems: 'center',
-    padding: Spacing.smaller,
   },
 });

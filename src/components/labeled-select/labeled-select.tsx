@@ -7,8 +7,9 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
+import RNPickerSelect from 'react-native-picker-select';
+import { Spacing, textStyles } from '../../styles';
+import commonStyles from '../../styles/common';
 
 export interface PickerItem<T> {
   readonly label: string;
@@ -19,6 +20,7 @@ interface LabeledSelectProps<T> {
   readonly options: PickerItem<T>[];
   readonly onSelect: (item: T) => void;
   readonly value?: T;
+  readonly placeholder?: PickerItem<T>;
   readonly style?: StyleProp<ViewStyle>;
   readonly labelStyle?: StyleProp<TextStyle>;
 }
@@ -26,6 +28,7 @@ interface LabeledSelectProps<T> {
 const LabeledSelect = ({
   label,
   value,
+  placeholder,
   options,
   style,
   onSelect,
@@ -34,11 +37,15 @@ const LabeledSelect = ({
   return (
     <View style={[styles.container, style]}>
       <Text style={[styles.label, labelStyle]}>{label}</Text>
-      <Picker selectedValue={value} onValueChange={onSelect}>
-        {options.map(option => (
-          <Picker.Item label={option.label} value={option.value} />
-        ))}
-      </Picker>
+      <RNPickerSelect
+        onValueChange={onSelect}
+        items={options}
+        value={value}
+        placeholder={placeholder}
+        style={{
+          viewContainer: styles.picker,
+        }}
+      />
     </View>
   );
 };
@@ -53,12 +60,32 @@ const styles = StyleSheet.create({
     ...textStyles.label,
     marginBottom: Spacing.small,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: Colors.lightGrey,
-    borderRadius: BorderRadius.small,
-    height: 32,
-    alignItems: 'center',
-    padding: Spacing.smaller,
+  picker: {
+    ...commonStyles.input,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
 });
+
+// const pickerStyle={
+//       chevron: ViewStyle;
+//     chevronActive?: ViewStyle;
+//     chevronContainer?: ViewStyle;
+//     chevronDown?: ViewStyle;
+//     chevronUp?: ViewStyle;
+//     done?: TextStyle;
+//     doneDepressed?: TextStyle;
+//     headlessAndroidContainer?: ViewStyle;
+//     headlessAndroidPicker?: ViewStyle;
+//     iconContainer?: ViewStyle;
+//     inputAndroid?: TextStyle;
+//     inputAndroidContainer?: ViewStyle;
+//     inputIOS?: TextStyle;
+//     inputIOSContainer?: ViewStyle;
+//     inputWeb?: TextStyle;
+//     modalViewBottom?: ViewStyle;
+//     modalViewMiddle?: ViewStyle;
+//     modalViewTop?: ViewStyle;
+//     placeholder?: TextStyle;
+//     viewContainer?: ViewStyle;
+// }
