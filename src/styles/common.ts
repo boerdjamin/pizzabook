@@ -18,7 +18,7 @@ const commonStyles = StyleSheet.create({
     borderRadius: BorderRadius.small,
     height: INPUT_HEIGHT,
     alignItems: 'center',
-    padding: Spacing.smaller,
+    padding: Spacing.small,
   },
 });
 

@@ -104,6 +104,7 @@ const CreatePizzaComponent = ({ ingridients }: CreatePizzaComponentProps) => {
         value={comment}
         onType={setComment}
         style={styles.marginBottom}
+        numberOfLines={3}
       />
     </View>
   );
