@@ -66,6 +66,7 @@ const LabeledSelect = ({
         searchInputStyle={styles.inputHeight}
         styleTextDropdown={styles.placeholder}
         styleTextDropdownSelected={styles.textColor}
+        // @ts-ignore-next-line (missing typing)
         tagContainerStyle={styles.tag}
         styleDropdownMenuSubsection={styles.noBorder}
         styleItemsContainer={styles.itemsContainer}
@@ -83,7 +84,7 @@ const ITEMS_CONTAINER_HEIGHT = 200;
 const styles = StyleSheet.create({
   label: {
     ...textStyles.label,
-    marginBottom: Spacing.small,
+    marginBottom: Spacing.smaller,
   },
   select: {
     borderWidth: 1,
