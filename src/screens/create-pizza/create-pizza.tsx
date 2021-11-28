@@ -6,16 +6,11 @@ import CreatePizzaComponent from './create-pizza-component';
 type CreatePizzaScreenProps = {};
 
 const CreatePizzaScreen: React.FC<CreatePizzaScreenProps> = () => {
-  const { allFoodTypes, allIngridients } = useSelector(
+  const { allIngridients } = useSelector(
     (state: PizzaBookState) => state.pizzas,
   );
 
-  return (
-    <CreatePizzaComponent
-      ingridients={allIngridients}
-      foodTypes={allFoodTypes}
-    />
-  );
+  return <CreatePizzaComponent ingridients={allIngridients} />;
 };
 
 export default CreatePizzaScreen;

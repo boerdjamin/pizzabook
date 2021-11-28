@@ -4,30 +4,42 @@ import { View, StyleSheet } from 'react-native';
 import LabeledSelect from '../../components/labeled-select/labeled-select';
 import LabeledTextInput from '../../components/labeled-text-input/labeled-text-input';
 import { appTexts } from '../../data/texts';
-import { FoodType } from '../../models/food-type';
 import { Ingridient } from '../../models/ingridient';
 import { Spacing } from '../../styles';
 import commonStyles from '../../styles/common';
-import { filterBases } from '../../utils/food-types';
-import { mapIngridientsToPickerOption } from '../../utils/ingridient-util';
+import {
+  filterBases,
+  filterCheese,
+  filterSauces,
+  filterSpices,
+  filterToppings,
+} from '../../utils/food-types';
 
 interface CreatePizzaComponentProps {
   readonly ingridients: Ingridient[];
-  readonly foodTypes: FoodType[];
 }
 
-const CreatePizzaComponent = ({
-  ingridients,
-}: // foodTypes,
-CreatePizzaComponentProps) => {
+const CreatePizzaComponent = ({ ingridients }: CreatePizzaComponentProps) => {
   const [pizzaName, setPizzaName] = useState('');
-  const [pizzaBase, setPizzaBase] = useState<Ingridient | undefined>();
+  const [pizzaBase, setPizzaBase] = useState<Ingridient[]>([]);
+  const [toppings, setToppings] = useState<Ingridient[]>([]);
+  const [cheese, setCheese] = useState<Ingridient[]>([]);
+  const [sauces, setSauces] = useState<Ingridient[]>([]);
+  const [spices, setSpices] = useState<Ingridient[]>([]);
   const [comment, setComment] = useState('');
 
-  const bases = filterBases(ingridients);
-  const baseOptions = mapIngridientsToPickerOption(bases);
+  const baseOptions = filterBases(ingridients);
+  const toppingOptions = filterToppings(ingridients);
+  const cheeseOptions = filterCheese(ingridients);
+  const sauceOptions = filterSauces(ingridients);
+  const spiceOptions = filterSpices(ingridients);
 
-  const onSelectBase = (base: Ingridient) => setPizzaBase(base);
+  const onSelectBase = (selection: Ingridient[]) => setPizzaBase(selection);
+  const onChangeToppings = (selection: Ingridient[]) => setToppings(selection);
+  const onChangeCheese = (selection: Ingridient[]) => setCheese(selection);
+  const onChangeSauces = (selection: Ingridient[]) => setSauces(selection);
+  const onChangeSpices = (selection: Ingridient[]) => setSpices(selection);
+
   return (
     <View style={styles.container}>
       <LabeledTextInput
@@ -36,21 +48,62 @@ CreatePizzaComponentProps) => {
         onType={setPizzaName}
         style={styles.marginBottom}
       />
+      <LabeledSelect
+        label={appTexts.create_pizza_base_label}
+        selectedItems={pizzaBase}
+        onSelect={onSelectBase}
+        options={baseOptions}
+        placeholder={appTexts.create_pizza_base_placeholder}
+        style={styles.marginBottom}
+        mode={'single'}
+      />
+      <LabeledSelect
+        label={appTexts.create_pizza_toppings_label}
+        selectedItems={toppings}
+        onSelect={onChangeToppings}
+        options={toppingOptions}
+        placeholder={
+          toppings.length === 0
+            ? appTexts.create_pizza_toppings_placeholder
+            : ''
+        }
+        style={styles.marginBottom}
+      />
+      <LabeledSelect
+        label={appTexts.create_pizza_cheese_label}
+        selectedItems={cheese}
+        onSelect={onChangeCheese}
+        options={cheeseOptions}
+        placeholder={
+          cheese.length === 0 ? appTexts.create_pizza_cheese_placeholder : ''
+        }
+        style={styles.marginBottom}
+      />
+      <LabeledSelect
+        label={appTexts.create_pizza_sauce_label}
+        selectedItems={sauces}
+        onSelect={onChangeSauces}
+        options={sauceOptions}
+        placeholder={
+          sauces.length === 0 ? appTexts.create_pizza_sauce_placeholder : ''
+        }
+        style={styles.marginBottom}
+      />
+      <LabeledSelect
+        label={appTexts.create_pizza_spices_label}
+        selectedItems={spices}
+        onSelect={onChangeSpices}
+        options={spiceOptions}
+        placeholder={
+          spices.length === 0 ? appTexts.create_pizza_spices_placeholder : ''
+        }
+        style={styles.marginBottom}
+      />
       <LabeledTextInput
         label={appTexts.create_pizza_comment_label}
         value={comment}
         onType={setComment}
         style={styles.marginBottom}
-      />
-      <LabeledSelect
-        label={appTexts.create_pizza_base_label}
-        value={pizzaBase}
-        onSelect={onSelectBase}
-        options={baseOptions}
-        placeholder={{
-          label: appTexts.create_pizza_base_placeholder,
-          value: undefined,
-        }}
       />
     </View>
   );

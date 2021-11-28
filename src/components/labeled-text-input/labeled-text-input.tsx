@@ -27,7 +27,7 @@ const LabeledTextInput = ({
   labelStyle,
 }: LabeledTextInputProps) => {
   return (
-    <View style={[styles.container, style]}>
+    <View style={style}>
       <Text style={[styles.label, labelStyle]}>{label}</Text>
       <TextInput
         value={value}
@@ -41,9 +41,6 @@ const LabeledTextInput = ({
 export default LabeledTextInput;
 
 const styles = StyleSheet.create({
-  container: {
-    width: 200,
-  },
   label: {
     ...textStyles.label,
     marginBottom: Spacing.small,

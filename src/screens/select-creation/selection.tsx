@@ -3,7 +3,7 @@ import SelectionComponent from './selection-component';
 
 interface SelectionScreenProps {}
 
-const SelectionScreen = (props: SelectionScreenProps) => {
+const SelectionScreen: React.FC<SelectionScreenProps> = () => {
   return <SelectionComponent />;
 };
 

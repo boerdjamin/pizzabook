@@ -52,10 +52,19 @@ export const mapTypeIdToEnum = (key: string): EnumFoodType => {
   }
 };
 
-export const filterCheese = (ingridients: Ingridient[]) =>
-  ingridients.filter(i => i.foodType === EnumFoodType.cheese);
 export const filterBases = (ingridients: Ingridient[]) =>
   ingridients.filter(i => i.foodType === EnumFoodType.base);
+export const filterToppings = (ingridients: Ingridient[]) =>
+  ingridients.filter(
+    i =>
+      i.foodType === EnumFoodType.fruit ||
+      i.foodType === EnumFoodType.vegetable ||
+      i.foodType === EnumFoodType.meatLike ||
+      i.foodType === EnumFoodType.nut ||
+      i.foodType === EnumFoodType.other,
+  );
+export const filterCheese = (ingridients: Ingridient[]) =>
+  ingridients.filter(i => i.foodType === EnumFoodType.cheese);
 export const filterSauces = (ingridients: Ingridient[]) =>
   ingridients.filter(i => i.foodType === EnumFoodType.additionalSauce);
 export const filterSpices = (ingridients: Ingridient[]) =>

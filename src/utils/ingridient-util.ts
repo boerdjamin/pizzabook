@@ -1,5 +1,4 @@
 import { AirtableIngridient } from '../models/airtable';
-import { Ingridient } from '../models/ingridient';
 import { RequiredPropertyOf } from './types';
 
 export const requiredIngridientKeys: Array<
@@ -26,6 +25,3 @@ export const isIngridientFromDBValid = (
     keys.every(key => (ingridientKeys as string[]).includes(key))
   );
 };
-
-export const mapIngridientsToPickerOption = (ingridients: Ingridient[]) =>
-  ingridients.map(i => ({ label: i.name, value: i.id }));
