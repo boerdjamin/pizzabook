@@ -19,7 +19,7 @@ export interface SelectItem<T> {
   readonly id: T;
 }
 
-interface LabeledSelectProps<T> {
+export interface LabeledSelectProps<T> {
   readonly label: string;
   readonly options: SelectItem<T>[];
   readonly onSelect: (item: T[]) => void;

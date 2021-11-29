@@ -1,8 +1,14 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import LabeledSelect from '../../components/labeled-select/labeled-select';
-import LabeledTextInput from '../../components/labeled-text-input/labeled-text-input';
+import { View, StyleSheet, ListRenderItemInfo } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import BigButton from '../../components/big-button/big-button';
+import LabeledSelect, {
+  LabeledSelectProps,
+} from '../../components/labeled-select/labeled-select';
+import LabeledTextInput, {
+  LabeledTextInputProps,
+} from '../../components/labeled-text-input/labeled-text-input';
 import { appTexts } from '../../data/texts';
 import { Ingridient } from '../../models/ingridient';
 import { Spacing } from '../../styles';
@@ -14,14 +20,15 @@ import {
   filterSpices,
   filterToppings,
 } from '../../utils/food-types';
+import { doNothing } from '../../utils/placeholder';
 
 interface CreatePizzaComponentProps {
   readonly ingridients: Ingridient[];
 }
 
 const CreatePizzaComponent = ({ ingridients }: CreatePizzaComponentProps) => {
-  const [pizzaName, setPizzaName] = useState('');
-  const [pizzaBase, setPizzaBase] = useState<Ingridient[]>([]);
+  const [name, setName] = useState('');
+  const [base, setBase] = useState<Ingridient[]>([]);
   const [toppings, setToppings] = useState<Ingridient[]>([]);
   const [cheese, setCheese] = useState<Ingridient[]>([]);
   const [sauces, setSauces] = useState<Ingridient[]>([]);
@@ -34,77 +41,126 @@ const CreatePizzaComponent = ({ ingridients }: CreatePizzaComponentProps) => {
   const sauceOptions = filterSauces(ingridients);
   const spiceOptions = filterSpices(ingridients);
 
-  const onSelectBase = (selection: Ingridient[]) => setPizzaBase(selection);
-  const onChangeToppings = (selection: Ingridient[]) => setToppings(selection);
-  const onChangeCheese = (selection: Ingridient[]) => setCheese(selection);
-  const onChangeSauces = (selection: Ingridient[]) => setSauces(selection);
-  const onChangeSpices = (selection: Ingridient[]) => setSpices(selection);
+  const onSelectBase = (selection: Ingridient[]) => setBase(selection);
+  const onSelectToppings = (selection: Ingridient[]) => setToppings(selection);
+  const onSelectCheese = (selection: Ingridient[]) => setCheese(selection);
+  const onSelectSauces = (selection: Ingridient[]) => setSauces(selection);
+  const onSelectSpices = (selection: Ingridient[]) => setSpices(selection);
+
+  enum InputType {
+    TextInput,
+    Select,
+  }
+  interface InputItem {
+    type: InputType;
+    props: LabeledTextInputProps | LabeledSelectProps<any>;
+  }
+
+  const inputList: InputItem[] = [
+    {
+      type: InputType.TextInput,
+      props: {
+        label: appTexts.create_pizza_name_label,
+        value: name,
+        onType: setName,
+        style: styles.marginBottom,
+      },
+    },
+    {
+      type: InputType.Select,
+      props: {
+        label: appTexts.create_pizza_base_label,
+        selectedItems: base,
+        onSelect: onSelectBase,
+        options: baseOptions,
+        placeholder: appTexts.create_pizza_base_placeholder,
+        mode: 'single',
+      },
+    },
+    {
+      type: InputType.Select,
+      props: {
+        label: appTexts.create_pizza_toppings_label,
+        selectedItems: toppings,
+        onSelect: onSelectToppings,
+        options: toppingOptions,
+        placeholder:
+          toppings.length === 0
+            ? appTexts.create_pizza_toppings_placeholder
+            : '',
+      },
+    },
+    {
+      type: InputType.Select,
+      props: {
+        label: appTexts.create_pizza_cheese_label,
+        selectedItems: cheese,
+        onSelect: onSelectCheese,
+        options: cheeseOptions,
+        placeholder:
+          cheese.length === 0 ? appTexts.create_pizza_cheese_placeholder : '',
+      },
+    },
+    {
+      type: InputType.Select,
+      props: {
+        label: appTexts.create_pizza_sauce_label,
+        selectedItems: sauces,
+        onSelect: onSelectSauces,
+        options: sauceOptions,
+        placeholder:
+          sauces.length === 0 ? appTexts.create_pizza_sauce_placeholder : '',
+      },
+    },
+    {
+      type: InputType.Select,
+      props: {
+        label: appTexts.create_pizza_spices_label,
+        selectedItems: spices,
+        onSelect: onSelectSpices,
+        options: spiceOptions,
+        placeholder:
+          spices.length === 0 ? appTexts.create_pizza_spices_placeholder : '',
+      },
+    },
+    {
+      type: InputType.TextInput,
+      props: {
+        label: appTexts.create_pizza_comment_label,
+        value: comment,
+        onType: setComment,
+        numberOfLines: 3,
+      },
+    },
+  ];
+
+  const renderItem = ({ item }: ListRenderItemInfo<InputItem>) => {
+    switch (item.type) {
+      case InputType.TextInput:
+        return (
+          <LabeledTextInput
+            {...(item.props as LabeledTextInputProps)}
+            style={styles.marginBottom}
+          />
+        );
+      case InputType.Select:
+        return (
+          <LabeledSelect
+            {...(item.props as LabeledSelectProps<any>)}
+            style={styles.marginBottom}
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <LabeledTextInput
-        label={appTexts.create_pizza_name_label}
-        value={pizzaName}
-        onType={setPizzaName}
-        style={styles.marginBottom}
-      />
-      <LabeledSelect
-        label={appTexts.create_pizza_base_label}
-        selectedItems={pizzaBase}
-        onSelect={onSelectBase}
-        options={baseOptions}
-        placeholder={appTexts.create_pizza_base_placeholder}
-        style={styles.marginBottom}
-        mode={'single'}
-      />
-      <LabeledSelect
-        label={appTexts.create_pizza_toppings_label}
-        selectedItems={toppings}
-        onSelect={onChangeToppings}
-        options={toppingOptions}
-        placeholder={
-          toppings.length === 0
-            ? appTexts.create_pizza_toppings_placeholder
-            : ''
-        }
-        style={styles.marginBottom}
-      />
-      <LabeledSelect
-        label={appTexts.create_pizza_cheese_label}
-        selectedItems={cheese}
-        onSelect={onChangeCheese}
-        options={cheeseOptions}
-        placeholder={
-          cheese.length === 0 ? appTexts.create_pizza_cheese_placeholder : ''
-        }
-        style={styles.marginBottom}
-      />
-      <LabeledSelect
-        label={appTexts.create_pizza_sauce_label}
-        selectedItems={sauces}
-        onSelect={onChangeSauces}
-        options={sauceOptions}
-        placeholder={
-          sauces.length === 0 ? appTexts.create_pizza_sauce_placeholder : ''
-        }
-        style={styles.marginBottom}
-      />
-      <LabeledSelect
-        label={appTexts.create_pizza_spices_label}
-        selectedItems={spices}
-        onSelect={onChangeSpices}
-        options={spiceOptions}
-        placeholder={
-          spices.length === 0 ? appTexts.create_pizza_spices_placeholder : ''
-        }
-        style={styles.marginBottom}
-      />
-      <LabeledTextInput
-        label={appTexts.create_pizza_comment_label}
-        value={comment}
-        onType={setComment}
-        style={styles.marginBottom}
-        numberOfLines={3}
+      <FlatList
+        data={inputList}
+        renderItem={renderItem}
+        ListFooterComponent={<BigButton label={'submit'} onPress={doNothing} />}
       />
     </View>
   );

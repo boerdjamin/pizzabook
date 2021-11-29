@@ -12,7 +12,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { Spacing, textStyles } from '../../styles';
 import commonStyles, { INPUT_HEIGHT } from '../../styles/common';
 
-interface LabeledTextInputProps extends TextInputProps {
+export interface LabeledTextInputProps extends TextInputProps {
   readonly label: string;
   readonly value: string;
   readonly onType: (value: string) => void;
