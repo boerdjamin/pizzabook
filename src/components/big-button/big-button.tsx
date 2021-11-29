@@ -32,8 +32,11 @@ const BigButton = ({
   labelStyle,
 }: BigButtonProps) => {
   const backgroundStyle: StyleProp<ViewStyle> = {
-    backgroundColor:
-      mode === ButtonMode.Primary ? Colors.success : Colors.lightGrey,
+    backgroundColor: disabled
+      ? Colors.disabledPrimary
+      : mode === ButtonMode.Primary
+      ? Colors.success
+      : Colors.lightGrey,
   };
 
   return (

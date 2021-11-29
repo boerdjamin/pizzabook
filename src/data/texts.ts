@@ -30,6 +30,7 @@ export const appTexts = {
   create_pizza_spices_label: 'Gewürze',
   create_pizza_spices_placeholder: 'Gewürze wählen...',
   create_pizza_comment_label: 'Kommentar',
+  create_pizza_submit_button: 'Fertig',
 
   select_search_placeholder: 'Durchsuchen...',
   select_submit_button: 'Okay',

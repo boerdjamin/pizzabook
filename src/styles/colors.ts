@@ -12,7 +12,10 @@ export enum Colors {
   milky = '#C8C8C850',
 
   // info
-  success = 'green',
+  success = '#387E22',
   warning = 'yellow',
   error = 'red',
+
+  // button
+  disabledPrimary = '#387E2230',
 }
