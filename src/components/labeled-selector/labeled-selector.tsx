@@ -8,8 +8,7 @@ import {
   TextStyle,
   Modal,
 } from 'react-native';
-import { BorderRadius, Spacing, textStyles } from '../../styles';
-import { INPUT_HEIGHT } from '../../styles/common';
+import { Spacing, textStyles } from '../../styles';
 import { Colors } from '../../styles/colors';
 import { appTexts } from '../../data/texts';
 import BigButton from '../big-button/big-button';
