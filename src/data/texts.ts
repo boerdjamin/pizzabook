@@ -3,6 +3,10 @@ export const appTexts = {
   welcome: 'Wilkommen im PizzaBook',
   info: 'Hier findest du Benjamin und Birtes Lieblingspizzen :)',
 
+  // modals
+  okay: 'Okay',
+  cancel: 'Abbrechen',
+
   // pizza details
   vegan: 'vegan',
   vegetarian: 'vegetarisch',
@@ -30,6 +34,7 @@ export const appTexts = {
   create_pizza_spices_label: 'Gewürze',
   create_pizza_spices_placeholder: 'Gewürze wählen...',
   create_pizza_comment_label: 'Kommentar',
+  create_pizza_submit_button: 'Fertig',
 
   select_search_placeholder: 'Durchsuchen...',
   select_submit_button: 'Okay',

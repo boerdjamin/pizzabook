@@ -62,7 +62,10 @@ const LabeledSelect = ({
         tagRemoveIconColor={Colors.white}
         tagBorderColor={Colors.primary}
         tagTextColor={Colors.white}
-        styleMainWrapper={styles.select}
+        styleMainWrapper={[
+          styles.select,
+          selectedItems.length === 0 && styles.noPadding,
+        ]}
         searchInputStyle={styles.inputHeight}
         styleTextDropdown={styles.placeholder}
         styleTextDropdownSelected={styles.textColor}
@@ -91,13 +94,14 @@ const styles = StyleSheet.create({
     borderColor: Colors.lightGrey,
     borderRadius: BorderRadius.small,
     padding: Spacing.small,
-    paddingBottom: 0,
   },
+  noPadding: { paddingBottom: 0 },
   placeholder: { color: Colors.lightGrey },
   noBorder: { borderBottomWidth: 0 },
   inputHeight: { height: INPUT_HEIGHT },
   itemsContainer: {
-    maxHeight: ITEMS_CONTAINER_HEIGHT,
+    // maxHeight: ITEMS_CONTAINER_HEIGHT,
+    overflow: 'scroll',
     paddingVertical: Spacing.small,
     backgroundColor: Colors.white,
   },
