@@ -13,6 +13,7 @@ import { Colors } from '../../styles/colors';
 import { appTexts } from '../../data/texts';
 import BigButton from '../big-button/big-button';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import commonStyles from '../../styles/common';
 
 export interface SelectItem<T> {
   readonly name: string;
@@ -23,7 +24,7 @@ export interface LabeledSelectorProps<T> {
   readonly label: string;
   readonly options: SelectItem<T>[];
   readonly onSelect: (item: T[]) => void;
-  readonly selectedItems: T[];
+  readonly selectedItems: SelectItem<any>[];
   readonly style?: StyleProp<ViewStyle>;
   readonly labelStyle?: StyleProp<TextStyle>;
   readonly placeholder?: string;
@@ -37,11 +38,11 @@ const LabeledSelector = ({
   style,
   onSelect,
   labelStyle,
-}: // mode,
-LabeledSelectorProps<any>) => {
+  mode,
+}: LabeledSelectorProps<any>) => {
   const [isSelectorOpen, setSelectorOpen] = useState(false);
   const [selected, setSelected] = useState(selectedItems);
-  // const isSingleMode = mode === 'single';
+  const isSingleMode = mode === 'single';
 
   const openSelector = () => setSelectorOpen(true);
 
@@ -66,39 +67,52 @@ LabeledSelectorProps<any>) => {
       <View>
         {/* show selections as tags */}
         {selectedItems.map(item => (
-          <TouchableOpacity>
+          <TouchableOpacity key={item.id}>
             <Text>{item.name}</Text>
           </TouchableOpacity>
         ))}
       </View>
-      {isSelectorOpen ? (
-        // TODO: style everything
-        <Modal style={styles.modal}>
-          <View>
-            {options.map(option => (
-              <TouchableOpacity
-                onPress={() => select(option)}
-                disabled={selected.includes(option)}>
-                <Text>{option.name}</Text>
-              </TouchableOpacity>
-            ))}
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isSelectorOpen}
+        onRequestClose={() => {
+          console.log('request close');
+        }}
+        style={styles.modal}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View>
+              {options.map(option => (
+                <TouchableOpacity
+                  key={option.id}
+                  onPress={() => select(option)}
+                  disabled={
+                    (isSingleMode && selected.length > 0) ||
+                    selected.includes(option)
+                  }>
+                  <Text>{option.name}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <View>
+              {selected.map(item => (
+                <TouchableOpacity key={item.id} onPress={() => unSelect(item)}>
+                  <Text>{item.name}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <View style={styles.buttonRow}>
+              <BigButton label={appTexts.cancel} onPress={closeModal} />
+              <BigButton
+                label={appTexts.create_pizza_submit_button}
+                onPress={onSubmit}
+              />
+            </View>
           </View>
-          <View>
-            {selected.map(item => (
-              <TouchableOpacity onPress={() => unSelect(item)}>
-                <Text>{item.name}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-          <View style={styles.buttonRow}>
-            <BigButton label={appTexts.cancel} onPress={closeModal} />
-            <BigButton
-              label={appTexts.create_pizza_submit_button}
-              onPress={onSubmit}
-            />
-          </View>
-        </Modal>
-      ) : null}
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -111,8 +125,30 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.smaller,
   },
   modal: {
+    ...commonStyles.screen,
     margin: Spacing.large,
     padding: Spacing.large,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   tag: { backgroundColor: Colors.primary },
   textColor: { color: Colors.text },
