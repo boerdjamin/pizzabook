@@ -7,13 +7,15 @@ import {
   ViewStyle,
   TextStyle,
   Modal,
+  Image,
 } from 'react-native';
-import { Spacing, textStyles } from '../../styles';
+import { BorderRadius, Spacing, textStyles } from '../../styles';
 import { Colors } from '../../styles/colors';
 import { appTexts } from '../../data/texts';
 import BigButton from '../big-button/big-button';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import commonStyles from '../../styles/common';
+import Icons from '../../../assets/icons';
 
 export interface SelectItem<T> {
   readonly name: string;
@@ -62,13 +64,12 @@ const LabeledSelector = ({
   return (
     <View style={style}>
       <Text style={[styles.label, labelStyle]}>{label}</Text>
-
       <BigButton label={label} onPress={openSelector} />
-      <View>
-        {/* show selections as tags */}
+      <View style={styles.selections}>
         {selectedItems.map(item => (
-          <TouchableOpacity key={item.id}>
-            <Text>{item.name}</Text>
+          <TouchableOpacity key={item.id} style={styles.tag}>
+            <Text style={styles.tagText}>{item.name}</Text>
+            <Image source={Icons.close} style={styles.closeIcon} />
           </TouchableOpacity>
         ))}
       </View>
@@ -103,7 +104,7 @@ const LabeledSelector = ({
                 </TouchableOpacity>
               ))}
             </View>
-            <View style={styles.buttonRow}>
+            <View style={commonStyles.row}>
               <BigButton label={appTexts.cancel} onPress={closeModal} />
               <BigButton
                 label={appTexts.create_pizza_submit_button}
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
@@ -150,10 +151,26 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  tag: { backgroundColor: Colors.primary },
-  textColor: { color: Colors.text },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  selections: {
+    ...commonStyles.row,
+    marginTop: Spacing.small,
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
   },
+  tag: {
+    ...commonStyles.row,
+    backgroundColor: Colors.primary,
+    padding: Spacing.small,
+    marginHorizontal: Spacing.smaller,
+    marginVertical: Spacing.tiny,
+    borderRadius: BorderRadius.large,
+  },
+  tagText: { ...textStyles.label, color: Colors.white },
+  closeIcon: {
+    height: 8,
+    width: 8,
+    tintColor: Colors.white,
+    marginLeft: Spacing.small,
+  },
+  textColor: { color: Colors.text },
 });

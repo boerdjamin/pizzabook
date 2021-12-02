@@ -20,6 +20,11 @@ const commonStyles = StyleSheet.create({
     alignItems: 'center',
     padding: Spacing.small,
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 });
 
 export default commonStyles;
