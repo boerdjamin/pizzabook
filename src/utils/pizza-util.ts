@@ -16,6 +16,8 @@ export const pizzaKeys: Array<keyof AirtablePizza> = [
   'can_be_veganized',
   'comment',
   'created_by',
+  'rating',
+  'recipes',
 ];
 
 export const isPizzaFromDBValid = (

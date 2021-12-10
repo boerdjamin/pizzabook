@@ -9,6 +9,7 @@ export enum EnumFoodType {
   nut = 'NUT',
   spice = 'SPICE',
   additionalSauce = 'ADDITIONAL_SAUCE',
+  condiment = 'CONDIMENT',
   other = 'OTHER',
 }
 

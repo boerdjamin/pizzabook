@@ -35,6 +35,8 @@ export const mapTypeIdToEnum = (key: string): EnumFoodType => {
       return EnumFoodType.base;
     case EnumFoodType.cheese:
       return EnumFoodType.cheese;
+    case EnumFoodType.condiment:
+      return EnumFoodType.condiment;
     case EnumFoodType.fruit:
       return EnumFoodType.fruit;
     case EnumFoodType.meatLike:

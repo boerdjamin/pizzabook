@@ -14,6 +14,8 @@ export interface AirtablePizza extends Identifyable {
   readonly photos?: ImageSourcePropType[];
   readonly can_be_veganized?: boolean;
   readonly comment?: string;
+  readonly rating?: number;
+  readonly recipes?: string[];
 }
 
 export interface AirtableIngridient extends Identifyable {
@@ -21,6 +23,16 @@ export interface AirtableIngridient extends Identifyable {
   readonly food_type: string;
   readonly is_vegan?: boolean;
   readonly pizzas?: string[];
+  readonly recipes?: string[];
+}
+
+export interface AirtableRecipe extends Identifyable {
+  readonly name: string;
+  readonly is_vegan?: boolean;
+  readonly steps?: string[];
+  readonly ingridients: string[];
+  readonly pizzas?: string[];
+  readonly created_by?: string;
 }
 
 export interface AirtableFoodType extends Identifyable {

@@ -10,6 +10,7 @@ export const ingridientKeys: Array<keyof AirtableIngridient> = [
   'is_vegan',
   'food_type',
   'pizzas',
+  'recipes',
 ];
 
 export const isIngridientFromDBValid = (

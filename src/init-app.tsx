@@ -4,6 +4,7 @@ import {
   AirtableFoodType,
   AirtableIngridient,
   AirtablePizza,
+  AirtableRecipe,
   AirtableUser,
 } from './models/airtable';
 import { initAppAction, setLoadingAction } from './store/actions';
@@ -15,8 +16,9 @@ import RootNavigation from './navigation/root-navigation';
 import Airtable from 'airtable';
 import { isFoodTypeFromDBValid } from './utils/food-types';
 import { isIngridientFromDBValid } from './utils/ingridient-util';
-import { isPizzaFromDBValid } from './utils/pizza-utils';
+import { isPizzaFromDBValid } from './utils/pizza-util';
 import { isUserFromDBValid } from './utils/user-util';
+import { isRecipeFromDBValid } from './utils/recipe-util';
 
 export interface AppInitializationProps {
   readonly database: Airtable.Base;
@@ -28,6 +30,7 @@ const InitApp = ({ database }: AppInitializationProps) => {
   const [rawIngridients, setFetchedIngridients] = useState<
     AirtableIngridient[]
   >([]);
+  const [rawRecipes, setFetchedRecipes] = useState<AirtableRecipe[]>([]);
   const [rawUsers, setFetchedUsers] = useState<AirtableUser[]>([]);
   const [rawFoodTypes, setFetchedFoodTypes] = useState<AirtableFoodType[]>([]);
 
@@ -36,32 +39,39 @@ const InitApp = ({ database }: AppInitializationProps) => {
     fetchDataFromAirtable<AirtableUser>(
       database('Users'),
       isUserFromDBValid,
-      users => {
-        setFetchedUsers(users);
+      data => {
+        setFetchedUsers(data);
       },
     );
 
     fetchDataFromAirtable<AirtablePizza>(
       database('Pizzas'),
       isPizzaFromDBValid,
-      pizzas => {
-        setFetchedPizzas(pizzas);
+      data => {
+        setFetchedPizzas(data);
       },
     );
 
     fetchDataFromAirtable<AirtableIngridient>(
       database('Ingridients'),
       isIngridientFromDBValid,
-      ings => {
-        setFetchedIngridients(ings);
+      data => {
+        setFetchedIngridients(data);
+      },
+    );
+    fetchDataFromAirtable<AirtableRecipe>(
+      database('Recipes'),
+      isRecipeFromDBValid,
+      data => {
+        setFetchedRecipes(data);
       },
     );
 
     fetchDataFromAirtable<AirtableFoodType>(
       database('FoodTypes'),
       isFoodTypeFromDBValid,
-      foodType => {
-        setFetchedFoodTypes(foodType);
+      data => {
+        setFetchedFoodTypes(data);
       },
     );
   }, [database, dispatch]);
@@ -70,6 +80,7 @@ const InitApp = ({ database }: AppInitializationProps) => {
     const convertedData = convertAirtableDataToAppData({
       rawPizzas,
       rawIngridients,
+      rawRecipes,
       rawFoodTypes,
       rawUsers,
     });
@@ -77,7 +88,7 @@ const InitApp = ({ database }: AppInitializationProps) => {
     return () => {
       dispatch(setLoadingAction({ loading: false }));
     };
-  }, [rawFoodTypes, rawIngridients, rawPizzas, rawUsers, dispatch]);
+  }, [rawFoodTypes, rawIngridients, rawRecipes, rawPizzas, rawUsers, dispatch]);
 
   return <RootNavigation />;
 };
