@@ -7,15 +7,14 @@ import {
   ViewStyle,
   TextStyle,
   Modal,
-  Image,
 } from 'react-native';
 import { BorderRadius, Spacing, textStyles } from '../../styles';
 import { Colors } from '../../styles/colors';
 import { appTexts } from '../../data/texts';
 import BigButton from '../big-button/big-button';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import commonStyles from '../../styles/common';
-import Icons from '../../../assets/icons';
+import Tag from '../tag/tag';
 
 export interface SelectItem<T> {
   readonly name: string;
@@ -67,10 +66,11 @@ const LabeledSelector = ({
       <BigButton label={label} onPress={openSelector} />
       <View style={styles.selections}>
         {selectedItems.map(item => (
-          <TouchableOpacity key={item.id} style={styles.tag}>
-            <Text style={styles.tagText}>{item.name}</Text>
-            <Image source={Icons.close} style={styles.closeIcon} />
-          </TouchableOpacity>
+          <Tag
+            key={item.id}
+            label={item.name}
+            onRemove={() => unSelect(item)}
+          />
         ))}
       </View>
 
@@ -80,10 +80,10 @@ const LabeledSelector = ({
         visible={isSelectorOpen}
         onRequestClose={() => {
           console.log('request close');
-        }}
-        style={styles.modal}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+        }}>
+        <View style={styles.modal}>
+          <View style={styles.modalContent}>
+            <TextInput style={styles.searchbar} />
             <View>
               {options.map(option => (
                 <TouchableOpacity
@@ -92,16 +92,19 @@ const LabeledSelector = ({
                   disabled={
                     (isSingleMode && selected.length > 0) ||
                     selected.includes(option)
-                  }>
-                  <Text>{option.name}</Text>
+                  }
+                  style={styles.option}>
+                  <Text style={textStyles.p1}>{option.name}</Text>
                 </TouchableOpacity>
               ))}
             </View>
-            <View>
+            <View style={styles.selections}>
               {selected.map(item => (
-                <TouchableOpacity key={item.id} onPress={() => unSelect(item)}>
-                  <Text>{item.name}</Text>
-                </TouchableOpacity>
+                <Tag
+                  key={item.id}
+                  label={item.name}
+                  onRemove={() => unSelect(item)}
+                />
               ))}
             </View>
             <View style={commonStyles.row}>
@@ -126,23 +129,16 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.smaller,
   },
   modal: {
-    ...commonStyles.screen,
-    margin: Spacing.large,
-    padding: Spacing.large,
-  },
-  centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
+    justifyContent: 'flex-end',
   },
-  modalView: {
-    margin: 20,
-    // backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
+  modalContent: {
+    backgroundColor: Colors.white,
+    borderTopLeftRadius: BorderRadius.medium,
+    borderTopRightRadius: BorderRadius.medium,
+    padding: Spacing.large,
+    paddingBottom: Spacing.larger,
+    shadowColor: Colors.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -151,26 +147,19 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  searchbar: {
+    ...commonStyles.input,
+    marginBottom: Spacing.small,
+    width: '80%',
+  },
+  option: {
+    padding: Spacing.tiny,
+  },
   selections: {
     ...commonStyles.row,
     marginTop: Spacing.small,
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
-  },
-  tag: {
-    ...commonStyles.row,
-    backgroundColor: Colors.primary,
-    padding: Spacing.small,
-    marginHorizontal: Spacing.smaller,
-    marginVertical: Spacing.tiny,
-    borderRadius: BorderRadius.large,
-  },
-  tagText: { ...textStyles.label, color: Colors.white },
-  closeIcon: {
-    height: 8,
-    width: 8,
-    tintColor: Colors.white,
-    marginLeft: Spacing.small,
   },
   textColor: { color: Colors.text },
 });
