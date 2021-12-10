@@ -7,6 +7,7 @@ import Icons from '../../assets/icons';
 import { Image } from 'react-native';
 import commonStyles from '../styles/common';
 import { renderNothing } from '../utils/placeholder';
+import ProfileStack from './profile-stack';
 
 const Tabs = createBottomTabNavigator();
 
@@ -39,8 +40,9 @@ const TabsNavigator = () => (
     />
     <Tabs.Screen
       name={TabsRoutes.Profile}
-      component={renderNothing}
+      component={ProfileStack}
       options={{
+        headerShown: false,
         tabBarLabel: appTexts.profile,
         tabBarIcon: () => (
           <Image source={Icons.user} style={commonStyles.icon} />

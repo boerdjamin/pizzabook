@@ -3,6 +3,7 @@ import { ImageSourcePropType } from 'react-native';
 
 export interface AirtableUser extends Identifyable {
   readonly name: string;
+  readonly picture?: ImageSourcePropType[];
   readonly pizzas?: string[];
 }
 

@@ -100,7 +100,9 @@ const convertUsers = (rawUsers: AirtableUser[]): User[] =>
   rawUsers.map(rawUser => ({
     id: rawUser.id,
     name: rawUser.name,
+    picture: rawUser.picture ? rawUser.picture[0] : null,
     pizzas: rawUser.pizzas || [],
+    recipes: [],
   }));
 
 const convertPizzas = (

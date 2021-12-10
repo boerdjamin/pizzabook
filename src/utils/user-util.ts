@@ -4,7 +4,7 @@ import { RequiredPropertyOf } from './types';
 export const requiredAirtableUserKeys: Array<RequiredPropertyOf<AirtableUser>> =
   ['name'];
 
-export const airtableUserKeys: Array<keyof AirtableUser> = ['name', 'pizzas'];
+export const airtableUserKeys: Array<keyof AirtableUser> = ['name', 'picture'];
 
 export const isUserFromDBValid = (
   val: AirtableUser | any,
