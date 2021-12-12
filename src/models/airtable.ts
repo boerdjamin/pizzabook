@@ -21,7 +21,7 @@ export interface AirtablePizza extends Identifyable {
 
 export interface AirtableIngridient extends Identifyable {
   readonly name: string;
-  readonly food_type: string;
+  readonly food_type: string[];
   readonly is_vegan?: boolean;
   readonly pizzas?: string[];
   readonly recipes?: string[];

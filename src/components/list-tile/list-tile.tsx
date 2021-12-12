@@ -48,7 +48,6 @@ export default ListTile;
 const styles = StyleSheet.create({
   container: {
     ...commonStyles.row,
-    justifyContent: 'space-between',
     height: 80,
     width: '100%',
     borderBottomWidth: 1,

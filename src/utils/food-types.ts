@@ -1,3 +1,4 @@
+import { Ingridient } from './../models/ingridient';
 import { EnumFoodType } from './../models/food-type';
 import { AirtableFoodType } from '../models/airtable';
 import { RequiredPropertyOf } from './types';
@@ -52,3 +53,21 @@ export const mapTypeIdToEnum = (key: string): EnumFoodType => {
       return EnumFoodType.other;
   }
 };
+
+export const filterBases = (ingridients: Ingridient[]) =>
+  ingridients.filter(i => i.foodType === EnumFoodType.base);
+export const filterToppings = (ingridients: Ingridient[]) =>
+  ingridients.filter(
+    i =>
+      i.foodType === EnumFoodType.fruit ||
+      i.foodType === EnumFoodType.vegetable ||
+      i.foodType === EnumFoodType.meatLike ||
+      i.foodType === EnumFoodType.nut ||
+      i.foodType === EnumFoodType.other,
+  );
+export const filterCheese = (ingridients: Ingridient[]) =>
+  ingridients.filter(i => i.foodType === EnumFoodType.cheese);
+export const filterSauces = (ingridients: Ingridient[]) =>
+  ingridients.filter(i => i.foodType === EnumFoodType.additionalSauce);
+export const filterSpices = (ingridients: Ingridient[]) =>
+  ingridients.filter(i => i.foodType === EnumFoodType.spice);

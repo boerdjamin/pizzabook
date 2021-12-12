@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   },
   user: {
     ...commonStyles.row,
+    justifyContent: 'flex-start',
   },
   marginBottom: {
     marginBottom: Spacing.tiny,

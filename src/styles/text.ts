@@ -20,4 +20,9 @@ export const textStyles = StyleSheet.create({
     color: Colors.text,
     fontWeight: 'bold',
   },
+  button: {
+    fontSize: 16,
+    color: Colors.white,
+    fontWeight: 'bold',
+  },
 });

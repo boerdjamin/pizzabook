@@ -63,7 +63,7 @@ const convertIngridients = (
     name: rawIngridient.name,
     isVegan: !!rawIngridient.is_vegan,
     foodType:
-      foodTypes.find(ft => ft.id === rawIngridient.food_type)?.type ||
+      foodTypes.find(ft => ft.id === rawIngridient.food_type[0])?.type ||
       EnumFoodType.other,
     pizzaIds: rawIngridient.pizzas || [],
   }));

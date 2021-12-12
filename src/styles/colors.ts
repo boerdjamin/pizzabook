@@ -1,5 +1,5 @@
 export enum Colors {
-  primary = '#D49132',
+  primary = '#F2B73F',
 
   text = '#2C2C2C',
 
@@ -14,7 +14,10 @@ export enum Colors {
   milky2 = '#FFFFFFCD',
 
   // info
-  success = 'green',
+  success = '#387E22',
   warning = 'yellow',
   error = 'red',
+
+  // button
+  disabledPrimary = '#387E2230',
 }

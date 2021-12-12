@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { useSelector } from 'react-redux';
 import GIFS from '../../../assets/gifs';
 import Loader from '../../components/loader';
@@ -11,8 +10,12 @@ import { appTexts } from '../../data/texts';
 import { PizzaBookState } from '../../models/app-state';
 import { Pizza } from '../../models/pizza';
 import { User } from '../../models/user';
-import { HomeStackRoutes, HomeStackParamList } from '../../navigation/routes';
+import {
+  HomeStackParamList,
+  HomeStackRoutes,
+} from '../../navigation/home-stack';
 import { textStyles } from '../../styles';
+import commonStyles from '../../styles/common';
 import { Spacing } from '../../styles/spacing';
 
 interface HomeScreenProps {
@@ -28,8 +31,8 @@ type NavigationProp = StackNavigationProp<
 const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
   const { navigate, setOptions } = useNavigation<NavigationProp>();
 
-  const isLoading = useSelector<PizzaBookState>(
-    state => state.network.isLoading,
+  const isLoading = useSelector(
+    (state: PizzaBookState) => state.network.isLoading,
   );
 
   React.useLayoutEffect(
@@ -66,7 +69,7 @@ const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
 export default HomeScreenComponent;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.white, padding: Spacing.large },
+  container: { ...commonStyles.screen },
   headline: {
     ...textStyles.headline,
     marginBottom: Spacing.large,

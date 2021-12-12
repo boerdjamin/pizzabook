@@ -15,7 +15,6 @@ export const pizzaReducer = (
   switch (action.type) {
     case INIT_APP_ACTION:
       const { pizzas, ingridients, foodTypes } = action.payload;
-
       return {
         allPizzas: pizzas,
         allIngridients: ingridients,
