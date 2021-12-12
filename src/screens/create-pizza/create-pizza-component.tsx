@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import BigButton from '../../components/big-button/big-button';
 import LabeledSelector from '../../components/labeled-selector/labeled-selector';
 import LabeledTextInput from '../../components/labeled-text-input/labeled-text-input';
@@ -127,6 +126,7 @@ const CreatePizzaComponent = ({ ingridients }: CreatePizzaComponentProps) => {
           disabled={isFormValid}
         />
       </ScrollView>
+      ´
     </View>
   );
 };
