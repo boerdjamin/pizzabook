@@ -47,7 +47,7 @@ const ProfileScreenComponent: React.FC<ProfileScreenProps> = ({
                   }
                   style={styles.pic}
                 />
-                {!loggedInUser ? (
+                {loggedInUser ? (
                   <Icon
                     wrapperStyle={styles.editWrapper}
                     icon={Icons.pencil}
