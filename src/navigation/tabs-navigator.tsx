@@ -4,10 +4,9 @@ import HomeStack from './home-stack';
 import { TabsRoutes } from './routes';
 import { appTexts } from '../data/texts';
 import Icons from '../../assets/icons';
-import { Image } from 'react-native';
-import commonStyles from '../styles/common';
 import { renderNothing } from '../utils/placeholder';
 import ProfileStack from './profile-stack';
+import Icon from '../components/icon/icon';
 
 const Tabs = createBottomTabNavigator();
 
@@ -22,9 +21,7 @@ const TabsNavigator = () => (
       options={{
         headerShown: false,
         tabBarLabel: appTexts.home,
-        tabBarIcon: () => (
-          <Image source={Icons.home} style={commonStyles.icon} />
-        ),
+        tabBarIcon: () => <Icon icon={Icons.home} />,
       }}
       component={HomeStack}
     />
@@ -33,9 +30,7 @@ const TabsNavigator = () => (
       component={renderNothing}
       options={{
         tabBarLabel: appTexts.add_pizza,
-        tabBarIcon: () => (
-          <Image source={Icons.plus} style={commonStyles.icon} />
-        ),
+        tabBarIcon: () => <Icon icon={Icons.plus} />,
       }}
     />
     <Tabs.Screen
@@ -44,9 +39,7 @@ const TabsNavigator = () => (
       options={{
         headerShown: false,
         tabBarLabel: appTexts.profile,
-        tabBarIcon: () => (
-          <Image source={Icons.user} style={commonStyles.icon} />
-        ),
+        tabBarIcon: () => <Icon icon={Icons.user} />,
       }}
     />
   </Tabs.Navigator>

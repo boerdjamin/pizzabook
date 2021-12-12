@@ -3,6 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import Icons from '../../../assets/icons';
+import Icon from '../../components/icon/icon';
 import ListTile from '../../components/list-tile/list-tile';
 import { appTexts } from '../../data/texts';
 import { User } from '../../models/user';
@@ -46,12 +47,21 @@ const ProfileScreenComponent: React.FC<ProfileScreenProps> = ({
                   }
                   style={styles.pic}
                 />
+                {!loggedInUser ? (
+                  <Icon
+                    wrapperStyle={styles.editWrapper}
+                    icon={Icons.pencil}
+                    size={36}
+                  />
+                ) : null}
               </View>
               {loggedInUser ? (
                 <Text style={textStyles.headline}>{loggedInUser.name}</Text>
               ) : (
                 <View>
-                  <Text style={textStyles.p1}>{appTexts.profile_login}</Text>
+                  <Text style={[textStyles.p1, styles.marginBottom]}>
+                    {appTexts.profile_login}
+                  </Text>
                   <Text style={textStyles.p1}>{appTexts.profile_register}</Text>
                 </View>
               )}
@@ -89,6 +99,9 @@ const styles = StyleSheet.create({
   user: {
     ...commonStyles.row,
   },
+  marginBottom: {
+    marginBottom: Spacing.tiny,
+  },
   profilePic: {
     height: 80,
     width: 80,
@@ -100,6 +113,16 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     tintColor: Colors.text,
+  },
+  editWrapper: {
+    backgroundColor: Colors.milky2,
+    position: 'absolute',
+    left: 50,
+    top: 50,
+    borderRadius: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: Spacing.small,
   },
   list: {},
   borderTop: { borderTopWidth: 1, borderColor: Colors.lightGrey },

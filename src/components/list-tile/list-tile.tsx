@@ -13,6 +13,7 @@ import {
 import Icons from '../../../assets/icons';
 import { Colors, Spacing, textStyles } from '../../styles';
 import commonStyles from '../../styles/common';
+import Icon from '../icon/icon';
 
 interface ListTileProps {
   readonly label: string;
@@ -37,7 +38,7 @@ const ListTile = ({
         </View>
       ) : null}
       <Text style={[textStyles.section, labelStyle]}>{label}</Text>
-      <Image source={Icons.chevronRight} style={commonStyles.icon} />
+      <Icon icon={Icons.chevronRight} />
     </TouchableOpacity>
   );
 };
