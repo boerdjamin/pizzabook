@@ -4,6 +4,7 @@ import * as React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import Icons from '../../../assets/icons';
 import ListTile from '../../components/list-tile/list-tile';
+import { appTexts } from '../../data/texts';
 import { User } from '../../models/user';
 import {
   ProfileStackParamList,
@@ -41,7 +42,7 @@ const ProfileScreenComponent: React.FC<ProfileScreenProps> = ({
                   source={
                     loggedInUser && loggedInUser.picture
                       ? loggedInUser.picture
-                      : Icons.user
+                      : Icons.userCircle
                   }
                   style={styles.pic}
                 />
@@ -50,8 +51,8 @@ const ProfileScreenComponent: React.FC<ProfileScreenProps> = ({
                 <Text style={textStyles.headline}>{loggedInUser.name}</Text>
               ) : (
                 <View>
-                  <Text>{'Login'}</Text>
-                  <Text>{'Nutzer anlegen'}</Text>
+                  <Text style={textStyles.p1}>{appTexts.profile_login}</Text>
+                  <Text style={textStyles.p1}>{appTexts.profile_register}</Text>
                 </View>
               )}
             </View>
@@ -64,7 +65,10 @@ const ProfileScreenComponent: React.FC<ProfileScreenProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.list}>
-        <ListTile label={'List Tile'} style={styles.borderTop} />
+        <ListTile
+          label={appTexts.profile_rated_pizzas}
+          style={styles.borderTop}
+        />
       </View>
     </View>
   );
@@ -88,17 +92,13 @@ const styles = StyleSheet.create({
   profilePic: {
     height: 80,
     width: 80,
-    borderRadius: 40,
-    borderWidth: 2,
-    borderColor: Colors.text,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: Spacing.large,
   },
   pic: {
-    height: '70%',
-    width: '70%',
-    overflow: 'hidden',
+    height: '100%',
+    width: '100%',
     tintColor: Colors.text,
   },
   list: {},

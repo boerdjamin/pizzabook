@@ -1,7 +1,7 @@
 export enum Colors {
   primary = '#D49132',
 
-  text = '#3C3C3C',
+  text = '#2C2C2C',
 
   // monochrome
   white = '#FFFFFF',

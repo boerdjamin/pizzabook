@@ -12,4 +12,13 @@ export const appTexts = {
   home: 'Home',
   profile: 'Profil',
   add_pizza: '+',
+
+  // Profile Section
+  profile_login: 'Login',
+  profile_logout: 'Logout',
+  profile_register: 'Nutzer:in anlegen',
+  profile_rated_pizzas: 'Bewertete Pizzen',
+  profile_my_pizzas: 'Meine Pizzen',
+  profile_my_recipes: 'Meine Rezepte',
+  profile_impressum: 'Impressum',
 };

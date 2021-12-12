@@ -10,6 +10,7 @@ import {
   TextStyle,
   TouchableOpacity,
 } from 'react-native';
+import Icons from '../../../assets/icons';
 import { Colors, Spacing, textStyles } from '../../styles';
 import commonStyles from '../../styles/common';
 
@@ -36,6 +37,7 @@ const ListTile = ({
         </View>
       ) : null}
       <Text style={[textStyles.section, labelStyle]}>{label}</Text>
+      <Image source={Icons.chevronRight} style={commonStyles.icon} />
     </TouchableOpacity>
   );
 };
@@ -45,6 +47,7 @@ export default ListTile;
 const styles = StyleSheet.create({
   container: {
     ...commonStyles.row,
+    justifyContent: 'space-between',
     height: 80,
     width: '100%',
     borderBottomWidth: 1,
