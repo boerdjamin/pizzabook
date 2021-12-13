@@ -18,8 +18,10 @@ export enum HomeStackRoutes {
 
 export type ProfileStackParamList = {
   [ProfileStackRoutes.Main]: undefined;
+  [ProfileStackRoutes.CreateUser]: undefined;
 };
 
 export enum ProfileStackRoutes {
   Main = 'profile.stack.main',
+  CreateUser = 'profile.stack.create-user',
 }

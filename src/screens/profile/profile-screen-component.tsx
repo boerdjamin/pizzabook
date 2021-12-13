@@ -5,6 +5,7 @@ import { View, StyleSheet, Image, Text } from 'react-native';
 import Icons from '../../../assets/icons';
 import Icon from '../../components/icon/icon';
 import ListTile from '../../components/list-tile/list-tile';
+import SmallButton from '../../components/small-button/small-button';
 import { appTexts } from '../../data/texts';
 import { User } from '../../models/user';
 import {
@@ -13,7 +14,7 @@ import {
 } from '../../navigation/routes';
 import { Colors, Spacing, textStyles } from '../../styles';
 import commonStyles from '../../styles/common';
-import { renderNothing } from '../../utils/placeholder';
+import { doNothing, renderNothing } from '../../utils/placeholder';
 
 interface ProfileScreenProps {
   readonly loggedInUser?: User;
@@ -27,7 +28,9 @@ type NavigationProp = StackNavigationProp<
 const ProfileScreenComponent: React.FC<ProfileScreenProps> = ({
   loggedInUser,
 }) => {
-  const { setOptions } = useNavigation<NavigationProp>();
+  const { navigate, setOptions } = useNavigation<NavigationProp>();
+
+  const createUser = () => navigate(ProfileStackRoutes.CreateUser);
 
   React.useLayoutEffect(
     () =>
@@ -59,10 +62,15 @@ const ProfileScreenComponent: React.FC<ProfileScreenProps> = ({
                 <Text style={textStyles.headline}>{loggedInUser.name}</Text>
               ) : (
                 <View>
-                  <Text style={[textStyles.p1, styles.marginBottom]}>
-                    {appTexts.profile_login}
-                  </Text>
-                  <Text style={textStyles.p1}>{appTexts.profile_register}</Text>
+                  <SmallButton
+                    label={appTexts.profile_login}
+                    onPress={doNothing}
+                    style={styles.marginBottom}
+                  />
+                  <SmallButton
+                    label={appTexts.profile_register}
+                    onPress={createUser}
+                  />
                 </View>
               )}
             </View>

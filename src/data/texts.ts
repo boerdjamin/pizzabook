@@ -26,6 +26,10 @@ export const appTexts = {
   profile_my_recipes: 'Meine Rezepte',
   profile_impressum: 'Impressum',
 
+  profile_create_user: 'Nutzer:in anlegen',
+  profile_create_user_label_name: 'Name',
+  profile_create_user_label_photo: 'Profilbild',
+
   // Creation
   selection_screen_title: 'Was möchtest du hinzufügen?',
   selection_screen_ingridient: 'eine Zutat 🥦',
