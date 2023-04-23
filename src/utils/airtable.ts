@@ -123,7 +123,7 @@ const convertRecipes = (
 ): Recipe[] =>
   rawRecipes.map(rawRecipe => {
     const ingridients: Ingridient[] = [];
-    rawRecipe.ingridients.map(ingridientId => {
+    rawRecipe.ingridients?.map(ingridientId => {
       const matchingIngridient = allIngridients.find(
         i => i.id === ingridientId,
       );

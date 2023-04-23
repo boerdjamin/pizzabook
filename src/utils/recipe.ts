@@ -3,7 +3,6 @@ import { RequiredPropertyOf } from './types';
 
 export const requiredRecipeKeys: Array<RequiredPropertyOf<AirtableRecipe>> = [
   'name',
-  'ingridients',
 ];
 
 export const recipeKeys: Array<keyof AirtableRecipe> = [

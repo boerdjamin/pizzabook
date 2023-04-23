@@ -4,10 +4,21 @@ export const isAirtableDataValid = <T>(
 ): data is T => {
   const keys = Object.keys(data) as (keyof T)[];
 
-  return (
-    // has all required attributes
-    keyCheck.required.every(requiredKey => keys.includes(requiredKey)) &&
-    // all attributes belong to interface T
-    keys.every(key => keyCheck.all.includes(key))
-  );
+  // has all required attributes
+  const hasAllRequiredProps = keyCheck.required.every(requiredKey => {
+    const found = keys.includes(requiredKey);
+    if (!found)
+      console.warn(`required key ${requiredKey.toString()} is missing!`);
+
+    return found;
+  });
+
+  // all attributes belong to interface T
+  const allKeysValid = keys.every(key => {
+    const found = keyCheck.all.includes(key);
+    if (!found) console.warn(`unknown key "${key.toString()}"`);
+    return found;
+  });
+
+  return hasAllRequiredProps && allKeysValid;
 };

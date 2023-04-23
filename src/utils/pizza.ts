@@ -5,13 +5,16 @@ export const requiredPizzaKeys: Array<RequiredPropertyOf<AirtablePizza>> = [
   'name',
   'toppings',
   'is_vegan',
-  'created_by',
 ];
 
 export const pizzaKeys: Array<keyof AirtablePizza> = [
   'name',
   'toppings',
   'is_vegan',
+  'base',
+  'after_cooking',
+  'cooked_yet',
+  'users',
   'photos',
   'can_be_veganized',
   'comment',
