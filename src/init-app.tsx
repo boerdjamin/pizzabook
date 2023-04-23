@@ -8,17 +8,9 @@ import {
   AirtableUser,
 } from './models/airtable';
 import { initAppAction, setLoadingAction } from './store/actions';
-import {
-  convertAirtableDataToAppData,
-  fetchDataFromAirtable,
-} from './utils/airtable-util';
+import { convertAirtableDataToAppData, fetchDataFromAirtable } from './utils';
 import RootNavigation from './navigation/root-navigation';
 import Airtable from 'airtable';
-import { isFoodTypeFromDBValid } from './utils/food-types';
-import { isIngridientFromDBValid } from './utils/ingridient-util';
-import { isPizzaFromDBValid } from './utils/pizza-util';
-import { isUserFromDBValid } from './utils/user-util';
-import { isRecipeFromDBValid } from './utils/recipe-util';
 
 export interface AppInitializationProps {
   readonly database: Airtable.Base;
@@ -36,44 +28,27 @@ const InitApp = ({ database }: AppInitializationProps) => {
 
   useEffect(() => {
     dispatch(setLoadingAction({ loading: true }));
-    fetchDataFromAirtable<AirtableUser>(
-      database('Users'),
-      isUserFromDBValid,
-      data => {
-        setFetchedUsers(data);
-      },
-    );
+    fetchDataFromAirtable<AirtableUser>(database('Users'), data => {
+      setFetchedUsers(data);
+    });
 
-    fetchDataFromAirtable<AirtablePizza>(
-      database('Pizzas'),
-      isPizzaFromDBValid,
-      data => {
-        setFetchedPizzas(data);
-      },
-    );
+    fetchDataFromAirtable<AirtablePizza>(database('Pizzas'), data => {
+      setFetchedPizzas(data);
+    });
 
-    fetchDataFromAirtable<AirtableIngridient>(
-      database('Ingridients'),
-      isIngridientFromDBValid,
-      data => {
-        setFetchedIngridients(data);
-      },
-    );
-    fetchDataFromAirtable<AirtableRecipe>(
-      database('Recipes'),
-      isRecipeFromDBValid,
-      data => {
-        setFetchedRecipes(data);
-      },
-    );
+    fetchDataFromAirtable<AirtableIngridient>(database('Ingridients'), data => {
+      setFetchedIngridients(data);
+    });
+    fetchDataFromAirtable<AirtableRecipe>(database('Recipes'), data => {
+      setFetchedRecipes(data);
+    });
 
-    fetchDataFromAirtable<AirtableFoodType>(
-      database('FoodTypes'),
-      isFoodTypeFromDBValid,
-      data => {
-        setFetchedFoodTypes(data);
-      },
-    );
+    fetchDataFromAirtable<AirtableFoodType>(database('FoodTypes'), data => {
+      setFetchedFoodTypes(data);
+    });
+    return () => {
+      dispatch(setLoadingAction({ loading: false }));
+    };
   }, [database, dispatch]);
 
   useEffect(() => {

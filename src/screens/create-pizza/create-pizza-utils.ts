@@ -5,7 +5,7 @@ import {
   filterSauces,
   filterSpices,
 } from '../../utils/food-types';
-import { Ingridient } from '../../models/ingridient';
+import { Ingridient } from '../../models';
 
 export enum InputType {
   TextInput,

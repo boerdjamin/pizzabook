@@ -1,13 +1,10 @@
-import { Ingridient } from './../models/ingridient';
-import { EnumFoodType } from './../models/food-type';
-import { AirtableFoodType } from '../models/airtable';
+import { Ingridient, EnumFoodType, AirtableFoodType } from '../models';
 import { RequiredPropertyOf } from './types';
 
-export const requiredAirtableFoodTypeKeys: Array<
-  RequiredPropertyOf<AirtableFoodType>
-> = ['key'];
+export const requiredFoodTypeKeys: Array<RequiredPropertyOf<AirtableFoodType>> =
+  ['key'];
 
-export const airtableFoodTypeKeys: Array<keyof AirtableFoodType> = [
+export const foodTypeKeys: Array<keyof AirtableFoodType> = [
   'key',
   'ingridients',
 ];
@@ -20,11 +17,9 @@ export const isFoodTypeFromDBValid = (
 
   return (
     // has all required attributes
-    requiredAirtableFoodTypeKeys.every(requiredKey =>
-      keys.includes(requiredKey),
-    ) &&
+    requiredFoodTypeKeys.every(requiredKey => keys.includes(requiredKey)) &&
     // all attributes belong to interface 'AirtableFoodType'
-    keys.every(key => (airtableFoodTypeKeys as string[]).includes(key))
+    keys.every(key => (foodTypeKeys as string[]).includes(key))
   );
 };
 

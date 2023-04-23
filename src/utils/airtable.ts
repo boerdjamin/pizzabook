@@ -1,24 +1,69 @@
-import { EnumFoodType, FoodType } from './../models/food-type';
-import { InitialAppData } from './../store/actions/init-app';
+import { FieldSet, Table } from 'airtable';
+import { ingridientKeys, requiredIngridientKeys } from './ingridient';
+import { pizzaKeys, requiredPizzaKeys } from './pizza';
+import { InitialAppData } from '../store/actions/init-app';
+import { handleError } from './error';
 import {
+  foodTypeKeys,
+  mapTypeIdToEnum,
+  requiredFoodTypeKeys,
+} from './food-types';
+import {
+  User,
+  Pizza,
+  Recipe,
+  Ingridient,
+  Identifyable,
   AirtableUser,
   AirtablePizza,
   AirtableIngridient,
   AirtableFoodType,
   AirtableRecipe,
-} from './../models/airtable';
-import { Identifyable } from './../models/identifyable';
-import { FieldSet, Table } from 'airtable';
-import { handleError } from './error-util';
-import { Ingridient } from '../models/ingridient';
-import { mapTypeIdToEnum } from './food-types';
-import { User } from '../models/user';
-import { Pizza } from '../models/pizza';
-import { Recipe } from '../models/recipe';
+  EnumFoodType,
+  FoodType,
+} from '../models';
+import { isAirtableDataValid } from './validation';
+import { requiredUserKeys, userKeys } from './user';
+import { recipeKeys, requiredRecipeKeys } from './recipe';
+
+const getKeysOfDataType = <T>(
+  tableName: string,
+): { all: (keyof T)[]; required: (keyof T)[] } => {
+  switch (tableName) {
+    case 'Users':
+      return {
+        all: userKeys as (keyof T)[],
+        required: requiredUserKeys as (keyof T)[],
+      };
+    case 'Pizzas':
+      return {
+        all: pizzaKeys as (keyof T)[],
+        required: requiredPizzaKeys as (keyof T)[],
+      };
+
+    case 'Ingridients':
+      return {
+        all: ingridientKeys as (keyof T)[],
+        required: requiredIngridientKeys as (keyof T)[],
+      };
+    case 'Recipes':
+      return {
+        all: recipeKeys as (keyof T)[],
+        required: requiredRecipeKeys as (keyof T)[],
+      };
+
+    case 'FoodTypes':
+      return {
+        all: foodTypeKeys as (keyof T)[],
+        required: requiredFoodTypeKeys as (keyof T)[],
+      };
+    default:
+      return { all: [], required: [] };
+  }
+};
 
 export const fetchDataFromAirtable = <T extends Identifyable>(
   table: Table<FieldSet>,
-  validationFn: (value: any) => boolean,
   updateFn: (allEntries: T[]) => void,
 ) => {
   table
@@ -29,17 +74,20 @@ export const fetchDataFromAirtable = <T extends Identifyable>(
     .eachPage((records, fetchNextPage) => {
       const allEntries = records.reduce<T[]>((collection, record) => {
         const newData = record.fields;
-        const isValid = validationFn(newData);
+        const isValid = isAirtableDataValid<T>(
+          newData,
+          getKeysOfDataType<T>(table.name),
+        );
 
         // delete invalid entries
         if (!isValid) {
-          console.log('Invalid record:', record);
+          console.log(`Invalid record in table: ${table.name}`, record);
           console.log(record.fields);
           // TODO: table.destroy(record.id);
           return collection;
         }
 
-        return [...collection, { id: record.id, ...newData } as T];
+        return [...collection, { ...newData, id: record.id } as T];
       }, []);
 
       updateFn(allEntries);
@@ -51,7 +99,7 @@ const convertFoodTypes = (rawData: AirtableFoodType[]) =>
   rawData.map(rawType => ({
     id: rawType.id,
     type: mapTypeIdToEnum(rawType.key),
-    ingridientIds: rawType.ingridients || [],
+    ingridientIds: rawType.ingridients ?? [],
   }));
 
 const convertIngridients = (
@@ -65,7 +113,7 @@ const convertIngridients = (
     foodType:
       foodTypes.find(ft => ft.id === rawIngridient.food_type[0])?.type ||
       EnumFoodType.other,
-    pizzaIds: rawIngridient.pizzas || [],
+    pizzaIds: rawIngridient.pizzas ?? [],
   }));
 
 const convertRecipes = (
@@ -87,12 +135,12 @@ const convertRecipes = (
     return {
       id: rawRecipe.id,
       name: rawRecipe.name,
-      steps: rawRecipe.steps || [],
+      steps: rawRecipe.steps ?? [],
       ingridients,
       isVegan: !!rawRecipe.is_vegan,
-      pizzaIds: rawRecipe.pizzas || [],
+      pizzaIds: rawRecipe.pizzas ?? [],
       createdBy:
-        allUsers.find(user => user.id === rawRecipe.created_by) || null,
+        allUsers.find(user => user.id === rawRecipe.created_by) ?? null,
     };
   });
 
@@ -100,8 +148,8 @@ const convertUsers = (rawUsers: AirtableUser[]): User[] =>
   rawUsers.map(rawUser => ({
     id: rawUser.id,
     name: rawUser.name,
-    picture: rawUser.picture ? rawUser.picture[0] : null,
-    pizzas: rawUser.pizzas || [],
+    picture: rawUser.picture?.[0] ?? null,
+    pizzas: rawUser.pizzas ?? [],
     recipes: [],
   }));
 

@@ -42,7 +42,3 @@ const CreateUserComponent: React.FC<CreateUserComponentProps> = ({
 };
 
 export default CreateUserComponent;
-
-const styles = StyleSheet.create({
-  container: {},
-});
