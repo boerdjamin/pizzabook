@@ -126,7 +126,6 @@ const CreatePizzaComponent = ({ ingridients }: CreatePizzaComponentProps) => {
           disabled={isFormValid}
         />
       </ScrollView>
-      ´
     </View>
   );
 };
