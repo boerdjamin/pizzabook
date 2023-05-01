@@ -34,6 +34,8 @@ export const appTexts = {
   selection_screen_title: 'Was möchtest du hinzufügen?',
   selection_screen_ingridient: 'eine Zutat 🥦',
   selection_screen_pizza: 'eine Pizza 🍕',
+
+  // Create a pizza
   create_pizza_screen_title: '🍕',
   create_pizza_name_label: 'Name',
   create_pizza_base_label: 'Basis',
