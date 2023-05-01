@@ -21,4 +21,4 @@ const ProfileStack = () => {
   );
 };
 
-export default ProfileStack;
+export { ProfileStack };

@@ -8,11 +8,7 @@ import {
   TextStyle,
 } from 'react-native';
 import { BorderRadius, Colors, textStyles } from '../../styles';
-
-export enum ButtonMode {
-  Primary,
-  Secondary,
-}
+import { ButtonMode } from '../big-button/big-button';
 
 interface SmallButtonProps {
   readonly label: string;
@@ -40,7 +36,7 @@ const SmallButton = ({
   );
 };
 
-export default SmallButton;
+export { SmallButton };
 
 const styles = StyleSheet.create({
   button: {

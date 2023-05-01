@@ -41,7 +41,7 @@ const LabeledTextInput = (props: LabeledTextInputProps) => {
   );
 };
 
-export default LabeledTextInput;
+export { LabeledTextInput };
 
 const styles = StyleSheet.create({
   label: {

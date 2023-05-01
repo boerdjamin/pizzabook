@@ -13,7 +13,7 @@ import {
 import Icons from '../../../assets/icons';
 import { Colors, Spacing, textStyles } from '../../styles';
 import commonStyles from '../../styles/common';
-import Icon from '../icon/icon';
+import { Icon } from '../index';
 
 interface ListTileProps {
   readonly label: string;
@@ -43,7 +43,7 @@ const ListTile = ({
   );
 };
 
-export default ListTile;
+export { ListTile };
 
 const styles = StyleSheet.create({
   container: {

@@ -1,6 +1,5 @@
-import { INIT_APP_ACTION } from '../actions/init-app';
-import { PizzaState } from '../../models/app-state';
-import { Action } from '../actions';
+import { Action, INIT_APP_ACTION } from '../actions';
+import { PizzaState } from '../../models';
 
 export const initialPizzaState: PizzaState = {
   allPizzas: [],

@@ -26,7 +26,7 @@ const Tag = ({ label, onRemove, style }: TagProps) => {
   );
 };
 
-export default Tag;
+export { Tag };
 
 const styles = StyleSheet.create({
   tag: {

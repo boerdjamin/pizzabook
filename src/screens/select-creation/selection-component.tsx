@@ -2,14 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import BigButton from '../../components/big-button/big-button';
 import { appTexts } from '../../data/texts';
-import {
-  CreationStackParamList,
-  CreationStackRoutes,
-} from '../../navigation/creation-stack';
+import { CreationStackParamList, CreationStackRoutes } from '../../navigation';
 import { Colors, Spacing, textStyles } from '../../styles';
 import commonStyles from '../../styles/common';
+import { BigButton } from '../../components';
 
 interface SelectionComponentProps {}
 

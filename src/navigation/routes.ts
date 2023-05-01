@@ -1,4 +1,4 @@
-import { Pizza } from '../models/pizza';
+import { Pizza as IPizza } from '../models';
 
 export enum TabsRoutes {
   Home = 'tabs.home',
@@ -8,7 +8,7 @@ export enum TabsRoutes {
 
 export type HomeStackParamList = {
   [HomeStackRoutes.Home]: undefined;
-  [HomeStackRoutes.Details]: { pizza: Pizza };
+  [HomeStackRoutes.Details]: { pizza: IPizza };
 };
 
 export enum HomeStackRoutes {
@@ -24,4 +24,16 @@ export type ProfileStackParamList = {
 export enum ProfileStackRoutes {
   Main = 'profile.stack.main',
   CreateUser = 'profile.stack.create-user',
+}
+
+export type CreationStackParamList = {
+  [CreationStackRoutes.Selection]: undefined;
+  [CreationStackRoutes.Pizza]: undefined;
+  [CreationStackRoutes.Ingridient]: { pizza?: IPizza } | undefined;
+};
+
+export enum CreationStackRoutes {
+  Selection = 'creation.stack.selection',
+  Pizza = 'creation.stack.pizza',
+  Ingridient = 'creation.stack.ingridient',
 }

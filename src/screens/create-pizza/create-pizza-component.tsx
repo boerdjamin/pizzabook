@@ -1,15 +1,13 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import BigButton from '../../components/big-button/big-button';
-import LabeledSelector from '../../components/labeled-selector/labeled-selector';
-import LabeledTextInput from '../../components/labeled-text-input/labeled-text-input';
 import { appTexts } from '../../data/texts';
 import { Ingridient } from '../../models/ingridient';
 import { Spacing } from '../../styles';
 import commonStyles from '../../styles/common';
 import { doNothing } from '../../utils/placeholder';
 import { CreatePizzaForm, getOptions } from './create-pizza-utils';
+import { LabeledTextInput, LabeledSelector, BigButton } from '../../components';
 
 interface CreatePizzaComponentProps {
   readonly ingridients: Ingridient[];
@@ -28,7 +26,7 @@ const CreatePizzaComponent = ({ ingridients }: CreatePizzaComponentProps) => {
 
   const [isFormValid, setIsFormValid] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const isValid =
       form.name.length > 0 && form.base.length > 0 && form.toppings.length > 0;
     setIsFormValid(isValid);

@@ -7,11 +7,6 @@ import {
 } from '../../utils/food-types';
 import { Ingridient } from '../../models';
 
-export enum InputType {
-  TextInput,
-  Select,
-}
-
 export interface CreatePizzaForm {
   name: string;
   base: Ingridient[];

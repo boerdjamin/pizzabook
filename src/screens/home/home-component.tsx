@@ -4,19 +4,12 @@ import * as React from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import GIFS from '../../../assets/gifs';
-import Loader from '../../components/loader';
-import PizzaPreview from '../../components/pizza-preview/pizza-preview';
+import { Loader, PizzaPreview } from '../../components';
 import { appTexts } from '../../data/texts';
-import { PizzaBookState } from '../../models/app-state';
-import { Pizza } from '../../models/pizza';
-import { User } from '../../models/user';
-import {
-  HomeStackParamList,
-  HomeStackRoutes,
-} from '../../navigation/home-stack';
-import { textStyles } from '../../styles';
+import { PizzaBookState, Pizza, User } from '../../models';
+import { HomeStackParamList, HomeStackRoutes } from '../../navigation';
+import { textStyles, Spacing } from '../../styles';
 import commonStyles from '../../styles/common';
-import { Spacing } from '../../styles/spacing';
 
 interface HomeScreenProps {
   readonly allPizzas: Pizza[];

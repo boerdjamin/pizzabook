@@ -1,19 +1,11 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeStack from './home-stack';
 import { appTexts } from '../data/texts';
 import Icons from '../../assets/icons';
-import ProfileStack from './profile-stack';
-import Icon from '../components/icon/icon';
-import CreationStack from './creation-stack';
+import { HomeStack, ProfileStack, CreationStack, TabsRoutes } from './index';
+import { Icon } from '../components';
 
 const Tabs = createBottomTabNavigator();
-
-export enum TabsRoutes {
-  Home = 'tabs.home',
-  AddPizza = 'tabs.add_pizza',
-  Profile = 'tabs.profile',
-}
 
 const TabsNavigator = () => (
   <Tabs.Navigator
@@ -50,4 +42,4 @@ const TabsNavigator = () => (
   </Tabs.Navigator>
 );
 
-export default TabsNavigator;
+export { TabsNavigator };

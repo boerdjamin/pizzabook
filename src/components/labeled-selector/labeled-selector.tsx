@@ -8,13 +8,11 @@ import {
   TextStyle,
   Modal,
 } from 'react-native';
-import { BorderRadius, Spacing, textStyles } from '../../styles';
-import { Colors } from '../../styles/colors';
-import { appTexts } from '../../data/texts';
-import BigButton from '../big-button/big-button';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { BorderRadius, Spacing, textStyles, Colors } from '../../styles';
+import { appTexts } from '../../data/texts';
+import { BigButton, Tag } from '../index';
 import commonStyles from '../../styles/common';
-import Tag from '../tag/tag';
 
 export interface SelectItem<T> {
   readonly name: string;
@@ -121,7 +119,7 @@ const LabeledSelector = ({
   );
 };
 
-export default LabeledSelector;
+export { LabeledSelector };
 
 const styles = StyleSheet.create({
   label: {

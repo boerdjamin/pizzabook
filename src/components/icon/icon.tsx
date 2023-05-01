@@ -28,7 +28,7 @@ const Icon = ({ icon, size, color, wrapperStyle }: IconProps) => {
   );
 };
 
-export default Icon;
+export { Icon };
 
 const styles = StyleSheet.create({
   icon: { height: '100%', width: '100%' },

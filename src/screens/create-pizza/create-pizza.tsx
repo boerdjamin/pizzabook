@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { PizzaBookState } from '../../models/app-state';
+import { PizzaBookState } from '../../models';
 import CreatePizzaComponent from './create-pizza-component';
 
 type CreatePizzaScreenProps = {};

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet, Image, TouchableOpacity, View } from 'react-native';
 import { appTexts } from '../../data/texts';
-import { Pizza } from '../../models/pizza';
+import { Pizza } from '../../models';
 import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
 
 interface PizzaPreviewProps {
@@ -37,7 +37,7 @@ const PizzaPreview: React.FC<PizzaPreviewProps> = ({ pizza, onSelect }) => {
   );
 };
 
-export default PizzaPreview;
+export { PizzaPreview };
 
 const styles = StyleSheet.create({
   container: {

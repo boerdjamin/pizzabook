@@ -3,17 +3,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useLayoutEffect } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import { appTexts } from '../../data/texts';
-import { Ingridient } from '../../models/ingridient';
-import { Pizza } from '../../models/pizza';
-import {
-  HomeStackRoutes,
-  HomeStackParamList,
-} from '../../navigation/home-stack';
+import { Pizza, Recipe, Ingridient } from '../../models';
+import { HomeStackRoutes, HomeStackParamList } from '../../navigation';
 import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
 
 interface PizzaDetailsScreenComponentProps {
   readonly pizza: Pizza;
-  readonly toppings: Ingridient[];
+  readonly toppings: (Ingridient | Recipe)[];
 }
 
 type NavigationProp = StackNavigationProp<

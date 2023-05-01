@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { BorderRadius, Colors, textStyles } from '../../styles';
 
-export enum ButtonMode {
+enum ButtonMode {
   Primary,
   Secondary,
 }
@@ -49,7 +49,7 @@ const BigButton = ({
   );
 };
 
-export default BigButton;
+export { BigButton, ButtonMode };
 
 const styles = StyleSheet.create({
   button: {

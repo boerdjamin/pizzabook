@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import TabsNavigator from './tabs-navigator';
+import { TabsNavigator } from './index';
 
 const RootNavigation = () => {
   return (
@@ -10,4 +10,4 @@ const RootNavigation = () => {
   );
 };
 
-export default RootNavigation;
+export { RootNavigation };

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { PizzaBookState } from '../../models/app-state';
+import { PizzaBookState } from '../../models';
 import ProfileScreenComponent from './profile-screen-component';
 
 export type ProfileScreenProps = {};

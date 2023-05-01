@@ -1,20 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
-import Icons from '../../../assets/icons';
-import Icon from '../../components/icon/icon';
-import ListTile from '../../components/list-tile/list-tile';
-import SmallButton from '../../components/small-button/small-button';
+import { View, StyleSheet } from 'react-native';
 import { appTexts } from '../../data/texts';
-import { User } from '../../models/user';
-import {
-  ProfileStackParamList,
-  ProfileStackRoutes,
-} from '../../navigation/routes';
-import { Colors, Spacing, textStyles } from '../../styles';
-import commonStyles from '../../styles/common';
-import { doNothing, renderNothing } from '../../utils/placeholder';
+import { User } from '../../models';
+import { ProfileStackParamList, ProfileStackRoutes } from '../../navigation';
+import { Colors, Spacing } from '../../styles';
+import { renderNothing } from '../../utils/placeholder';
+import ProfileScreenHeader from './profile-screen-header';
+import { ListTile } from '../../components';
 
 interface ProfileScreenProps {
   readonly loggedInUser?: User;
@@ -30,7 +24,7 @@ const ProfileScreenComponent: React.FC<ProfileScreenProps> = ({
 }) => {
   const { navigate, setOptions } = useNavigation<NavigationProp>();
 
-  const createUser = () => navigate(ProfileStackRoutes.CreateUser);
+  const goToCreation = () => navigate(ProfileStackRoutes.CreateUser);
 
   React.useLayoutEffect(
     () =>
@@ -39,50 +33,19 @@ const ProfileScreenComponent: React.FC<ProfileScreenProps> = ({
         headerTitle: renderNothing,
         headerStyle: styles.header,
         header: () => (
-          <View style={styles.header}>
-            <View style={styles.user}>
-              <View style={styles.profilePic}>
-                <Image
-                  source={
-                    loggedInUser && loggedInUser.picture
-                      ? loggedInUser.picture
-                      : Icons.userCircle
-                  }
-                  style={styles.pic}
-                />
-                {loggedInUser ? (
-                  <Icon
-                    wrapperStyle={styles.editWrapper}
-                    icon={Icons.pencil}
-                    size={36}
-                  />
-                ) : null}
-              </View>
-              {loggedInUser ? (
-                <Text style={textStyles.headline}>{loggedInUser.name}</Text>
-              ) : (
-                <View>
-                  <SmallButton
-                    label={appTexts.profile_login}
-                    onPress={doNothing}
-                    style={styles.marginBottom}
-                  />
-                  <SmallButton
-                    label={appTexts.profile_register}
-                    onPress={createUser}
-                  />
-                </View>
-              )}
-            </View>
-          </View>
+          <ProfileScreenHeader
+            user={loggedInUser}
+            onCreateUser={goToCreation}
+          />
         ),
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [setOptions, loggedInUser],
   );
 
   return (
     <View style={styles.container}>
-      <View style={styles.list}>
+      <View>
         <ListTile
           label={appTexts.profile_rated_pizzas}
           style={styles.borderTop}
@@ -104,35 +67,5 @@ const styles = StyleSheet.create({
     padding: Spacing.large,
     paddingBottom: Spacing.huge,
   },
-  user: {
-    ...commonStyles.row,
-    justifyContent: 'flex-start',
-  },
-  marginBottom: {
-    marginBottom: Spacing.tiny,
-  },
-  profilePic: {
-    height: 80,
-    width: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: Spacing.large,
-  },
-  pic: {
-    height: '100%',
-    width: '100%',
-    tintColor: Colors.text,
-  },
-  editWrapper: {
-    backgroundColor: `${Colors.lightGrey}${Colors.transparency32}`,
-    position: 'absolute',
-    left: 50,
-    top: 50,
-    borderRadius: 18,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: Spacing.small,
-  },
-  list: {},
   borderTop: { borderTopWidth: 1, borderColor: Colors.lightGrey },
 });
