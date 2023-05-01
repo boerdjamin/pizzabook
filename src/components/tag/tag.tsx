@@ -1,14 +1,16 @@
 import * as React from 'react';
+
+import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
 import {
-  Text,
-  StyleSheet,
-  TouchableOpacity,
   Image,
   StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
   ViewStyle,
 } from 'react-native';
+
 import Icons from '../../../assets/icons';
-import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
 import commonStyles from '../../styles/common';
 
 interface TagProps {
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
     marginVertical: Spacing.tiny,
     borderRadius: BorderRadius.large,
   },
-  tagText: { ...textStyles.label, color: Colors.white },
+  tagText: { ...textStyles.h3, color: Colors.background },
   closeIcon: {
     height: 8,
     width: 8,

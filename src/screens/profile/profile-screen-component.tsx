@@ -1,14 +1,16 @@
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { appTexts } from '../../data/texts';
-import { User } from '../../models';
-import { ProfileStackParamList, ProfileStackRoutes } from '../../navigation';
+
 import { Colors, Spacing } from '../../styles';
-import { renderNothing } from '../../utils/placeholder';
-import ProfileScreenHeader from './profile-screen-header';
+import { ProfileStackParamList, ProfileStackRoutes } from '../../navigation';
+import { StyleSheet, View } from 'react-native';
+
 import { ListTile } from '../../components';
+import ProfileScreenHeader from './profile-screen-header';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { User } from '../../models';
+import { appTexts } from '../../data/texts';
+import { renderNothing } from '../../utils/placeholder';
+import { useNavigation } from '@react-navigation/native';
 
 interface ProfileScreenProps {
   readonly loggedInUser?: User;
@@ -58,7 +60,7 @@ const ProfileScreenComponent: React.FC<ProfileScreenProps> = ({
 export default ProfileScreenComponent;
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: Colors.white, flex: 1 },
+  container: { backgroundColor: Colors.background, flex: 1 },
   header: {
     backgroundColor: Colors.primary,
     height: 200,

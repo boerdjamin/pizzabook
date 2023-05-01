@@ -37,7 +37,8 @@ export const appTexts = {
 
   // Create a pizza
   create_pizza_screen_title: '🍕',
-  create_pizza_name_label: 'Name',
+  create_pizza_name_label: 'Gib deiner Pizza einen originellen Namen',
+  create_pizza_name_placeholder: 'Schicker Pizzaname goes here',
   create_pizza_base_label: 'Basis',
   create_pizza_base_placeholder: 'Basis wählen...',
   create_pizza_toppings_label: 'Belag',

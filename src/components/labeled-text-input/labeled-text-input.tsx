@@ -23,7 +23,8 @@ export interface LabeledTextInputProps extends TextInputProps {
 }
 
 const LabeledTextInput = (props: LabeledTextInputProps) => {
-  const { label, value, onType, style, labelStyle, numberOfLines } = props;
+  const { label, onType, style, labelStyle, numberOfLines, placeholder } =
+    props;
   const textAreaStyle: StyleProp<TextStyle> = numberOfLines
     ? {
         height: numberOfLines * INPUT_HEIGHT,
@@ -35,9 +36,9 @@ const LabeledTextInput = (props: LabeledTextInputProps) => {
       <TextInput
         {...props}
         multiline={!!numberOfLines && numberOfLines > 1}
-        value={value}
         onChangeText={onType}
         style={[commonStyles.input, textAreaStyle]}
+        placeholder={placeholder}
       />
     </View>
   );
@@ -48,6 +49,6 @@ export { LabeledTextInput };
 const styles = StyleSheet.create({
   label: {
     ...textStyles.h3,
-    marginBottom: Spacing.smaller,
+    marginBottom: Spacing.medium,
   },
 });

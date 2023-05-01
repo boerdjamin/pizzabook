@@ -58,6 +58,7 @@ const CreatePizzaComponent = ({ ingridients }: CreatePizzaComponentProps) => {
           label={appTexts.create_pizza_name_label}
           value={name}
           onType={onTypeName}
+          placeholder={appTexts.create_pizza_name_placeholder}
           style={styles.marginBottom}
         />
         <LabeledSelector

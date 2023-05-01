@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  Modal,
-} from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
-import { BorderRadius, Spacing, textStyles, Colors } from '../../styles';
-import { appTexts } from '../../data/texts';
 import { BigButton, Tag } from '../index';
+import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
+import {
+  Modal,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
+import React, { useState } from 'react';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+
+import { appTexts } from '../../data/texts';
 import commonStyles from '../../styles/common';
 
 export interface SelectItem<T> {
@@ -123,7 +124,7 @@ export { LabeledSelector };
 
 const styles = StyleSheet.create({
   label: {
-    ...textStyles.label,
+    ...textStyles.h3,
     marginBottom: Spacing.smaller,
   },
   modal: {
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.background,
     borderTopLeftRadius: BorderRadius.medium,
     borderTopRightRadius: BorderRadius.medium,
     padding: Spacing.large,

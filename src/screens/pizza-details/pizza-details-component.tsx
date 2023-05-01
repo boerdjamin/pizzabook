@@ -1,11 +1,12 @@
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useLayoutEffect } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
-import { appTexts } from '../../data/texts';
-import { Pizza, Recipe, Ingridient } from '../../models';
-import { HomeStackRoutes, HomeStackParamList } from '../../navigation';
 import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
+import { HomeStackParamList, HomeStackRoutes } from '../../navigation';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { Ingridient, Pizza, Recipe } from '../../models';
+import React, { useLayoutEffect } from 'react';
+
+import { StackNavigationProp } from '@react-navigation/stack';
+import { appTexts } from '../../data/texts';
+import { useNavigation } from '@react-navigation/native';
 
 interface PizzaDetailsScreenComponentProps {
   readonly pizza: Pizza;
@@ -59,7 +60,7 @@ export default PizzaDetailsScreenComponent;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.background,
     flex: 1,
     alignItems: 'center',
   },
