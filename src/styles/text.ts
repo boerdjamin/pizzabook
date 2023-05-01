@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
 import { Colors } from './colors';
+import { StyleSheet } from 'react-native';
 
 export const textStyles = StyleSheet.create({
   headline: {
@@ -15,10 +15,15 @@ export const textStyles = StyleSheet.create({
     fontSize: 16,
     color: Colors.text,
   },
-  label: {
-    fontSize: 15,
+  h3: {
+    fontFamily: 'Inter',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    fontSize: 16,
+    lineHeight: 22,
+    /* identical to box height, or 138% */
+    letterSpacing: -0.408,
     color: Colors.text,
-    fontWeight: 'bold',
   },
   button: {
     fontSize: 16,

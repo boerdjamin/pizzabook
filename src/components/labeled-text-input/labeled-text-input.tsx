@@ -1,16 +1,18 @@
 import * as React from 'react';
+
+import { INPUT_HEIGHT, Spacing, textStyles } from '../../styles';
 import {
-  Text,
-  View,
-  StyleSheet,
   StyleProp,
-  ViewStyle,
-  TextStyle,
+  StyleSheet,
+  Text,
   TextInputProps,
+  TextStyle,
+  View,
+  ViewStyle,
 } from 'react-native';
+
 import { TextInput } from 'react-native-gesture-handler';
-import { Spacing, textStyles } from '../../styles';
-import commonStyles, { INPUT_HEIGHT } from '../../styles/common';
+import commonStyles from '../../styles/common';
 
 export interface LabeledTextInputProps extends TextInputProps {
   readonly label: string;
@@ -45,7 +47,7 @@ export { LabeledTextInput };
 
 const styles = StyleSheet.create({
   label: {
-    ...textStyles.label,
+    ...textStyles.h3,
     marginBottom: Spacing.smaller,
   },
 });

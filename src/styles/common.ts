@@ -1,14 +1,14 @@
-import { Colors } from './colors';
-import { StyleSheet } from 'react-native';
-import { Spacing } from './spacing';
 import { BorderRadius } from './border-radius';
+import { Colors } from './colors';
+import { Spacing } from './spacing';
+import { StyleSheet } from 'react-native';
 
 export const INPUT_HEIGHT = 32;
 
 const commonStyles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.background,
     padding: Spacing.large,
   },
   input: {

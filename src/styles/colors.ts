@@ -5,7 +5,7 @@ export enum Colors {
   text = '#222222',
 
   // monochrome
-  backgroundColor = '#EEEEEE',
+  background = '#EEEEEE',
   white = '#FFFFFF',
   black = '#000000',
   grey = '#828282',
