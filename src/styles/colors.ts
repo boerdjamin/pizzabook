@@ -1,17 +1,18 @@
 export enum Colors {
-  primary = '#F2B73F',
+  primary = '#FFD966',
+  secondary = '#DB7023',
 
-  text = '#2C2C2C',
+  text = '#222222',
 
   // monochrome
+  backgroundColor = '#EEEEEE',
   white = '#FFFFFF',
   black = '#000000',
   grey = '#828282',
   lightGrey = '#C8C8C8',
 
-  // transparency added
-  milky = '#C8C8C850',
-  milky2 = '#FFFFFFCD',
+  // additional transparency
+  transparency32 = '52',
 
   // info
   success = '#387E22',

@@ -41,7 +41,7 @@ export default PizzaPreview;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.milky,
+    backgroundColor: `${Colors.lightGrey}${Colors.transparency32}`,
     borderRadius: BorderRadius.medium,
     padding: Spacing.medium,
     marginBottom: Spacing.medium,

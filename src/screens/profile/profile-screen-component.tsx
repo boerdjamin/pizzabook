@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     tintColor: Colors.text,
   },
   editWrapper: {
-    backgroundColor: Colors.milky2,
+    backgroundColor: `${Colors.lightGrey}${Colors.transparency32}`,
     position: 'absolute',
     left: 50,
     top: 50,
