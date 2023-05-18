@@ -4,9 +4,9 @@ import { Colors, Spacing, commonStyles, textStyles } from '../../styles';
 import { Icon, SmallButton } from '../../components';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
-import Icons from '../../../assets/icons';
+import { Icons } from '../../../assets';
 import { User } from '../../models';
-import { appTexts } from '../../data/texts';
+import { appTexts } from '../../data';
 import { doNothing } from '../../utils';
 
 interface ProfileScreenHeaderProps {
@@ -19,7 +19,7 @@ const ProfileScreenHeader = ({
   onCreateUser,
 }: ProfileScreenHeaderProps) => {
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.user}>
         <View style={styles.profilePic}>
           <Image
@@ -57,12 +57,20 @@ const ProfileScreenHeader = ({
 export default ProfileScreenHeader;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.primary,
+    height: 200,
+    width: '100%',
+    justifyContent: 'flex-end',
+    padding: Spacing.large,
+    paddingBottom: Spacing.huge,
+  },
   user: {
     ...commonStyles.row,
     justifyContent: 'flex-start',
   },
   marginBottom: {
-    marginBottom: Spacing.tiny,
+    marginBottom: Spacing.smaller,
   },
   profilePic: {
     height: 80,

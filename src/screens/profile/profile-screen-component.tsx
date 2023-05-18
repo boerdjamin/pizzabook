@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Colors, Spacing } from '../../styles';
 import { ProfileStackParamList, ProfileStackRoutes } from '../../navigation';
 import { StyleSheet, View } from 'react-native';
 
+import { Colors } from '../../styles';
 import { ListTile } from '../../components';
 import ProfileScreenHeader from './profile-screen-header';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -33,7 +33,6 @@ const ProfileScreenComponent: React.FC<ProfileScreenProps> = ({
       setOptions({
         title: undefined,
         headerTitle: renderNothing,
-        headerStyle: styles.header,
         header: () => (
           <ProfileScreenHeader
             user={loggedInUser}
@@ -61,13 +60,5 @@ export default ProfileScreenComponent;
 
 const styles = StyleSheet.create({
   container: { backgroundColor: Colors.background, flex: 1 },
-  header: {
-    backgroundColor: Colors.primary,
-    height: 200,
-    width: '100%',
-    justifyContent: 'flex-end',
-    padding: Spacing.large,
-    paddingBottom: Spacing.huge,
-  },
   borderTop: { borderTopWidth: 1, borderColor: Colors.lightGrey },
 });
