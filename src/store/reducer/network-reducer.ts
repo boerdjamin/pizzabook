@@ -1,6 +1,6 @@
-import { Action } from '../actions';
-import { SET_LOADING_ACTION } from '../actions';
-import { NetworkState } from '../../models/app-state';
+import { Action, SET_LOADING_ACTION } from '../actions';
+
+import { NetworkState } from '../../models';
 
 export const initialNetworkState: NetworkState = {
   isLoading: false,

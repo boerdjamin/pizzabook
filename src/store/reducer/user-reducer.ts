@@ -1,6 +1,6 @@
-import { INIT_APP_ACTION } from '../actions/init-app';
-import { UserState } from '../../models/app-state';
-import { Action } from '../actions';
+import { Action, INIT_APP_ACTION } from '../actions';
+
+import { UserState } from '../../models';
 
 export const initialUserState: UserState = {
   allUsers: [],

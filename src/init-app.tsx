@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import Airtable from 'airtable';
 import {
   AirtableFoodType,
   AirtableIngridient,
@@ -8,9 +5,13 @@ import {
   AirtableRecipe,
   AirtableUser,
 } from './models';
-import { initAppAction, setLoadingAction } from './store/actions';
+import React, { useEffect, useState } from 'react';
 import { convertAirtableDataToAppData, fetchDataFromAirtable } from './utils';
+import { initAppAction, setLoadingAction } from './store/actions';
+
+import Airtable from 'airtable';
 import { RootNavigation } from './navigation';
+import { useDispatch } from 'react-redux';
 
 export interface AppInitializationProps {
   readonly database: Airtable.Base;
