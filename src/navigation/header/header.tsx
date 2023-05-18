@@ -3,18 +3,17 @@ import * as React from 'react';
 import { Colors, commonStyles } from '../../styles';
 import { StyleSheet, View } from 'react-native';
 
-interface HeaderWithStepsProps {
-  readonly stepCount: number;
-  readonly activeStepIndex: number;
+interface HeaderProps {
+  readonly stepCount?: number;
+  readonly activeStepIndex?: number;
 }
 
-const HeaderWithSteps = ({
-  stepCount,
-  activeStepIndex,
-}: HeaderWithStepsProps) => {
-  const stepWidth = {
-    width: `${Math.round((100 - (stepCount - 1) * 2) / stepCount)}%`,
-  };
+const Header = ({ stepCount, activeStepIndex }: HeaderProps) => {
+  const stepWidth = stepCount
+    ? {
+        width: `${Math.round((100 - (stepCount - 1) * 2) / stepCount)}%`,
+      }
+    : undefined;
 
   return (
     <View style={styles.container}>
@@ -34,7 +33,7 @@ const HeaderWithSteps = ({
   );
 };
 
-export { HeaderWithSteps };
+export { Header };
 
 const styles = StyleSheet.create({
   container: {

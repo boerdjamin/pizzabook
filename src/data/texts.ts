@@ -12,10 +12,12 @@ export const appTexts = {
   vegetarian: 'vegetarisch',
   veganPossible: 'vegan möglich',
 
-  // Tab Navigator
+  // Navigation
   home: 'Home',
   profile: 'Profil',
   add_pizza: '+',
+  continue: 'weiter',
+  back: 'zurück',
 
   // Profile Section
   profile_login: 'Login',
@@ -51,6 +53,9 @@ export const appTexts = {
   create_pizza_spices_placeholder: 'Gewürze wählen...',
   create_pizza_comment_label: 'Kommentar',
   create_pizza_submit_button: 'Fertig',
+
+  // Create a user
+  create_user_screen_title: '🙋🏼',
 
   select_search_placeholder: 'Durchsuchen...',
   select_submit_button: 'Okay',

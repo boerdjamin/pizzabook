@@ -3,7 +3,7 @@ import * as React from 'react';
 import { CreatePizzaScreen, SelectionScreen } from '../screens';
 import { CreationStackParamList, CreationStackRoutes } from './routes';
 
-import { Colors } from '../styles';
+import { Header } from './header';
 import { appTexts } from '../data';
 import { createStackNavigator } from '@react-navigation/stack';
 import { renderNothing } from '../utils';
@@ -25,13 +25,16 @@ const CreationStack = () => {
         component={CreatePizzaScreen}
         options={{
           title: appTexts.create_pizza_screen_title,
-          headerStyle: { backgroundColor: Colors.primary },
+          headerBackground: () => <Header />,
         }}
       />
       <Stack.Screen
         name={CreationStackRoutes.Ingridient}
         // TODO
         component={renderNothing}
+        options={{
+          headerBackground: () => <Header />,
+        }}
       />
     </Stack.Navigator>
   );

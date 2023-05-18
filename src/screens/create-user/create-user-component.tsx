@@ -1,11 +1,17 @@
 import * as React from 'react';
 
-import { BigButton, LabeledTextInput, SmallButton } from '../../components';
+import {
+  BigButton,
+  Label,
+  LabeledTextInput,
+  SmallButton,
+} from '../../components';
 import { ImageSourcePropType, StyleSheet, View } from 'react-native';
 import { Spacing, commonStyles } from '../../styles';
 
 import { appTexts } from '../../data/texts';
 import { launchImageLibrary } from 'react-native-image-picker';
+import { useNavigation } from '@react-navigation/native';
 
 //** work in progress */
 interface CreateUserComponentProps {
@@ -15,7 +21,27 @@ interface CreateUserComponentProps {
 const CreateUserComponent: React.FC<CreateUserComponentProps> = ({
   onCreate,
 }) => {
+  const navigation = useNavigation();
   const [name, setName] = React.useState('');
+
+  const submit = (): void => {
+    onCreate(name);
+  };
+
+  React.useLayoutEffect(
+    () =>
+      navigation.setOptions({
+        headerRight: () => (
+          <Label
+            text={appTexts.continue}
+            onPress={submit}
+            additionalStyle={commonStyles.headerLabel}
+          />
+        ),
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [navigation],
+  );
 
   const onSelectPhoto = () => {
     launchImageLibrary({ mediaType: 'photo' }, response => {
@@ -23,10 +49,6 @@ const CreateUserComponent: React.FC<CreateUserComponentProps> = ({
       // TODO: how to save in airtable? base64?
       console.log(response.assets?.map(a => Object.keys(a)));
     });
-  };
-
-  const submit = () => {
-    onCreate(name);
   };
 
   return (

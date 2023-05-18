@@ -7,3 +7,5 @@ export * from './small-button/small-button';
 export * from './pizza-preview/pizza-preview';
 export * from './loader/loader';
 export * from './tag/tag';
+export * from './label/label';
+export * from '../navigation/header/header';
