@@ -7,26 +7,17 @@ interface CreateUserScreenProps {}
 
 const CreateUserScreen: React.FC<CreateUserScreenProps> = () => {
   const onCreateUser = (name: string) => {
-    base('Users').create(
-      [
-        {
-          fields: {
-            name,
-          },
-        },
-      ],
-      (err, records) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        if (records) {
-          records.forEach(function (record) {
-            console.log(record.getId());
-          });
-        }
-      },
-    );
+    base('Users').create([{ fields: { name } }], (err, records) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      if (records) {
+        records.forEach(record => {
+          console.log(record.getId());
+        });
+      }
+    });
   };
   return <CreateUserComponent onCreate={onCreateUser} />;
 };
