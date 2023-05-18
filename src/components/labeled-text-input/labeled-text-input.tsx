@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { INPUT_HEIGHT, Spacing, textStyles } from '../../styles';
+import { INPUT_HEIGHT, Spacing, commonStyles, textStyles } from '../../styles';
 import {
   StyleProp,
   StyleSheet,
@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 import { TextInput } from 'react-native-gesture-handler';
-import commonStyles from '../../styles/common';
 
 export interface LabeledTextInputProps extends TextInputProps {
   readonly label: string;

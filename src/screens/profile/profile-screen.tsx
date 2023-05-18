@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+
 import { PizzaBookState } from '../../models';
 import ProfileScreenComponent from './profile-screen-component';
+import { useSelector } from 'react-redux';
 
 export type ProfileScreenProps = {};
 
@@ -13,4 +14,4 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
   return <ProfileScreenComponent loggedInUser={currentUser} />;
 };
 
-export default ProfileScreen;
+export { ProfileScreen };

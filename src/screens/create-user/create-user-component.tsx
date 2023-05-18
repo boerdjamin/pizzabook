@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { View, ImageSourcePropType } from 'react-native';
-import { launchImageLibrary } from 'react-native-image-picker';
+
+import { BigButton, LabeledTextInput, SmallButton } from '../../components';
+import { ImageSourcePropType, View } from 'react-native';
+
 import { appTexts } from '../../data/texts';
-import commonStyles from '../../styles/common';
-import { LabeledTextInput, SmallButton, BigButton } from '../../components';
+import { commonStyles } from '../../styles';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 //** work in progress */
 interface CreateUserComponentProps {

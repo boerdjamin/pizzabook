@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { base } from '../../../airtable';
+
 import CreateUserComponent from './create-user-component';
+import { base } from '../../../airtable';
 
 interface CreateUserScreenProps {}
 
@@ -30,4 +31,4 @@ const CreateUserScreen: React.FC<CreateUserScreenProps> = () => {
   return <CreateUserComponent onCreate={onCreateUser} />;
 };
 
-export default CreateUserScreen;
+export { CreateUserScreen };

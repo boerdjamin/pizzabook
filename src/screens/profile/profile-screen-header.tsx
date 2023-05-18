@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-import { Colors, Spacing, textStyles } from '../../styles';
+import { Colors, Spacing, commonStyles, textStyles } from '../../styles';
 import { Icon, SmallButton } from '../../components';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import Icons from '../../../assets/icons';
 import { User } from '../../models';
 import { appTexts } from '../../data/texts';
-import commonStyles from '../../styles/common';
 import { doNothing } from '../../utils';
 
 interface ProfileScreenHeaderProps {

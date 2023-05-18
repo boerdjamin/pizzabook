@@ -1,8 +1,9 @@
-import React from 'react';
-import { Text, StyleSheet, Image, TouchableOpacity, View } from 'react-native';
-import { appTexts } from '../../data/texts';
-import { Pizza } from '../../models';
 import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { Pizza } from '../../models';
+import React from 'react';
+import { appTexts } from '../../data';
 
 interface PizzaPreviewProps {
   readonly pizza: Pizza;

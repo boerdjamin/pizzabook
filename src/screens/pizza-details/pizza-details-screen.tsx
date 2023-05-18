@@ -1,7 +1,8 @@
+import { HomeStackParamList, HomeStackRoutes } from '../../navigation';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import React from 'react';
-import { HomeStackRoutes, HomeStackParamList } from '../../navigation';
+
 import PizzaDetailsScreenComponent from './pizza-details-component';
+import React from 'react';
 
 type PizzaDetailsScreenRouteProp = RouteProp<
   HomeStackParamList,
@@ -19,4 +20,4 @@ const PizzaDetailsScreen: React.FC<PizzaDetailsScreenProps> = () => {
   );
 };
 
-export default PizzaDetailsScreen;
+export { PizzaDetailsScreen };

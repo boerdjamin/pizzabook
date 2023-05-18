@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import CreatePizzaScreen from '../screens/create-pizza/create-pizza';
-import { renderNothing } from '../utils/placeholder';
-import SelectionScreen from '../screens/select-creation/selection';
-import { appTexts } from '../data/texts';
-import { Colors } from '../styles';
+
+import { CreatePizzaScreen, SelectionScreen } from '../screens';
 import { CreationStackParamList, CreationStackRoutes } from './routes';
+
+import { Colors } from '../styles';
+import { appTexts } from '../data';
+import { createStackNavigator } from '@react-navigation/stack';
+import { renderNothing } from '../utils';
 
 const Stack = createStackNavigator<CreationStackParamList>();
 

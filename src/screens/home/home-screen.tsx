@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { PizzaBookState } from '../../models/app-state';
+
 import HomeScreenComponent from './home-component';
+import { PizzaBookState } from '../../models/app-state';
+import { useSelector } from 'react-redux';
 
 export type HomeScreenProps = {};
 
@@ -14,4 +15,4 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
   return <HomeScreenComponent allPizzas={pizzas} currentUser={currentUser} />;
 };
 
-export default HomeScreen;
+export { HomeScreen };

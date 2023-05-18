@@ -1,6 +1,12 @@
 import * as React from 'react';
 
-import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
+import {
+  BorderRadius,
+  Colors,
+  Spacing,
+  commonStyles,
+  textStyles,
+} from '../../styles';
 import {
   Image,
   StyleProp,
@@ -10,8 +16,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import Icons from '../../../assets/icons';
-import commonStyles from '../../styles/common';
+import { Icons } from '../../../assets';
 
 interface TagProps {
   readonly label: string;

@@ -8,8 +8,8 @@ import { ListTile } from '../../components';
 import ProfileScreenHeader from './profile-screen-header';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { User } from '../../models';
-import { appTexts } from '../../data/texts';
-import { renderNothing } from '../../utils/placeholder';
+import { appTexts } from '../../data';
+import { renderNothing } from '../../utils';
 import { useNavigation } from '@react-navigation/native';
 
 interface ProfileScreenProps {

@@ -1,15 +1,16 @@
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
-import { useSelector } from 'react-redux';
-import GIFS from '../../../assets/gifs';
-import { Loader, PizzaPreview } from '../../components';
-import { appTexts } from '../../data/texts';
-import { PizzaBookState, Pizza, User } from '../../models';
+
 import { HomeStackParamList, HomeStackRoutes } from '../../navigation';
-import { textStyles, Spacing } from '../../styles';
-import commonStyles from '../../styles/common';
+import { Loader, PizzaPreview } from '../../components';
+import { Pizza, PizzaBookState, User } from '../../models';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Spacing, commonStyles, textStyles } from '../../styles';
+
+import { GIFS } from '../../../assets';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { appTexts } from '../../data';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 interface HomeScreenProps {
   readonly allPizzas: Pizza[];

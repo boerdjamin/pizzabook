@@ -18,4 +18,4 @@ const Icons = {
   userCircle,
 };
 
-export default Icons;
+export { Icons };

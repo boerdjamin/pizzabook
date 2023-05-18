@@ -1,9 +1,10 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { appTexts } from '../data/texts';
-import Icons from '../../assets/icons';
-import { HomeStack, ProfileStack, CreationStack, TabsRoutes } from './index';
+import { CreationStack, HomeStack, ProfileStack, TabsRoutes } from './index';
+
 import { Icon } from '../components';
+import { Icons } from '../../assets';
+import React from 'react';
+import { appTexts } from '../data';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tabs = createBottomTabNavigator();
 

@@ -1,5 +1,11 @@
 import { BigButton, Tag } from '../index';
-import { BorderRadius, Colors, Spacing, textStyles } from '../../styles';
+import {
+  BorderRadius,
+  Colors,
+  Spacing,
+  commonStyles,
+  textStyles,
+} from '../../styles';
 import {
   Modal,
   StyleProp,
@@ -12,8 +18,7 @@ import {
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 
-import { appTexts } from '../../data/texts';
-import commonStyles from '../../styles/common';
+import { appTexts } from '../../data';
 
 export interface SelectItem<T> {
   readonly name: string;

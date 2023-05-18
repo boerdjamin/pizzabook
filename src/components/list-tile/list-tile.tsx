@@ -1,19 +1,20 @@
 import * as React from 'react';
+
+import { Colors, Spacing, commonStyles, textStyles } from '../../styles';
 import {
-  Text,
-  View,
-  StyleSheet,
+  Image,
   ImageSourcePropType,
   StyleProp,
-  ViewStyle,
-  Image,
+  StyleSheet,
+  Text,
   TextStyle,
   TouchableOpacity,
+  View,
+  ViewStyle,
 } from 'react-native';
-import Icons from '../../../assets/icons';
-import { Colors, Spacing, textStyles } from '../../styles';
-import commonStyles from '../../styles/common';
+
 import { Icon } from '../index';
+import { Icons } from '../../../assets';
 
 interface ListTileProps {
   readonly label: string;

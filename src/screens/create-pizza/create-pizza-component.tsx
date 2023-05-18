@@ -2,12 +2,11 @@ import { BigButton, LabeledSelector, LabeledTextInput } from '../../components';
 import { CreatePizzaForm, getOptions } from './create-pizza-utils';
 import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { Spacing, commonStyles } from '../../styles';
 
 import { Ingridient } from '../../models/ingridient';
-import { Spacing } from '../../styles';
-import { appTexts } from '../../data/texts';
-import commonStyles from '../../styles/common';
-import { doNothing } from '../../utils/placeholder';
+import { appTexts } from '../../data';
+import { doNothing } from '../../utils';
 import { useState } from 'react';
 
 interface CreatePizzaComponentProps {

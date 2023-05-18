@@ -1,8 +1,9 @@
 import * as React from 'react';
-import HomeScreen from '../screens/home/home';
-import PizzaDetailsScreen from '../screens/pizza-details/pizza-details';
-import { createStackNavigator } from '@react-navigation/stack';
+
+import { HomeScreen, PizzaDetailsScreen } from '../screens';
 import { HomeStackParamList, HomeStackRoutes } from './routes';
+
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator<HomeStackParamList>();
 
