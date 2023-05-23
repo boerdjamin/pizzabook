@@ -53,7 +53,7 @@ const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
             <PizzaPreview key={i} pizza={pizza} onSelect={onSelectPizza} />
           ))
         ) : (
-          <Text>{'Sorry, nothing to see here :('}</Text>
+          <Text>{appTexts.no_data}</Text>
         )}
       </ScrollView>
     </View>

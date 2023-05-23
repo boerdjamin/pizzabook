@@ -2,6 +2,7 @@ export const appTexts = {
   // home
   welcome: 'Wilkommen im PizzaBook!',
   info: 'Hier findest du unsere Lieblingspizzen :)',
+  no_data: 'Sorry, nothing to see here :(',
 
   // modals
   okay: 'Okay',
