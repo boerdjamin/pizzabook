@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   info: {
     ...textStyles.p1,
-    marginBottom: Spacing.huge,
+    marginBottom: Spacing.large,
   },
   list: {
     flex: 1,
