@@ -45,7 +45,7 @@ export interface AirtableFoodType extends Identifyable {
   readonly ingridients?: string[];
 }
 
-export type AirtableData =
+export type AirtableObject =
   | AirtableIngridient
   | AirtablePizza
   | AirtableUser

@@ -1,30 +1,32 @@
+import {
+  AirtableFoodType,
+  AirtableIngridient,
+  AirtablePizza,
+  AirtableRecipe,
+  AirtableUser,
+  EnumFoodType,
+  FoodType,
+  Identifyable,
+  Ingridient,
+  Pizza,
+  Recipe,
+  User,
+} from '../models';
 import { FieldSet, Table } from 'airtable';
-import { ingridientKeys, requiredIngridientKeys } from './ingridient';
-import { pizzaKeys, requiredPizzaKeys } from './pizza';
-import { InitialAppData } from '../store/actions/init-app';
-import { handleError } from './error';
 import {
   foodTypeKeys,
   mapTypeIdToEnum,
   requiredFoodTypeKeys,
 } from './food-types';
-import {
-  User,
-  Pizza,
-  Recipe,
-  Ingridient,
-  Identifyable,
-  AirtableUser,
-  AirtablePizza,
-  AirtableIngridient,
-  AirtableFoodType,
-  AirtableRecipe,
-  EnumFoodType,
-  FoodType,
-} from '../models';
-import { isAirtableDataValid } from './validation';
-import { requiredUserKeys, userKeys } from './user';
+import { ingridientKeys, requiredIngridientKeys } from './ingridient';
+import { pizzaKeys, requiredPizzaKeys } from './pizza';
 import { recipeKeys, requiredRecipeKeys } from './recipe';
+import { requiredUserKeys, userKeys } from './user';
+
+import { AirtableData } from '../init-app';
+import { InitialAppData } from '../store/actions/init-app';
+import { handleError } from './error';
+import { isAirtableDataValid } from './validation';
 
 const getKeysOfDataType = <T>(
   tableName: string,
@@ -188,15 +190,11 @@ const convertPizzas = (
     };
   });
 
-export const convertAirtableDataToAppData = (rawData: {
-  rawUsers: AirtableUser[];
-  rawPizzas: AirtablePizza[];
-  rawIngridients: AirtableIngridient[];
-  rawRecipes: AirtableRecipe[];
-  rawFoodTypes: AirtableFoodType[];
-}): InitialAppData => {
+export const convertAirtableDataToAppData = (
+  data: AirtableData,
+): InitialAppData => {
   const { rawIngridients, rawRecipes, rawPizzas, rawUsers, rawFoodTypes } =
-    rawData;
+    data;
 
   const users = convertUsers(rawUsers);
   const foodTypes: FoodType[] = convertFoodTypes(rawFoodTypes);
