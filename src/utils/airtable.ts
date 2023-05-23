@@ -22,6 +22,7 @@ import { ingridientKeys, requiredIngridientKeys } from './ingridient';
 import { pizzaKeys, requiredPizzaKeys } from './pizza';
 import { recipeKeys, requiredRecipeKeys } from './recipe';
 import { requiredUserKeys, userKeys } from './user';
+import { useEffect, useMemo, useState } from 'react';
 
 import { AirtableData } from '../init-app';
 import { InitialAppData } from '../store/actions/init-app';
@@ -42,7 +43,6 @@ const getKeysOfDataType = <T>(
         all: pizzaKeys as (keyof T)[],
         required: requiredPizzaKeys as (keyof T)[],
       };
-
     case 'Ingridients':
       return {
         all: ingridientKeys as (keyof T)[],
@@ -53,7 +53,6 @@ const getKeysOfDataType = <T>(
         all: recipeKeys as (keyof T)[],
         required: requiredRecipeKeys as (keyof T)[],
       };
-
     case 'FoodTypes':
       return {
         all: foodTypeKeys as (keyof T)[],
@@ -64,7 +63,7 @@ const getKeysOfDataType = <T>(
   }
 };
 
-export const fetchDataFromAirtable = <T extends Identifyable>(
+const fetchDataFromAirtable = <T extends Identifyable>(
   table: Table<FieldSet>,
   updateFn: (allEntries: T[]) => void,
 ) => {
@@ -81,11 +80,9 @@ export const fetchDataFromAirtable = <T extends Identifyable>(
           getKeysOfDataType<T>(table.name),
         );
 
-        // delete invalid entries
+        // detect invalid entries
         if (!isValid) {
           console.log(`Invalid record in table: ${table.name}`, record);
-          console.log(record.fields);
-          // TODO: table.destroy(record.id);
           return collection;
         }
 
@@ -190,20 +187,43 @@ const convertPizzas = (
     };
   });
 
-export const convertAirtableDataToAppData = (
-  data: AirtableData,
-): InitialAppData => {
+const useAirtableDataConversion = (data: AirtableData) => {
   const { rawIngridients, rawRecipes, rawPizzas, rawUsers, rawFoodTypes } =
     data;
 
-  const users = convertUsers(rawUsers);
-  const foodTypes: FoodType[] = convertFoodTypes(rawFoodTypes);
-  const ingridients: Ingridient[] = convertIngridients(
-    rawIngridients,
-    foodTypes,
-  );
-  const recipes: Recipe[] = convertRecipes(rawRecipes, ingridients, users);
-  const pizzas = convertPizzas(rawPizzas, ingridients, recipes, users);
+  const [convertedData, setConvertedData] = useState<InitialAppData>({
+    pizzas: [],
+    ingridients: [],
+    users: [],
+    foodTypes: [],
+  });
 
-  return { pizzas, ingridients, users, foodTypes };
+  const users = useMemo(() => convertUsers(rawUsers), [rawUsers]);
+  const foodTypes: FoodType[] = useMemo(
+    () => convertFoodTypes(rawFoodTypes),
+    [rawFoodTypes],
+  );
+
+  const ingridients: Ingridient[] = useMemo(
+    () => convertIngridients(rawIngridients, foodTypes),
+    [rawIngridients, foodTypes],
+  );
+
+  const recipes: Recipe[] = useMemo(
+    () => convertRecipes(rawRecipes, ingridients, users),
+    [rawRecipes, ingridients, users],
+  );
+
+  const pizzas = useMemo(
+    () => convertPizzas(rawPizzas, ingridients, recipes, users),
+    [rawPizzas, ingridients, recipes, users],
+  );
+
+  useEffect(() => {
+    setConvertedData({ pizzas, ingridients, users, foodTypes });
+  }, [foodTypes, ingridients, pizzas, users]);
+
+  return convertedData;
 };
+
+export { useAirtableDataConversion, fetchDataFromAirtable };

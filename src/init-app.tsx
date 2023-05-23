@@ -5,8 +5,8 @@ import {
   AirtableRecipe,
   AirtableUser,
 } from './models';
-import React, { useEffect, useMemo, useState } from 'react';
-import { convertAirtableDataToAppData, fetchDataFromAirtable } from './utils';
+import React, { useEffect, useState } from 'react';
+import { fetchDataFromAirtable, useAirtableDataConversion } from './utils';
 import { initAppAction, setLoadingAction } from './store/actions';
 
 import Airtable from 'airtable';
@@ -37,39 +37,39 @@ const InitApp = ({ database }: AppInitializationProps) => {
 
   useEffect(() => {
     dispatch(setLoadingAction({ loading: true }));
+
     fetchDataFromAirtable<AirtableUser>(database('Users'), rawUsers => {
       setFetchedData(prevState => ({ ...prevState, rawUsers }));
     });
+
     fetchDataFromAirtable<AirtablePizza>(database('Pizzas'), rawPizzas => {
       setFetchedData(prevState => ({ ...prevState, rawPizzas }));
     });
+
     fetchDataFromAirtable<AirtableIngridient>(
       database('Ingridients'),
       rawIngridients => {
         setFetchedData(prevState => ({ ...prevState, rawIngridients }));
       },
     );
+
     fetchDataFromAirtable<AirtableRecipe>(database('Recipes'), rawRecipes => {
       setFetchedData(prevState => ({ ...prevState, rawRecipes }));
     });
+
     fetchDataFromAirtable<AirtableFoodType>(
       database('FoodTypes'),
       rawFoodTypes => {
         setFetchedData(prevState => ({ ...prevState, rawFoodTypes }));
       },
     );
-    return () => {
-      dispatch(setLoadingAction({ loading: false }));
-    };
   }, [database, dispatch]);
 
-  const convertedData = useMemo(
-    () => convertAirtableDataToAppData(fetchedData),
-    [fetchedData],
-  );
+  const convertedData = useAirtableDataConversion(fetchedData);
 
   useEffect(() => {
     dispatch(initAppAction(convertedData));
+
     return () => {
       dispatch(setLoadingAction({ loading: false }));
     };
