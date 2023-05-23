@@ -23,14 +23,7 @@ const PizzaDetailsScreenComponent: React.FC<PizzaDetailsScreenComponentProps> =
     const { setOptions } = useNavigation<NavigationProp>();
     const { name, photo, isVegan, canBeVeganized } = pizza;
 
-    useLayoutEffect(
-      () =>
-        setOptions({
-          title: name,
-          headerStyle: { borderWidth: 1 },
-        }),
-      [name, setOptions],
-    );
+    useLayoutEffect(() => setOptions({ title: name }), [name, setOptions]);
 
     return (
       <View style={styles.container}>
@@ -63,6 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     flex: 1,
     alignItems: 'center',
+    paddingVertical: Spacing.medium,
   },
   imageContainer: {
     width: '80%',

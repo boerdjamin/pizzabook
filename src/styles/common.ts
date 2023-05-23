@@ -24,7 +24,6 @@ const commonStyles = StyleSheet.create({
   headerLabel: {
     ...textStyles.h3,
     color: Colors.secondary,
-    marginHorizontal: Spacing.medium,
   },
 });
 

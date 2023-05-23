@@ -23,19 +23,10 @@ type NavigationProp = StackNavigationProp<
 >;
 
 const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
-  const { navigate, setOptions } = useNavigation<NavigationProp>();
+  const { navigate } = useNavigation<NavigationProp>();
 
   const isLoading = useSelector(
     (state: PizzaBookState) => state.network.isLoading,
-  );
-
-  React.useLayoutEffect(
-    () =>
-      setOptions({
-        title: appTexts.home,
-        headerStyle: { borderWidth: 1 },
-      }),
-    [setOptions],
   );
 
   const onSelectPizza = (pizza: Pizza) =>

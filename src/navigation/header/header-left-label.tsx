@@ -1,8 +1,9 @@
 import * as React from 'react';
 
+import { Spacing, commonStyles } from '../../styles';
+
 import { Label } from '../../components';
 import { appTexts } from '../../data';
-import { commonStyles } from '../../styles';
 import { useNavigation } from '@react-navigation/native';
 
 const HeaderLeftLabel = () => {
@@ -11,7 +12,10 @@ const HeaderLeftLabel = () => {
     <Label
       text={appTexts.back}
       onPress={goBack}
-      additionalStyle={commonStyles.headerLabel}
+      additionalStyle={[
+        commonStyles.headerLabel,
+        { marginLeft: Spacing.medium },
+      ]}
     />
   );
 };
