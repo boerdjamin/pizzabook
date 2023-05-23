@@ -49,9 +49,12 @@ const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
         {isLoading ? (
           <Loader image={GIFS.loadingGif} />
         ) : allPizzas && allPizzas.length ? (
-          allPizzas.map((pizza, i) => (
-            <PizzaPreview key={i} pizza={pizza} onSelect={onSelectPizza} />
-          ))
+          allPizzas
+            // we want pizzas with photos first
+            .sort(p1 => (p1.photo ? -1 : 1))
+            .map((pizza, i) => (
+              <PizzaPreview key={i} pizza={pizza} onSelect={onSelectPizza} />
+            ))
         ) : (
           <Text>{appTexts.no_data}</Text>
         )}
