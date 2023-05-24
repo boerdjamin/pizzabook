@@ -23,7 +23,6 @@ import { AirtableData } from '../init-app';
 import { InitialAppData } from '../store/actions/init-app';
 import { handleError } from './error';
 import { isAirtableDataValid } from './validation';
-import { useMemo } from 'react';
 
 export enum AirtableDataBase {
   Users = 'Users',
@@ -69,33 +68,40 @@ const getKeysOfDataType = <T>(
 
 const fetchDataFromAirtable = <T extends Identifyable>(
   table: Table<FieldSet>,
-  updateFn: (allEntries: T[]) => void,
-) => {
-  table
-    .select({
-      maxRecords: 50,
-      view: 'Grid view',
-    })
-    .eachPage((records, fetchNextPage) => {
-      const allEntries = records.reduce<T[]>((collection, record) => {
-        const newData = record.fields;
-        const isValid = isAirtableDataValid<T>(
-          newData,
-          getKeysOfDataType<T>(table.name),
-        );
+): Promise<T[]> => {
+  return new Promise((resolve, reject) => {
+    table
+      .select({
+        maxRecords: 50,
+        view: 'Grid view',
+      })
+      .eachPage(
+        (records, fetchNextPage) => {
+          const allEntries = records.reduce<T[]>((collection, record) => {
+            const newData = record.fields;
+            const isValid = isAirtableDataValid<T>(
+              newData,
+              getKeysOfDataType<T>(table.name),
+            );
 
-        // detect invalid entries
-        if (!isValid) {
-          console.log(`Invalid record in table: ${table.name}`, record);
-          return collection;
-        }
+            // detect invalid entries
+            if (!isValid) {
+              console.log(`Invalid record in table: ${table.name}`, record);
+              return collection;
+            }
 
-        return [...collection, { ...newData, id: record.id } as T];
-      }, []);
+            return [...collection, { ...newData, id: record.id } as T];
+          }, []);
 
-      updateFn(allEntries);
-      fetchNextPage();
-    }, handleError);
+          resolve(allEntries);
+          fetchNextPage();
+        },
+        error => {
+          reject(error);
+          handleError(error);
+        },
+      );
+  });
 };
 
 const convertFoodTypes = (rawData: AirtableFoodType[]) =>
@@ -194,32 +200,21 @@ const convertPizzas = (
     };
   });
 
-const useAirtableDataConversion = (data: AirtableData): InitialAppData => {
+const convertAirtableData = (
+  data: AirtableData | undefined,
+): InitialAppData | undefined => {
+  if (!data) return undefined;
+
   const { rawIngridients, rawRecipes, rawPizzas, rawUsers, rawFoodTypes } =
     data;
 
-  const users = useMemo(() => convertUsers(rawUsers), [rawUsers]);
-  const foodTypes = useMemo(
-    () => convertFoodTypes(rawFoodTypes),
-    [rawFoodTypes],
-  );
-
-  const ingridients = useMemo(
-    () => convertIngridients(rawIngridients, foodTypes),
-    [rawIngridients, foodTypes],
-  );
-
-  const recipes = useMemo(
-    () => convertRecipes(rawRecipes, ingridients, users),
-    [rawRecipes, ingridients, users],
-  );
-
-  const pizzas = useMemo(
-    () => convertPizzas(rawPizzas, ingridients, recipes, users),
-    [rawPizzas, ingridients, recipes, users],
-  );
+  const users = convertUsers(rawUsers);
+  const foodTypes = convertFoodTypes(rawFoodTypes);
+  const ingridients = convertIngridients(rawIngridients, foodTypes);
+  const recipes = convertRecipes(rawRecipes, ingridients, users);
+  const pizzas = convertPizzas(rawPizzas, ingridients, recipes, users);
 
   return { pizzas, ingridients, recipes, users, foodTypes };
 };
 
-export { useAirtableDataConversion, fetchDataFromAirtable };
+export { convertAirtableData, fetchDataFromAirtable };

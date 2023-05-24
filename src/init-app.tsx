@@ -1,7 +1,7 @@
 import {
   AirtableDataBase,
+  convertAirtableData,
   fetchDataFromAirtable,
-  useAirtableDataConversion,
 } from './utils';
 import {
   AirtableFoodType,
@@ -31,58 +31,36 @@ export interface AirtableData {
 
 const InitApp = ({ database }: AppInitializationProps) => {
   const dispatch = useDispatch();
-  const [fetchedData, setFetchedData] = useState<AirtableData>({
-    rawPizzas: [],
-    rawIngridients: [],
-    rawRecipes: [],
-    rawUsers: [],
-    rawFoodTypes: [],
-  });
+  const [fetchedData, setFetchedData] = useState<AirtableData | undefined>();
 
   useEffect(() => {
     dispatch(setLoadingAction({ loading: true }));
 
-    fetchDataFromAirtable<AirtableUser>(
-      database(AirtableDataBase.Users),
-      rawUsers => {
-        setFetchedData(prevState => ({ ...prevState, rawUsers }));
-      },
-    );
-
-    fetchDataFromAirtable<AirtablePizza>(
-      database(AirtableDataBase.Pizzas),
-      rawPizzas => {
-        setFetchedData(prevState => ({ ...prevState, rawPizzas }));
-      },
-    );
-
-    fetchDataFromAirtable<AirtableIngridient>(
-      database(AirtableDataBase.Ingridients),
-      rawIngridients => {
-        setFetchedData(prevState => ({ ...prevState, rawIngridients }));
-      },
-    );
-
-    fetchDataFromAirtable<AirtableRecipe>(
-      database(AirtableDataBase.Recipes),
-      rawRecipes => {
-        setFetchedData(prevState => ({ ...prevState, rawRecipes }));
-      },
-    );
-
-    fetchDataFromAirtable<AirtableFoodType>(
-      database(AirtableDataBase.FoodTypes),
-      rawFoodTypes => {
-        setFetchedData(prevState => ({ ...prevState, rawFoodTypes }));
-      },
-    );
+    Promise.all([
+      fetchDataFromAirtable<AirtableUser>(database(AirtableDataBase.Users)),
+      fetchDataFromAirtable<AirtablePizza>(database(AirtableDataBase.Pizzas)),
+      fetchDataFromAirtable<AirtableIngridient>(
+        database(AirtableDataBase.Ingridients),
+      ),
+      fetchDataFromAirtable<AirtableRecipe>(database(AirtableDataBase.Recipes)),
+      fetchDataFromAirtable<AirtableFoodType>(
+        database(AirtableDataBase.FoodTypes),
+      ),
+    ]).then(data => {
+      setFetchedData({
+        rawUsers: data[0],
+        rawPizzas: data[1],
+        rawIngridients: data[2],
+        rawRecipes: data[3],
+        rawFoodTypes: data[4],
+      });
+    });
   }, [database, dispatch]);
 
-  const convertedData = useAirtableDataConversion(fetchedData);
+  const convertedData = convertAirtableData(fetchedData);
 
   useEffect(() => {
-    dispatch(initAppAction(convertedData));
-    dispatch(setLoadingAction({ loading: false }));
+    if (convertedData) dispatch(initAppAction(convertedData));
   }, [convertedData, dispatch]);
 
   return <RootNavigation />;
