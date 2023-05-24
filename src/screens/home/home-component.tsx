@@ -38,7 +38,7 @@ const HomeScreenComponent: React.FC<HomeScreenProps> = ({
       <ScrollView style={styles.list}>
         {isLoading ? (
           <Loader image={GIFS.loadingGif} />
-        ) : allPizzas && allPizzas.length ? (
+        ) : allPizzas && allPizzas.length > 0 ? (
           allPizzas
             // we want pizzas with photos first
             .sort(p1 => (p1.photo ? -1 : 1))
