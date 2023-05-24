@@ -13,11 +13,7 @@ import {
   User,
 } from '../models';
 import { FieldSet, Table } from 'airtable';
-import {
-  foodTypeKeys,
-  mapTypeIdToEnum,
-  requiredFoodTypeKeys,
-} from './food-types';
+import { foodTypeKeys, requiredFoodTypeKeys } from './food-types';
 import { ingridientKeys, requiredIngridientKeys } from './ingridient';
 import { pizzaKeys, requiredPizzaKeys } from './pizza';
 import { recipeKeys, requiredRecipeKeys } from './recipe';
@@ -29,31 +25,39 @@ import { InitialAppData } from '../store/actions/init-app';
 import { handleError } from './error';
 import { isAirtableDataValid } from './validation';
 
+export enum AirtableDataBase {
+  Users = 'Users',
+  Pizzas = 'Pizzas',
+  Ingridients = 'Ingridients',
+  Recipes = 'Recipes',
+  FoodTypes = 'FoodTypes',
+}
+
 const getKeysOfDataType = <T>(
   tableName: string,
 ): { all: (keyof T)[]; required: (keyof T)[] } => {
   switch (tableName) {
-    case 'Users':
+    case AirtableDataBase.Users:
       return {
         all: userKeys as (keyof T)[],
         required: requiredUserKeys as (keyof T)[],
       };
-    case 'Pizzas':
+    case AirtableDataBase.Pizzas:
       return {
         all: pizzaKeys as (keyof T)[],
         required: requiredPizzaKeys as (keyof T)[],
       };
-    case 'Ingridients':
+    case AirtableDataBase.Ingridients:
       return {
         all: ingridientKeys as (keyof T)[],
         required: requiredIngridientKeys as (keyof T)[],
       };
-    case 'Recipes':
+    case AirtableDataBase.Recipes:
       return {
         all: recipeKeys as (keyof T)[],
         required: requiredRecipeKeys as (keyof T)[],
       };
-    case 'FoodTypes':
+    case AirtableDataBase.FoodTypes:
       return {
         all: foodTypeKeys as (keyof T)[],
         required: requiredFoodTypeKeys as (keyof T)[],
@@ -97,7 +101,7 @@ const fetchDataFromAirtable = <T extends Identifyable>(
 const convertFoodTypes = (rawData: AirtableFoodType[]) =>
   rawData.map(rawType => ({
     id: rawType.id,
-    type: mapTypeIdToEnum(rawType.key),
+    type: rawType.key.toUpperCase() as EnumFoodType,
     ingridientIds: rawType.ingridients ?? [],
   }));
 
@@ -122,6 +126,7 @@ const convertRecipes = (
 ): Recipe[] =>
   rawRecipes.map(rawRecipe => {
     const ingridients: Ingridient[] = [];
+    // find all ingridients for the recipe
     rawRecipe.ingridients?.map(ingridientId => {
       const matchingIngridient = allIngridients.find(
         i => i.id === ingridientId,
@@ -160,12 +165,14 @@ const convertPizzas = (
 ): Pizza[] =>
   rawPizzas.map(rawPizza => {
     const toppings: (Ingridient | Recipe)[] = [];
+    // find all simple toppings by id
     rawPizza.toppings.forEach(toppingId => {
       const matchingIngridient = ingridients.find(i => i.id === toppingId);
       if (matchingIngridient) {
         toppings.push(matchingIngridient);
       }
     });
+    // find all "complex" toppings (recipes) by recipe id
     if (rawPizza.recipes) {
       rawPizza.recipes.forEach(recipeId => {
         const matchingRecipe = recipes.find(r => r.id === recipeId);
@@ -194,22 +201,23 @@ const useAirtableDataConversion = (data: AirtableData) => {
   const [convertedData, setConvertedData] = useState<InitialAppData>({
     pizzas: [],
     ingridients: [],
+    recipes: [],
     users: [],
     foodTypes: [],
   });
 
   const users = useMemo(() => convertUsers(rawUsers), [rawUsers]);
-  const foodTypes: FoodType[] = useMemo(
+  const foodTypes = useMemo(
     () => convertFoodTypes(rawFoodTypes),
     [rawFoodTypes],
   );
 
-  const ingridients: Ingridient[] = useMemo(
+  const ingridients = useMemo(
     () => convertIngridients(rawIngridients, foodTypes),
     [rawIngridients, foodTypes],
   );
 
-  const recipes: Recipe[] = useMemo(
+  const recipes = useMemo(
     () => convertRecipes(rawRecipes, ingridients, users),
     [rawRecipes, ingridients, users],
   );
@@ -220,8 +228,8 @@ const useAirtableDataConversion = (data: AirtableData) => {
   );
 
   useEffect(() => {
-    setConvertedData({ pizzas, ingridients, users, foodTypes });
-  }, [foodTypes, ingridients, pizzas, users]);
+    setConvertedData({ pizzas, ingridients, recipes, users, foodTypes });
+  }, [foodTypes, ingridients, pizzas, users, recipes]);
 
   return convertedData;
 };

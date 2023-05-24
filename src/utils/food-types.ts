@@ -1,4 +1,5 @@
-import { Ingridient, EnumFoodType, AirtableFoodType } from '../models';
+import { AirtableFoodType, EnumFoodType, Ingridient } from '../models';
+
 import { RequiredPropertyOf } from './types';
 
 export const requiredFoodTypeKeys: Array<RequiredPropertyOf<AirtableFoodType>> =
@@ -21,32 +22,6 @@ export const isFoodTypeFromDBValid = (
     // all attributes belong to interface 'AirtableFoodType'
     keys.every(key => (foodTypeKeys as string[]).includes(key))
   );
-};
-
-export const mapTypeIdToEnum = (key: string): EnumFoodType => {
-  switch (key) {
-    case EnumFoodType.additionalSauce:
-      return EnumFoodType.additionalSauce;
-    case EnumFoodType.base:
-      return EnumFoodType.base;
-    case EnumFoodType.cheese:
-      return EnumFoodType.cheese;
-    case EnumFoodType.condiment:
-      return EnumFoodType.condiment;
-    case EnumFoodType.fruit:
-      return EnumFoodType.fruit;
-    case EnumFoodType.meatLike:
-      return EnumFoodType.meatLike;
-    case EnumFoodType.nut:
-      return EnumFoodType.nut;
-    case EnumFoodType.spice:
-      return EnumFoodType.spice;
-    case EnumFoodType.vegetable:
-      return EnumFoodType.vegetable;
-    case EnumFoodType.other:
-    default:
-      return EnumFoodType.other;
-  }
 };
 
 export const filterBases = (ingridients: Ingridient[]) =>

@@ -1,4 +1,9 @@
 import {
+  AirtableDataBase,
+  fetchDataFromAirtable,
+  useAirtableDataConversion,
+} from './utils';
+import {
   AirtableFoodType,
   AirtableIngridient,
   AirtablePizza,
@@ -6,7 +11,6 @@ import {
   AirtableUser,
 } from './models';
 import React, { useEffect, useState } from 'react';
-import { fetchDataFromAirtable, useAirtableDataConversion } from './utils';
 import { initAppAction, setLoadingAction } from './store/actions';
 
 import Airtable from 'airtable';
@@ -38,27 +42,36 @@ const InitApp = ({ database }: AppInitializationProps) => {
   useEffect(() => {
     dispatch(setLoadingAction({ loading: true }));
 
-    fetchDataFromAirtable<AirtableUser>(database('Users'), rawUsers => {
-      setFetchedData(prevState => ({ ...prevState, rawUsers }));
-    });
+    fetchDataFromAirtable<AirtableUser>(
+      database(AirtableDataBase.Users),
+      rawUsers => {
+        setFetchedData(prevState => ({ ...prevState, rawUsers }));
+      },
+    );
 
-    fetchDataFromAirtable<AirtablePizza>(database('Pizzas'), rawPizzas => {
-      setFetchedData(prevState => ({ ...prevState, rawPizzas }));
-    });
+    fetchDataFromAirtable<AirtablePizza>(
+      database(AirtableDataBase.Pizzas),
+      rawPizzas => {
+        setFetchedData(prevState => ({ ...prevState, rawPizzas }));
+      },
+    );
 
     fetchDataFromAirtable<AirtableIngridient>(
-      database('Ingridients'),
+      database(AirtableDataBase.Ingridients),
       rawIngridients => {
         setFetchedData(prevState => ({ ...prevState, rawIngridients }));
       },
     );
 
-    fetchDataFromAirtable<AirtableRecipe>(database('Recipes'), rawRecipes => {
-      setFetchedData(prevState => ({ ...prevState, rawRecipes }));
-    });
+    fetchDataFromAirtable<AirtableRecipe>(
+      database(AirtableDataBase.Recipes),
+      rawRecipes => {
+        setFetchedData(prevState => ({ ...prevState, rawRecipes }));
+      },
+    );
 
     fetchDataFromAirtable<AirtableFoodType>(
-      database('FoodTypes'),
+      database(AirtableDataBase.FoodTypes),
       rawFoodTypes => {
         setFetchedData(prevState => ({ ...prevState, rawFoodTypes }));
       },
