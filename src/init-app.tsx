@@ -69,10 +69,7 @@ const InitApp = ({ database }: AppInitializationProps) => {
 
   useEffect(() => {
     dispatch(initAppAction(convertedData));
-
-    return () => {
-      dispatch(setLoadingAction({ loading: false }));
-    };
+    dispatch(setLoadingAction({ loading: false }));
   }, [convertedData, dispatch]);
 
   return <RootNavigation />;
