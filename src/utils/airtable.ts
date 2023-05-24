@@ -6,13 +6,12 @@ import {
   AirtableUser,
   EnumFoodType,
   FoodType,
-  Identifyable,
   Ingridient,
   Pizza,
   Recipe,
   User,
 } from '../models';
-import { FieldSet, Table } from 'airtable';
+import { Attachment, FieldSet, Table } from 'airtable';
 import { foodTypeKeys, requiredFoodTypeKeys } from './food-types';
 import { ingridientKeys, requiredIngridientKeys } from './ingridient';
 import { pizzaKeys, requiredPizzaKeys } from './pizza';
@@ -20,6 +19,7 @@ import { recipeKeys, requiredRecipeKeys } from './recipe';
 import { requiredUserKeys, userKeys } from './user';
 
 import { AirtableData } from '../init-app';
+import { ImageURISource } from 'react-native';
 import { InitialAppData } from '../store/actions/init-app';
 import { handleError } from './error';
 import { isAirtableDataValid } from './validation';
@@ -66,7 +66,7 @@ const getKeysOfDataType = <T>(
   }
 };
 
-const fetchDataFromAirtable = <T extends Identifyable>(
+const fetchDataFromAirtable = <T extends FieldSet>(
   table: Table<FieldSet>,
 ): Promise<T[]> => {
   return new Promise((resolve, reject) => {
@@ -154,11 +154,15 @@ const convertRecipes = (
     };
   });
 
+const convertPicture = (picture: Attachment[] | undefined) => {
+  return picture ? ({ uri: picture[0].url } as ImageURISource) : null;
+};
+
 const convertUsers = (rawUsers: AirtableUser[]): User[] =>
   rawUsers.map(rawUser => ({
     id: rawUser.id,
     name: rawUser.name,
-    picture: rawUser.picture?.[0] ?? null,
+    picture: convertPicture(rawUser.picture),
     pizzas: rawUser.pizzas ?? [],
     recipes: [],
   }));
@@ -193,7 +197,7 @@ const convertPizzas = (
       toppings: allToppings,
       isVegan: rawPizza.is_vegan,
       createdBy: users.find(user => user.id === rawPizza.created_by) || null,
-      photo: rawPizza.photos ? rawPizza.photos[0] : null,
+      photo: convertPicture(rawPizza.photos),
       canBeVeganized: !!rawPizza.can_be_veganized,
       comment: rawPizza.comment || '',
       rating: rawPizza.rating || 0,

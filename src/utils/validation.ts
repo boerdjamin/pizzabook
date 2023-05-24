@@ -1,5 +1,7 @@
-export const isAirtableDataValid = <T>(
-  data: any,
+import { FieldSet } from 'airtable';
+
+export const isAirtableDataValid = <T extends FieldSet>(
+  data: FieldSet,
   keyCheck: { all: (keyof T)[]; required: (keyof T)[] },
 ): data is T => {
   const keys = Object.keys(data) as (keyof T)[];

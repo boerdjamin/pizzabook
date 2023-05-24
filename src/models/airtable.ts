@@ -1,20 +1,21 @@
-import { Identifyable } from './identifyable';
-import { ImageSourcePropType } from 'react-native';
+import { Attachment, FieldSet } from 'airtable';
 
-export interface AirtableUser extends Identifyable {
+import { Identifyable } from './identifyable';
+
+export interface AirtableUser extends Identifyable, FieldSet {
   readonly name: string;
-  readonly picture?: ImageSourcePropType[];
+  readonly picture?: Attachment[];
   readonly pizzas?: string[];
 }
 
-export interface AirtablePizza extends Identifyable {
+export interface AirtablePizza extends Identifyable, FieldSet {
   readonly name: string;
   readonly toppings: string[];
   readonly is_vegan: boolean;
   readonly created_by?: string;
   readonly base?: string;
   readonly after_cooking?: string[];
-  readonly photos?: ImageSourcePropType[];
+  readonly photos?: Attachment[];
   readonly can_be_veganized?: boolean;
   readonly comment?: string;
   readonly rating?: number;
@@ -23,7 +24,7 @@ export interface AirtablePizza extends Identifyable {
   readonly users?: string;
 }
 
-export interface AirtableIngridient extends Identifyable {
+export interface AirtableIngridient extends Identifyable, FieldSet {
   readonly name: string;
   readonly food_type: string[];
   readonly is_vegan?: boolean;
@@ -31,7 +32,7 @@ export interface AirtableIngridient extends Identifyable {
   readonly recipes?: string[];
 }
 
-export interface AirtableRecipe extends Identifyable {
+export interface AirtableRecipe extends Identifyable, FieldSet {
   readonly name: string;
   readonly ingridients?: string[];
   readonly is_vegan?: boolean;
@@ -40,7 +41,7 @@ export interface AirtableRecipe extends Identifyable {
   readonly created_by?: string;
 }
 
-export interface AirtableFoodType extends Identifyable {
+export interface AirtableFoodType extends Identifyable, FieldSet {
   readonly key: string;
   readonly ingridients?: string[];
 }
