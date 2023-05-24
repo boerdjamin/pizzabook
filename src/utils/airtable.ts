@@ -170,12 +170,12 @@ const convertPizzas = (
   users: User[],
 ): Pizza[] =>
   rawPizzas.map(rawPizza => {
-    const toppings: (Ingridient | Recipe)[] = [];
+    const allToppings: (Ingridient | Recipe)[] = [];
     // find all simple toppings by id
     rawPizza.toppings.forEach(toppingId => {
       const matchingIngridient = ingridients.find(i => i.id === toppingId);
       if (matchingIngridient) {
-        toppings.push(matchingIngridient);
+        allToppings.push(matchingIngridient);
       }
     });
     // find all "complex" toppings (recipes) by recipe id
@@ -183,14 +183,14 @@ const convertPizzas = (
       rawPizza.recipes.forEach(recipeId => {
         const matchingRecipe = recipes.find(r => r.id === recipeId);
         if (matchingRecipe) {
-          toppings.push(matchingRecipe);
+          allToppings.push(matchingRecipe);
         }
       });
     }
     return {
       id: rawPizza.id,
       name: rawPizza.name,
-      toppings,
+      toppings: allToppings,
       isVegan: rawPizza.is_vegan,
       createdBy: users.find(user => user.id === rawPizza.created_by) || null,
       photo: rawPizza.photos ? rawPizza.photos[0] : null,
