@@ -18,12 +18,12 @@ import { ingridientKeys, requiredIngridientKeys } from './ingridient';
 import { pizzaKeys, requiredPizzaKeys } from './pizza';
 import { recipeKeys, requiredRecipeKeys } from './recipe';
 import { requiredUserKeys, userKeys } from './user';
-import { useEffect, useMemo, useState } from 'react';
 
 import { AirtableData } from '../init-app';
 import { InitialAppData } from '../store/actions/init-app';
 import { handleError } from './error';
 import { isAirtableDataValid } from './validation';
+import { useMemo } from 'react';
 
 export enum AirtableDataBase {
   Users = 'Users',
@@ -194,17 +194,9 @@ const convertPizzas = (
     };
   });
 
-const useAirtableDataConversion = (data: AirtableData) => {
+const useAirtableDataConversion = (data: AirtableData): InitialAppData => {
   const { rawIngridients, rawRecipes, rawPizzas, rawUsers, rawFoodTypes } =
     data;
-
-  const [convertedData, setConvertedData] = useState<InitialAppData>({
-    pizzas: [],
-    ingridients: [],
-    recipes: [],
-    users: [],
-    foodTypes: [],
-  });
 
   const users = useMemo(() => convertUsers(rawUsers), [rawUsers]);
   const foodTypes = useMemo(
@@ -227,11 +219,7 @@ const useAirtableDataConversion = (data: AirtableData) => {
     [rawPizzas, ingridients, recipes, users],
   );
 
-  useEffect(() => {
-    setConvertedData({ pizzas, ingridients, recipes, users, foodTypes });
-  }, [foodTypes, ingridients, pizzas, users, recipes]);
-
-  return convertedData;
+  return { pizzas, ingridients, recipes, users, foodTypes };
 };
 
 export { useAirtableDataConversion, fetchDataFromAirtable };
