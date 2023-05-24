@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { HomeStackParamList, HomeStackRoutes } from '../../navigation';
 import { Loader, PizzaPreview } from '../../components';
-import { Pizza, PizzaBookState, User } from '../../models';
+import { Pizza, User } from '../../models';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Spacing, commonStyles, textStyles } from '../../styles';
 
@@ -10,10 +10,10 @@ import { GIFS } from '../../../assets';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { appTexts } from '../../data';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
 
 interface HomeScreenProps {
   readonly allPizzas: Pizza[];
+  readonly isLoading: boolean;
   readonly currentUser?: User;
 }
 
@@ -22,12 +22,11 @@ type NavigationProp = StackNavigationProp<
   HomeStackRoutes.Home
 >;
 
-const HomeScreenComponent: React.FC<HomeScreenProps> = ({ allPizzas }) => {
+const HomeScreenComponent: React.FC<HomeScreenProps> = ({
+  allPizzas,
+  isLoading,
+}) => {
   const { navigate } = useNavigation<NavigationProp>();
-
-  const isLoading = useSelector(
-    (state: PizzaBookState) => state.network.isLoading,
-  );
 
   const onSelectPizza = (pizza: Pizza) =>
     navigate(HomeStackRoutes.Details, { pizza });

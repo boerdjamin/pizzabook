@@ -11,8 +11,17 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
   const currentUser = useSelector(
     (state: PizzaBookState) => state.users.loggedInAs,
   );
+  const isLoading = useSelector(
+    (state: PizzaBookState) => state.network.isLoading,
+  );
 
-  return <HomeScreenComponent allPizzas={pizzas} currentUser={currentUser} />;
+  return (
+    <HomeScreenComponent
+      allPizzas={pizzas}
+      currentUser={currentUser}
+      isLoading={isLoading}
+    />
+  );
 };
 
 export { HomeScreen };
