@@ -2,6 +2,7 @@ import {
   AirtableDataBase,
   convertAirtableData,
   fetchDataFromAirtable,
+  handleError,
 } from './utils';
 import {
   AirtableFoodType,
@@ -46,15 +47,17 @@ const InitApp = ({ database }: AppInitializationProps) => {
       fetchDataFromAirtable<AirtableFoodType>(
         database(AirtableDataBase.FoodTypes),
       ),
-    ]).then(data => {
-      setFetchedData({
-        rawUsers: data[0],
-        rawPizzas: data[1],
-        rawIngridients: data[2],
-        rawRecipes: data[3],
-        rawFoodTypes: data[4],
-      });
-    });
+    ])
+      .then(data => {
+        setFetchedData({
+          rawUsers: data[0],
+          rawPizzas: data[1],
+          rawIngridients: data[2],
+          rawRecipes: data[3],
+          rawFoodTypes: data[4],
+        });
+      })
+      .catch(handleError);
   }, [database, dispatch]);
 
   const convertedData = convertAirtableData(fetchedData);
