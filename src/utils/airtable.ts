@@ -63,11 +63,11 @@ const fetchDataFromAirtable = <T extends FieldSet>(
   return new Promise((resolve, reject) => {
     table
       .select({
-        maxRecords: 50,
+        maxRecords: 300,
         view: 'Grid view',
       })
       .eachPage(
-        (records, fetchNextPage) => {
+        records => {
           const allEntries = records.reduce<T[]>((collection, record) => {
             const newData = record.fields;
             const isValid = isAirtableDataValid<T>(
@@ -83,9 +83,7 @@ const fetchDataFromAirtable = <T extends FieldSet>(
 
             return [...collection, { ...newData, id: record.id } as T];
           }, []);
-
           resolve(allEntries);
-          fetchNextPage();
         },
         error => {
           reject(error);
