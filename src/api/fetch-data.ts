@@ -1,7 +1,9 @@
 import { FieldSet, Table } from 'airtable';
 import {
   foodTypeKeys,
+  handleError,
   ingridientKeys,
+  isAirtableDataValid,
   pizzaKeys,
   recipeKeys,
   requiredFoodTypeKeys,
@@ -10,12 +12,9 @@ import {
   requiredRecipeKeys,
   requiredUserKeys,
   userKeys,
-} from './validation';
+} from '../utils';
 
-import { handleError } from './error';
-import { isAirtableDataValid } from './validation';
-
-export enum AirtableDataBase {
+enum AirtableDataBase {
   Users = 'Users',
   Pizzas = 'Pizzas',
   Ingridients = 'Ingridients',
@@ -93,4 +92,4 @@ const fetchDataFromAirtable = <T extends FieldSet>(
   });
 };
 
-export { fetchDataFromAirtable };
+export { fetchDataFromAirtable, AirtableDataBase };

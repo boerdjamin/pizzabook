@@ -1,9 +1,4 @@
-import {
-  AirtableDataBase,
-  convertAirtableData,
-  fetchDataFromAirtable,
-  handleError,
-} from './utils';
+import { AirtableDataBase, fetchDataFromAirtable } from './api';
 import {
   AirtableFoodType,
   AirtableIngridient,
@@ -12,6 +7,7 @@ import {
   AirtableUser,
 } from './models';
 import React, { useEffect, useState } from 'react';
+import { convertAirtableData, handleError } from './utils';
 import { initAppAction, setLoadingAction } from './store/actions';
 
 import Airtable from 'airtable';
