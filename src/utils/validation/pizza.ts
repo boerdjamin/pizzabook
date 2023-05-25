@@ -1,4 +1,4 @@
-import { AirtablePizza } from '../models/airtable';
+import { AirtablePizza } from '../../models/airtable';
 import { RequiredPropertyOf } from './types';
 
 export const requiredPizzaKeys: Array<RequiredPropertyOf<AirtablePizza>> = [

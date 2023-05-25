@@ -1,4 +1,4 @@
-import { AirtableIngridient } from '../models/airtable';
+import { AirtableIngridient } from '../../models/airtable';
 import { RequiredPropertyOf } from './types';
 
 export const requiredIngridientKeys: Array<

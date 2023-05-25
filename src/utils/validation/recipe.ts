@@ -1,4 +1,4 @@
-import { AirtableRecipe } from '../models/airtable';
+import { AirtableRecipe } from '../../models/airtable';
 import { RequiredPropertyOf } from './types';
 
 export const requiredRecipeKeys: Array<RequiredPropertyOf<AirtableRecipe>> = [

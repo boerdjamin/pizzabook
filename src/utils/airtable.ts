@@ -12,17 +12,24 @@ import {
   User,
 } from '../models';
 import { Attachment, FieldSet, Table } from 'airtable';
-import { foodTypeKeys, requiredFoodTypeKeys } from './food-types';
-import { ingridientKeys, requiredIngridientKeys } from './ingridient';
-import { pizzaKeys, requiredPizzaKeys } from './pizza';
-import { recipeKeys, requiredRecipeKeys } from './recipe';
-import { requiredUserKeys, userKeys } from './user';
+import {
+  foodTypeKeys,
+  ingridientKeys,
+  pizzaKeys,
+  recipeKeys,
+  requiredFoodTypeKeys,
+  requiredIngridientKeys,
+  requiredPizzaKeys,
+  requiredRecipeKeys,
+  requiredUserKeys,
+  userKeys,
+} from './validation';
 
 import { AirtableData } from '../init-app';
 import { ImageURISource } from 'react-native';
 import { InitialAppData } from '../store/actions/init-app';
 import { handleError } from './error';
-import { isAirtableDataValid } from './validation';
+import { isAirtableDataValid } from './validation/validation';
 
 export enum AirtableDataBase {
   Users = 'Users',

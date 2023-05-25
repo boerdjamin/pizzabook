@@ -1,4 +1,4 @@
-import { AirtableFoodType, EnumFoodType, Ingridient } from '../models';
+import { AirtableFoodType, EnumFoodType, Ingridient } from '../../models';
 
 import { RequiredPropertyOf } from './types';
 
