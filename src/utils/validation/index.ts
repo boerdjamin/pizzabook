@@ -4,4 +4,4 @@ export * from './pizza';
 export * from './recipe';
 export * from './types';
 export * from './user';
-export * from './validation';
+export * from './airtable';
