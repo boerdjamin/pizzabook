@@ -4,6 +4,7 @@ import { Header, HeaderLeftLabel } from './header';
 import { HomeScreen, PizzaDetailsScreen } from '../screens';
 import { HomeStackParamList, HomeStackRoutes } from './routes';
 
+import { appTexts } from '../data';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator<HomeStackParamList>();
@@ -16,6 +17,7 @@ const HomeStack = () => {
         component={HomeScreen}
         options={{
           headerBackground: () => <Header />,
+          title: appTexts.home,
         }}
       />
       <Stack.Screen
