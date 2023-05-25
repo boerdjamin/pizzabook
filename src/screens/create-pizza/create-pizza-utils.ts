@@ -1,10 +1,11 @@
 import {
   filterBases,
-  filterToppings,
   filterCheese,
   filterSauces,
   filterSpices,
-} from '../../utils/food-types';
+  filterToppings,
+} from '../../utils';
+
 import { Ingridient } from '../../models';
 
 export interface CreatePizzaForm {
